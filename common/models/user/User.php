@@ -17,19 +17,26 @@ use common\components\rbac\Rbac;
  * @property string $group_user - enum('user', 'admin')
  * @property int $signup_type
  * @property int $auth_type
- * @property string $password_hash
+ * @property string $password
  * @property string $password_reset_token
  * @property string $email
- * @property string $auth_key
+ * @property string $authKey
  * @property integer $status
- * @property integer $createdAt
- * @property integer $updatedAt
+ * @property integer $created_at
+ * @property integer $updated_at
  * @property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    const SIGNUP_TYPE_SIGNUPFORM  = 1;
+    const SIGNUP_TYPE_SOCIALLOGIN = 2;
+
+    const AUTH_TYPE_LOGINFORM  = 1;
+    const AUTH_TYPE_SOCIALLOGIN = 2;
+    
+    const STATUS_BLOCKED = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_WAIT = 2;
     
     const GROUP_USER = 'user';
     const GROUP_ADMIN = 'admin';
@@ -51,8 +58,8 @@ class User extends ActiveRecord implements IdentityInterface
             'timestamp' => [//Использование поведения TimestampBehavior ActiveRecord
                 'class' => TimestampBehavior::className(),
                 'attributes' => [
-                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['createdAt'],
-                    \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
 
                 ],
                 'value' => function(){
@@ -72,7 +79,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             [['signup_type', 'auth_type', 'status'], 'integer'],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_BLOCKED]],
         ];
     }
 
@@ -154,7 +161,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->auth_key;
+        return $this->authKey;
     }
 
     /**
@@ -173,7 +180,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return $this->password;
     }
 
     /**
@@ -183,7 +190,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        $this->password = Yii::$app->security->generatePasswordHash($password);
     }
 
     /**
@@ -191,7 +198,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        $this->authKey = Yii::$app->security->generateRandomString();
     }
 
     /**

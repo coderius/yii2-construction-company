@@ -18,16 +18,13 @@ return [
     'modules' => [],
     'components' => [
         'request' => [
-            'csrfParam' => '_csrf-backend',
-        ],
-        'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+            'csrfParam' => '_csrf-user',
+            'baseUrl' => $baseUrl.'/backend/web',
+            'cookieValidationKey' => 'sgtjngjgkl,mnbcxvzcvbnjjjh7654hgbbvc',
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-backend',
+            'name' => 'advanced-site',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

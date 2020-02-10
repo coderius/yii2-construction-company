@@ -16,18 +16,13 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
-            'csrfParam' => '_csrf-frontend',
+            'csrfParam' => '_csrf-user',
             'baseUrl' => $baseUrl,
-            'cookieValidationKey' => 'sdifdbfs@4HcdU45#f_Ib24hgUvAA6',
-        ],
-        'user' => [
-            'identityClass' => 'common\models\user\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+            'cookieValidationKey' => 'sdifdbfshbsnstyrfedwety,mnbvcdsfe',
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
-            'name' => 'advanced-frontend',
+            'name' => 'advanced-site',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

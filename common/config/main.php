@@ -22,6 +22,14 @@ return [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest'],
         ],
+        'user' => [
+            'class' => 'yii\web\User',
+            'identityClass' => 'common\models\user\User',
+            'enableAutoLogin' => true,
+            'identityCookie' => [
+                'name' => '_identity-user',
+                'httpOnly' => true],
+        ],
         // перевод
         'i18n' => [
             'translations' => [

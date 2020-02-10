@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use common\components\rbac\Rbac;
 
 AppAsset::register($this);
 ?>
@@ -28,6 +29,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
@@ -53,6 +55,13 @@ AppAsset::register($this);
             . Html::endForm()
             . '</li>';
     }
+    if (\Yii::$app->user->can(Rbac::PERMISSION_ADMIN_PANEL)){
+        $menuItems[] = "<li>"
+            . "<a title=\"Вход\" href=\"" . Yii::$app->urlManagerBackend->createUrl(['admin/index']) . "\">Админ часть</a>"
+            . "</li>";
+    }
+    
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
