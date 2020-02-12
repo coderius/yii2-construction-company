@@ -37,7 +37,13 @@ return [
             'errorAction' => 'site/error',
         ],
         'urlManager' => require __DIR__ . '/urlmanager.php',
-        
+
+        'view' => [
+            'theme' => [
+                'class' => yii\base\Theme::className(),
+                'basePath' => '@app/themes/orange'    // путь в дир-ию темы
+            ],
+        ],
     ],
     'params' => $params,
 ];

@@ -13,4 +13,8 @@
 return [
     '@bower' => '@vendor/bower-asset',
     '@npm'   => '@vendor/npm-asset',
+
+    //Themes sourses
+    '@frontend-webroot-themes' => '@frontend/web/themes',
+    '@frontend-web-themes' => $baseUrl . '/themes',
 ];    
