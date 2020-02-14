@@ -43,6 +43,14 @@ return [
                 'class' => yii\base\Theme::className(),
                 'basePath' => '@app/themes/orange'    // путь в дир-ию темы
             ],
+            'on ' . \yii\base\View::EVENT_BEFORE_RENDER => function($e){
+                \Yii::$app->view->registerLinkTag([
+                    'rel' => 'icon',
+                    'type' => 'image/png',
+                    'href' => \yii\helpers\Url::to(['/favicon.ico'])
+                ]);
+            }
+              
         ],
     ],
     'params' => $params,

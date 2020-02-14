@@ -2,8 +2,26 @@
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
     </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
+    <h1 align="center">Yii 2 Advanced Project Template Starter.</h1>
     <br>
 </p>
 
-Yii 2 Advanced Project Template is a skeleton.
+Steps to install project:
+=========================
+
+* Clone repository from github
+* Run in console from root directory ```composer update```
+* Run in console from root directory ```php init```
+* Create db and add config to connect to in common/config/main-local.php
+* Run in console from root directory ```yii migrate``` (create tables `user` and `migration`)
+* Run in console from root directory ```yii migrate --migrationPath=@yii/rbac/migrations/``` (create four rbac tables)
+* Run in console from root directory ```run yii rbac/index``` (see console/controllers/RbacController.php)
+
+What included in kit.
+-------------------------
+
+1. Create options to use p retty Url`s
+2. Create rbac controller and base roles. Use rbac db manager in this case.
+3. Add links from frontend to backend and conversely
+4. Create theming in view options
+5. Add in config options to include favicon 
