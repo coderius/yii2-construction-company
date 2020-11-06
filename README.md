@@ -20,8 +20,8 @@ Steps to install project:
 What included in kit.
 -------------------------
 
-1. Create options to use p retty Url`s
+1. Create options to use pretty Url`s.
 2. Create rbac controller and base roles. Use rbac db manager in this case.
-3. Add links from frontend to backend and conversely
-4. Create theming in view options
-5. Add in config options to include favicon 
+3. Add links from frontend to backend and conversely.
+4. Create theming in view options.
+5. Add in frontend/config/main options to include favicon in view.
