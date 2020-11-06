@@ -15,7 +15,7 @@ Steps to install project:
 * Create db and add config to connect to in common/config/main-local.php
 * Run in console from root directory ```yii migrate``` (create tables `user` and `migration`)
 * Run in console from root directory ```yii migrate --migrationPath=@yii/rbac/migrations/``` (create four rbac tables)
-* Run in console from root directory ```run yii rbac/index``` (see console/controllers/RbacController.php)
+* Run in console from root directory ```run yii rbac/init``` (see console/controllers/RbacController.php)
 
 What included in kit.
 -------------------------
