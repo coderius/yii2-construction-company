@@ -7,7 +7,7 @@ return [
             'enableStrictParsing' => true,
             'rules' => [
 
-                '/' => 'site/index',
+                '/' => 'index/index',
                 '<action:(login|logout|signup|auth)>' => 'site/<action>',
                 'site/<action>' => 'site/<action>',
                 'sitemap.xml' => 'sitemap/index',

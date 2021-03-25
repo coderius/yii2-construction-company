@@ -39,10 +39,10 @@ return [
         'urlManager' => require __DIR__ . '/urlmanager.php',
 
         'view' => [
-            'theme' => [
-                'class' => yii\base\Theme::className(),
-                'basePath' => '@app/themes/orange'    // путь в дир-ию темы
-            ],
+            // 'theme' => [
+            //     'class' => yii\base\Theme::className(),
+            //     'basePath' => '@app/themes/orange'    // путь в дир-ию темы
+            // ],
             'on ' . \yii\base\View::EVENT_BEFORE_RENDER => function($e){
                 \Yii::$app->view->registerLinkTag([
                     'rel' => 'icon',
