@@ -30,6 +30,16 @@ return [
                 'name' => '_identity-user',
                 'httpOnly' => true],
         ],
+        'assetManager' => [
+            'bundles' => [
+                // 'yii\bootstrap\BootstrapAsset' => [
+                //     'css' => [],
+                // ],
+                // 'yii\bootstrap\BootstrapPluginAsset' => [
+                //     'js'=>[]
+                // ],
+            ],
+        ],
         // перевод
         'i18n' => [
             'translations' => [

@@ -14,7 +14,7 @@ class AppThemeAsset extends AssetBundle
     public $basePath;
     public $baseUrl;
 
-    protected $themeName;
+    private $themeName;
 
     public function init()
     {

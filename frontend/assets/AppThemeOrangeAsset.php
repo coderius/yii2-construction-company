@@ -14,18 +14,14 @@ class AppThemeOrangeAsset extends AppThemeAsset
     const THEME_NAME = 'orange';
 
     public $css = [
-        'css/site.css',
+        'css/style-app.css',
     ];
 
     public $js = [
 
     ];
 
-    public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-    ];
-
+    
     public function init()
     {
         $this->setThemeName(self::THEME_NAME);

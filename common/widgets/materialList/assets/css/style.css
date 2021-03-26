@@ -1,0 +1,131 @@
+.linkbox{
+    background-color: #f7f7f7;
+    padding-top:3rem; 
+    padding-bottom:3rem;    
+}        
+        
+.linkbox-name{
+    padding-bottom:3rem; 
+}        
+   
+        
+.linkbox-name > h6{
+    margin:0 auto;
+    font-size: 2rem;
+    border-bottom:1px solid #b5563b;    
+}
+.linkbox-wrap{
+    margin-bottom: 20px;
+}
+.linkbox-elem{
+    border:1px solid #fff;
+    transition: border-color 0.4s;
+}        
+ 
+.linkbox-elem:hover{
+    cursor: pointer;
+    border-color: #d65a37;
+    box-shadow: 3px 10px 29px -10px rgba(0,0,0,0.75);
+} 
+.linkbox-elem .linkbox-elem-header{
+    position: relative;
+    overflow: hidden;
+  
+}  
+.linkbox-elem .linkbox-elem-img{
+    width: 100%;
+    height: auto;  
+    
+   
+}  
+
+.linkbox-elem .fade-img{
+    opacity:0;
+    transition: opacity 0.4s;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #555;
+}
+
+.linkbox-elem:hover .fade-img{
+    opacity:0.5;
+    
+}        
+  
+
+
+.linkbox-elem:hover .linkbox-elem-title a{
+    border-bottom: 1px solid #d0021b;
+}   
+    
+       
+.linkbox-elem-footer{
+    background-color: #fff;
+    padding: 1.5rem 1rem;    
+}     
+                       
+.linkbox-elem-category{
+    text-align: center;   
+}
+ 
+.linkbox-elem-category > a{
+    display: inline-block;
+    text-transform: uppercase;
+    color: #bd0017; 
+    font-size: 0.9rem; 
+    /*font-family: Arial, sans-serif;*/
+    font-family: Georgia,  Times, Times New Roman, serif;
+    font-weight: bold;  
+    transition: all 0.4s;    
+}   
+ 
+.linkbox-elem-category > a:hover{
+    color: #5BC0DE;   
+}    
+        
+.linkbox-elem-title{
+    text-align: center;
+    min-height: 10px;  
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+        
+.linkbox-elem-title > a{
+    /*font-family: Georgia,  Times, Times New Roman, serif;*/ 
+    font-variant: small-caps;   
+    font-size: 1.5rem;
+    text-indent: 0px; 
+    border-bottom:1px solid transparent;
+    color: #2A3035;   
+    transition: all 0.4s;
+    line-height: 1.7rem;
+    /*word-break: break-all;*/
+/*    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;*/
+}
+ 
+@media only screen and (max-width : 992px) {
+    .linkbox-elem-title > a{
+        font-size: 1.4rem;
+        
+    }
+    
+    .linkbox-elem-category > a{
+        font-size: 0.8rem;    
+    }  
+}
+
+.linkbox-elem-title > a:hover{
+    color: #2A3035;    
+}        
+        
+.linkbox-elem-data{
+    text-transform: uppercase;
+    text-align: center;
+    color: #C9C9C9; 
+    font-size: 0.8rem;    
+}
