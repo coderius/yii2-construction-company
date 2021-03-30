@@ -7,13 +7,26 @@ return [
             'enableStrictParsing' => true,
             'rules' => [
 
-                '/' => 'index/index',
+                '/' => 'main/index',
+
+                'blog/<pageNum:\d+>' => 'blog/index',//пагинация блога
+                'blog' => 'blog/index',
+                
+                
+                'blog/category/<alias:[\w_-]+>/<pageNum:\d+>' => 'blog/category',
+                'blog/category/<alias:[\w_-]+>' => 'blog/category',
+                
+                'blog/tag/<alias:[\w_-]+>/<pageNum:\d+>' => 'blog/tag',
+                'blog/tag/<alias:[\w_-]+>' => 'blog/tag',
+                
+                'blog/article/<alias:[\w_-]+>' => 'blog/article',
+
+                '<action>' => 'main/<action>',
                 '<action:(login|logout|signup|auth)>' => 'site/<action>',
-                'site/<action>' => 'site/<action>',
+                // 'site/<action>' => 'site/<action>',
                 'sitemap.xml' => 'sitemap/index',
                 'rss.xml' => 'rss/index',
 
-                
             ],
         ];
 ?>

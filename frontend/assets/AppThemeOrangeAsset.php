@@ -18,7 +18,7 @@ class AppThemeOrangeAsset extends AppThemeAsset
     ];
 
     public $js = [
-
+        'js/main.js'
     ];
 
     

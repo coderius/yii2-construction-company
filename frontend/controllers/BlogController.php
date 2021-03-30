@@ -17,7 +17,7 @@ use frontend\models\ContactForm;
 /**
  * Site controller
  */
-class IndexController extends BaseController
+class BlogController extends BaseController
 {
     /**
      * {@inheritdoc}
@@ -34,9 +34,25 @@ class IndexController extends BaseController
      *
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($pageNum = null)
     {
         return $this->render('index');
     }
+
+    public function actionCategory($alias, $pageNum = null)
+    {
+        return $this->render('category');
+    }
+
+    public function actionTag($alias, $pageNum = null)
+    {
+        return $this->render('tag');
+    }
+
+    public function actionArticle($alias)
+    {
+        return $this->render('article');
+    }
+
 
 }

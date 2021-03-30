@@ -14,6 +14,9 @@ return [
     '@bower' => '@vendor/bower-asset',
     '@npm'   => '@vendor/npm-asset',
 
+    '@web-url-themes' => $baseUrl.'/themes', //для веб
+    '@web-path-themes' => '@frontend/web/themes', //для файловой системы
+
     //Themes sourses
     '@frontend-webroot-themes' => '@frontend/web/themes',
     '@frontend-web-themes' => $baseUrl . '/themes',

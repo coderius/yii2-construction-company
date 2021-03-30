@@ -2,6 +2,12 @@
 /* @var $this \yii\web\View */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+
+function isCurrentUrlStyle($url){
+    return $url === Url::to('') ? 'active' : '';
+}
+// var_dump(isCurrentUrlStyle(Url::home()));
 
 ?>
 <!-- Nav Bar Start -->
@@ -15,19 +21,22 @@ use yii\helpers\Html;
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="service.html" class="nav-item nav-link">Service</a>
-                    <a href="team.html" class="nav-item nav-link">Team</a>
-                    <a href="portfolio.html" class="nav-item nav-link">Project</a>
+                    <a href="<?= Url::home(true); ?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::home());?>">Home</a>
+                    <a href="<?= Url::toRoute(['/about']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/about']));?>">About</a>
+                    <a href="<?= Url::toRoute(['/service']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/service']));?>">Service</a>
+                    <a href="<?= Url::toRoute(['/team']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/team']));?>">Team</a>
+                    <a href="<?= Url::toRoute(['/portfolio']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/portfolio']));?>">Portfolio</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Blog</a>
                         <div class="dropdown-menu">
-                            <a href="blog.html" class="dropdown-item">Blog Page</a>
-                            <a href="single.html" class="dropdown-item">Single Page</a>
+                            <a href="<?= Url::toRoute(['/blog']);?>" class="dropdown-item">All blog</a>
+                            <a href="<?= Url::toRoute(['/blog/category', 'alias' => 'some_alias']);?>" class="dropdown-item">Category of blog</a>
+                            <a href="<?= Url::toRoute(['/blog/category', 'alias' => 'some_alias']);?>" class="dropdown-item">Category of blog</a>
+                            <a href="<?= Url::toRoute(['/blog/category', 'alias' => 'some_alias']);?>" class="dropdown-item">Category of blog</a>
+                            <a href="<?= Url::toRoute(['/blog/category', 'alias' => 'some_alias']);?>" class="dropdown-item">Category of blog</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="<?= Url::toRoute(['/contact']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/contact']));?>">Contact</a>
                 </div>
                 <div class="ml-auto">
                     <a class="btn" href="#">Get A Quote</a>

@@ -7,9 +7,34 @@ use yii\helpers\Html;
 use frontend\assets\CommonAsset;
 use frontend\assets\AppThemeOrangeAsset;
 use frontend\assets\GoogleFontsAsset;
+use frontend\assets\FontAwesomeAsset;
+use frontend\assets\FlaticonAsset;
+use frontend\assets\AnimateAsset;
+use frontend\assets\OwlcarouselAsset;
+use frontend\assets\LightboxAsset;
+use frontend\assets\SlickAsset;
+use frontend\assets\EasingAsset;
+use frontend\assets\WowAsset;
+use frontend\assets\IsotopeAsset;
+use frontend\assets\WaypointsAsset;
+use frontend\assets\CounterupAsset;
 
 GoogleFontsAsset::register($this);
 CommonAsset::register($this);
+FontAwesomeAsset::register($this);
+FlaticonAsset::register($this);
+AnimateAsset::register($this);
+OwlcarouselAsset::register($this);
+LightboxAsset::register($this);
+SlickAsset::register($this);
+
+
+// Only JS libs
+EasingAsset::register($this);
+WowAsset::register($this);
+IsotopeAsset::register($this);
+WaypointsAsset::register($this);
+CounterupAsset::register($this);
 
 AppThemeOrangeAsset::register($this);
 
@@ -37,9 +62,9 @@ AppThemeOrangeAsset::register($this);
 <?= $this->render('partials/_footer', []); ?>
 <?= $this->render('partials/_back-to-top', []); ?>
 
-<?php $this->endBody() ?>
 <?= $this->render('partials/_end-body', []); ?>
 </div><!--Wrapper End -->
+<?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
