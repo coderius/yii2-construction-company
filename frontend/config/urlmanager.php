@@ -21,8 +21,9 @@ return [
                 
                 'blog/article/<alias:[\w_-]+>' => 'blog/article',
 
-                '<action>' => 'main/<action>',
                 '<action:(login|logout|signup|auth)>' => 'site/<action>',
+                '<action>' => 'main/<action>',
+                
                 // 'site/<action>' => 'site/<action>',
                 'sitemap.xml' => 'sitemap/index',
                 'rss.xml' => 'rss/index',

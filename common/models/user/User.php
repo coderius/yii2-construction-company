@@ -20,7 +20,7 @@ use common\components\rbac\Rbac;
  * @property string $password
  * @property string $password_reset_token
  * @property string $email
- * @property string $authKey
+ * @property string $auth_key
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -56,16 +56,16 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'timestamp' => [//Использование поведения TimestampBehavior ActiveRecord
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
                 'attributes' => [
                     \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
                     \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
 
                 ],
-                'value' => function(){
-                                return gmdate("Y-m-d H:i:s");
-                },
-//                'value' => new \yii\db\Expression('NOW()'),
+                // 'value' => function(){
+                //                 return gmdate("Y-m-d H:i:s");
+                // },
+            //    'value' => new \yii\db\Expression('NOW()'),
 
             ],
         ];
@@ -161,15 +161,15 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->authKey;
+        return $this->auth_key;
     }
 
     /**
      * @inheritdoc
      */
-    public function validateAuthKey($authKey)
+    public function validateAuthKey($auth_key)
     {
-        return $this->getAuthKey() === $authKey;
+        return $this->getAuthKey() === $auth_key;
     }
 
     /**
@@ -198,7 +198,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey()
     {
-        $this->authKey = Yii::$app->security->generateRandomString();
+        $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
     /**
