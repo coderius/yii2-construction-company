@@ -5,12 +5,20 @@
 
 use backend\assets\AppAsset;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use yii\bootstrap4\Nav;
+use yii\bootstrap4\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
 AppAsset::register($this);
+
+$js = <<<JS
+//Resolve conflict in jQuery UI tooltip with Bootstrap tooltip
+$.widget.bridge('uibutton', $.ui.button);
+JS;
+
+$this->registerJs($js, yii\web\View::POS_END);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -23,57 +31,30 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body class="hold-transition sidebar-mini layout-fixed">
 <?php $this->beginBody() ?>
+<div class="wrapper"><!-- wrapper -->
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->urlManagerFrontend->createUrl(['/']),
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/base-admin/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
-
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
+<!-- Preloader -->
+<div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="<?= Yii::getAlias('@backend-web-adminlte');?>/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+<?= $this->render('partials/_navbar', []); ?>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
+<?= $this->render('partials/_sidebar', []); ?>
 
+<div class="content-wrapper">
+    <?= Alert::widget() ?>
+    <?= $content ?>
+</div>
+
+
+<?= $this->render('partials/_footer', []); ?>
+
+
+
+</div><!-- ./wrapper --> 
 <?php $this->endBody() ?>
 </body>
 </html>

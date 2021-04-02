@@ -20,4 +20,7 @@ return [
     //Themes sourses
     '@frontend-webroot-themes' => '@frontend/web/themes',
     '@frontend-web-themes' => $baseUrl . '/themes',
+
+    '@backend-webroot-adminlte' => '@backend/web/AdminLTE-master',
+    '@backend-web-adminlte' => $baseUrl . '/backend/web/AdminLTE-master',
 ];    
