@@ -7,7 +7,7 @@ use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
-use yii\widgets\Breadcrumbs;
+use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
 
 AppAsset::register($this);
@@ -44,7 +44,11 @@ $this->registerJs($js, yii\web\View::POS_END);
 
 <?= $this->render('partials/_sidebar', []); ?>
 
+
 <div class="content-wrapper">
+    <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
     <?= Alert::widget() ?>
     <?= $content ?>
 </div>

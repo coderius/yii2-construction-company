@@ -58,6 +58,7 @@ return [
             'baseUrl' => $baseUrl.'/backend/web',
             'cookieValidationKey' => 'sgtjngjgkl,mnbcxvzcvbnjjjh7654hgbbvc',
         ],
+        
         'urlManager' => require(__DIR__ . '/urlmanager.php'),
     ],
     'params' => $params,
