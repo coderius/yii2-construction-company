@@ -70,7 +70,6 @@ class SignupForm extends Model
         $user->role = User::GROUP_USER;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->signup_type = User::SIGNUP_TYPE_SIGNUPFORM;
         $user->status = User::STATUS_ACTIVE;
         $user->save();
         

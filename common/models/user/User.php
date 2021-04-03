@@ -15,15 +15,13 @@ use common\components\rbac\Rbac;
  * @property string $username
  * @property string $avatar
  * @property string $group_user - enum('user', 'admin')
- * @property int $signup_type
- * @property int $auth_type
  * @property string $password
- * @property string $password_reset_token
+ * @property string $passwordResetToken
  * @property string $email
- * @property string $auth_key
+ * @property string $authKey
  * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
+ * @property integer $createdAt
+ * @property integer $updatedAt
  * @property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -58,8 +56,8 @@ class User extends ActiveRecord implements IdentityInterface
             'timestamp' => [//Использование поведения TimestampBehavior ActiveRecord
                 'class' => TimestampBehavior::class,
                 'attributes' => [
-                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
-                    \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['createdAt'],
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
 
                 ],
                 // 'value' => function(){
@@ -78,7 +76,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            [['signup_type', 'auth_type', 'status'], 'integer'],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_BLOCKED]],
         ];
     }
@@ -126,7 +123,7 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         return static::findOne([
-            'password_reset_token' => $token,
+            'passwordResetToken' => $token,
             'status' => self::STATUS_ACTIVE,
         ]);
     }
@@ -161,15 +158,15 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->auth_key;
+        return $this->authKey;
     }
 
     /**
      * @inheritdoc
      */
-    public function validateAuthKey($auth_key)
+    public function validateAuthKey($authKey)
     {
-        return $this->getAuthKey() === $auth_key;
+        return $this->getAuthKey() === $authKey;
     }
 
     /**
@@ -198,7 +195,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        $this->authKey = Yii::$app->security->generateRandomString();
     }
 
     /**
@@ -206,7 +203,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->passwordResetToken = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     /**
@@ -214,7 +211,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function removePasswordResetToken()
     {
-        $this->password_reset_token = null;
+        $this->passwordResetToken = null;
     }
     
     public static function find()
