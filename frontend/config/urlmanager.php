@@ -28,6 +28,9 @@ return [
                 'sitemap.xml' => 'sitemap/index',
                 'rss.xml' => 'rss/index',
 
+                // '<controller>/<action>' => '<controller>/<action>',
+                // '<controller>/<action><id:\d+>' => '<controller>/<action>',
+
             ],
         ];
 ?>
