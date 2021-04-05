@@ -38,6 +38,12 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => false,
+                'yii\bootstrap\BootstrapPluginAsset' => false,
+            ],
+        ],
         'formatter' => [
             'class' => 'yii\i18n\Formatter',
             'locale' => 'ru-RU',

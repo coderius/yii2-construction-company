@@ -31,6 +31,11 @@ use common\models\user\User;
  */
 class BlogArticle extends \yii\db\ActiveRecord
 {
+    public $file;//загружаемое изображение
+
+    const ACTIVE_STATUS = 1;
+    const DISABLED_STATUS = 0;
+    
     /**
      * {@inheritdoc}
      */
