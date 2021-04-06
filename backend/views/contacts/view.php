@@ -31,7 +31,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'data:ntext',
+            'data',//json data decoded in afterFind in model
+            // [
+            //     'attribute' => 'data',
+            //     // 'format' => 'raw',
+            //     'value'  => call_user_func(
+            //                 function ($model){
+                                
+            //                     return $model->getDecodeData();
+                    
+            //                 }, $model
+                        
+            //             ),
+            // ],
             'icon1:ntext',
             'icon2:ntext',
             'sortOrder',

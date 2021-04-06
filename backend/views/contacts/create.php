@@ -9,7 +9,7 @@ $this->title = Yii::t('app', 'Create Contacts');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contacts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="contacts-create">
+<div class="contacts-create m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

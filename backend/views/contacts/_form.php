@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
+use common\widgets\IosStyleToggleSwitch\IosStyleToggleSwitchWidget;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Contacts */
@@ -22,15 +23,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sortOrder')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'status')->widget(IosStyleToggleSwitchWidget::class, [
+            'type' => IosStyleToggleSwitchWidget::CHECKBOX
+        ]);
+    ?>
 
-    <?= $form->field($model, 'createdAt')->textInput() ?>
-
-    <?= $form->field($model, 'updatedAt')->textInput() ?>
-
-    <?= $form->field($model, 'createdBy')->textInput() ?>
-
-    <?= $form->field($model, 'updatedBy')->textInput() ?>
+    
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
