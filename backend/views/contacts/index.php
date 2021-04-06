@@ -2,7 +2,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\assets\Bootstrap4Glyphicons\Bootstrap4GlyphiconsAsset;
 
+Bootstrap4GlyphiconsAsset::register($this);
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\ContactsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

@@ -72,7 +72,7 @@ class BlogArticle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['alias', 'metaTitle', 'metaDesc', 'status', 'text', 'header1'], 'required'],
+            [['alias', 'metaTitle', 'metaDesc', 'status', 'text', 'header1', 'selectedCategories'], 'required'],
             [['status', 'viewCount', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
             [['text', 'img', 'imgAlt'], 'string'],
             [['alias', 'metaTitle', 'metaDesc', 'header1'], 'string', 'max' => 255],
@@ -221,7 +221,7 @@ class BlogArticle extends \yii\db\ActiveRecord
 
             $relation = new BlogArticleBlogCategory();
             $relation->articleId = $this->id;
-            $relation->articleId = $this->$attribute;
+            $relation->categoryId = $this->$attribute;
             $relation->save();
             
         }

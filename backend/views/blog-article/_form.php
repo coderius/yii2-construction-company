@@ -59,7 +59,7 @@ if(\Yii::$app->controller->action->id == 'create')
                             'dropZoneEnabled' => false,
                             'initialPreview'=> $model->isNewRecord ? false :
                                 [
-                                    Html::img("@img-web-blog-posts/{$model->id}/middle/{$model->faceImg}", ['style'=>'width: 100%; height: auto;', 'alt'=>'нет изображения', 'title'=>$model->faceImgAlt]),//картинка ,которая уже загружена у обновляемой записи
+                                    Html::img("@blogPostHeaderPicsWeb/{$model->id}/middle/{$model->img}", ['style'=>'width: 100%; height: auto;', 'alt'=>'нет изображения', 'title'=>$model->imgAlt]),//картинка ,которая уже загружена у обновляемой записи
                                 ],
                             'maxFileSize'=>4000,
                             'minImageWidth'=> 600,

@@ -11,6 +11,9 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use backend\models\BlogCategory;
 use backend\models\Tag;
+use backend\models\BlogArticleBlogCategory;
+use backend\models\BlogArticleTag;
+use yii\helpers\FileHelper;
 
 /**
  * BlogArticleController implements the CRUD actions for BlogArticle model.
@@ -113,13 +116,19 @@ class BlogArticleController extends Controller
     {
         $model = $this->findModel($id);
 
+        $mapCategories = ArrayHelper::map(BlogCategory::find()->all(), 'id', 'metaTitle');
+        $mapTags = ArrayHelper::map(Tag::find()->all(), 'id', 'metaTitle');
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->render('create', compact(
+            'model',
+            'mapCategories',
+            'mapTags'
+            )
+        );
     }
 
     /**
@@ -131,9 +140,17 @@ class BlogArticleController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->enableCsrfValidation = false;
         $this->findModel($id)->delete();
 
+        BlogArticleBlogCategory::deleteAll(['articleId' => $id]);
+        BlogArticleTag::deleteAll(['articleId' => $id]);
+        
+        $dir = Yii::getAlias('@blogPostHeaderPicsPath/'.$id);
+        FileHelper::removeDirectory($dir);
+
         return $this->redirect(['index']);
+
     }
 
     /**

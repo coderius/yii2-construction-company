@@ -8,6 +8,8 @@ use backend\models\BlogCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\BlogArticleBlogCategory;
+use yii\helpers\FileHelper;
 
 /**
  * BlogCategoryController implements the CRUD actions for BlogCategory model.
@@ -122,7 +124,15 @@ class BlogCategoryController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->enableCsrfValidation = false;
         $this->findModel($id)->delete();
+
+        BlogArticleBlogCategory::deleteAll(['categoryId' => $id]);
+        
+        //путь к папке изображений в тексте
+        //Еще не реализовано
+        // $dir = Yii::getAlias('@blogCatTextPicsPath/'.$id);
+        // FileHelper::removeDirectory($dir);
 
         return $this->redirect(['index']);
     }
