@@ -50,6 +50,11 @@ class BlogArticle extends \yii\db\ActiveRecord
     const ACTIVE_STATUS = 1;
     const DISABLED_STATUS = 0;
     
+    public static $statusesName = [
+        self::ACTIVE_STATUS => 'Активен',
+        self::DISABLED_STATUS => 'Отключен',
+    ];
+
     public function init(){
 
         // $this->on(self::EVENT_AFTER_LOAD, [$this, 'afterLoad']);
@@ -233,7 +238,7 @@ class BlogArticle extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|UserQuery
      */
-    public function getCreatedBy()
+    public function getCreatedBy0()
     {
         return $this->hasOne(User::class, ['id' => 'createdBy']);
     }
@@ -243,7 +248,7 @@ class BlogArticle extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|UserQuery
      */
-    public function getUpdatedBy()
+    public function getUpdatedBy0()
     {
         return $this->hasOne(User::class, ['id' => 'updatedBy']);
     }
@@ -266,6 +271,14 @@ class BlogArticle extends \yii\db\ActiveRecord
     public function getCategories()
     {
         return $this->hasMany(BlogCategory::class, ['id' => 'categoryId'])->viaTable('blog_article_blog_category', ['articleId' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(BlogCategory::class, ['id' => 'categoryId'])->viaTable('blog_article_blog_category', ['articleId' => 'id']);
     }
 
     /**

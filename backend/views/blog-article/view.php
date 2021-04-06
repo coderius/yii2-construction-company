@@ -71,7 +71,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'status',
             'header1',
             'text:ntext',
-            'img:ntext',
+
+            // 'img:ntext',
+            [
+                'attribute' => 'img',
+                'format' => 'raw',
+                'value'  => Html::img("@blogPostHeaderPicsWeb/{$model->id}/small/{$model->img}", ['alt'=> $model->imgAlt,'title'=> $model->imgAlt, 'style'=>'']),
+            ],
+
             'viewCount',
             'createdAt',
             'updatedAt',
