@@ -35,6 +35,14 @@ use yii\behaviors\AttributesBehavior;
  */
 class BlogCategory extends \yii\db\ActiveRecord
 {
+    const ACTIVE_STATUS = 1;
+    const DISABLED_STATUS = 0;
+    
+    public static $statusesName = [
+        self::ACTIVE_STATUS => 'Активен',
+        self::DISABLED_STATUS => 'Отключен',
+    ];
+
     /**
      * {@inheritdoc}
      */
