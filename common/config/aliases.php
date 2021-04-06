@@ -14,6 +14,10 @@ return [
     '@bower' => '@vendor/bower-asset',
     '@npm'   => '@vendor/npm-asset',
 
+
+    //Frontend Web
+    '@frontend-web' => $baseUrl,
+
     '@web-url-themes' => $baseUrl.'/themes', //для веб
     '@web-path-themes' => '@frontend/web/themes', //для файловой системы
 
@@ -23,4 +27,18 @@ return [
 
     '@backend-webroot-adminlte' => '@backend/web/AdminLTE-master',
     '@backend-web-adminlte' => $baseUrl . '/backend/web/AdminLTE-master',
+
+    /////////////////////////////////////////////////////////////////////
+    //                          Blog
+    /////////////////////////////////////////////////////////////////////
+    //Posts
+    '@blogPostTextPicsPath' => '@frontend/web/blog-post-pics/text-pics',
+    '@blogPostTextPicsWeb' => $baseUrl . '/blog-post-pics/text-pics',
+    
+    '@blogPostHeaderPicsPath' => '@frontend/web/blog-post-pics/header-pics',
+    '@blogPostHeaderPicsWeb' => $baseUrl . '/blog-post-pics/header-pics',
+    //Categories
+    '@blogCatTextPicsPath' => '@frontend/web/blog-category-pics/text-pics',
+    '@blogCatTextPicsWeb' => $baseUrl . '/blog-category-pics/text-pics',
+
 ];    

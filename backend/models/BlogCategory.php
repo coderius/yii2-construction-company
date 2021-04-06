@@ -4,6 +4,12 @@ namespace backend\models;
 
 use Yii;
 use common\models\user\User;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\SluggableBehavior;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
+use yii\behaviors\AttributesBehavior;
 
 /**
  * This is the model class for table "blog_category".
@@ -43,12 +49,13 @@ class BlogCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['alias', 'metaTitle', 'metaDesc', 'header', 'sortOrder', 'status', 'createdAt', 'createdBy', 'updatedBy'], 'required'],
+            [['alias', 'metaTitle', 'metaDesc', 'header', 'sortOrder', 'status'], 'required'],
             [['text'], 'string'],
             [['sortOrder', 'status', 'viewCount', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
             [['alias', 'metaTitle', 'metaDesc', 'header'], 'string', 'max' => 255],
             [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['createdBy' => 'id']],
             [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updatedBy' => 'id']],
+            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'viewCount'], 'safe'],
         ];
     }
 
@@ -71,6 +78,42 @@ class BlogCategory extends \yii\db\ActiveRecord
             'updatedAt' => Yii::t('app', 'Updated At'),
             'createdBy' => Yii::t('app', 'Created By'),
             'updatedBy' => Yii::t('app', 'Updated By'),
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['createdAt', 'updatedAt'],
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
+
+                ],
+                'value' => function(){
+                    return time();
+                },
+            //'value' => new \yii\db\Expression('NOW()'),
+
+            ],
+            
+            'blameable' => [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'createdBy',
+                'updatedByAttribute' => 'updatedBy',
+            ],
+            
+            'attribute' => [
+                'class' => AttributesBehavior::class,
+                'attributes' => [
+                    'viewCount' => [
+                        ActiveRecord::EVENT_BEFORE_INSERT => 0,//$this->owner->$attribute
+                    ],
+                    
+                ],
+            ],
+            
         ];
     }
 

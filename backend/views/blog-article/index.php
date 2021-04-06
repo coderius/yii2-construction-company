@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\assets\Bootstrap4Glyphicons\Bootstrap4GlyphiconsAsset;
+
+Bootstrap4GlyphiconsAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\BlogArticleSearch */
@@ -10,6 +13,7 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', 'Blog Articles');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<!-- <span class="glyphicon glyphicon-pencil"></span> -->
 <div class="blog-article-index">
 
     <h1><?= Html::encode($this->title) ?></h1>

@@ -4,6 +4,16 @@ namespace backend\models;
 
 use Yii;
 use common\models\user\User;
+use yii\behaviors\AttributesBehavior;
+use backend\components\behaviors\blog\UploadFileBehavior;
+use yii\imagine\Image;
+use Imagine\Image\Point;
+use Imagine\Image\Box;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\SluggableBehavior;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "blog_article".
@@ -15,7 +25,8 @@ use common\models\user\User;
  * @property int $status 0-desible, 1- enable
  * @property string|null $header1
  * @property string $text
- * @property string|null $img decoded array(src,title,alt)
+ * @property string|null $img
+ * @property string|null $imgAlt
  * @property int $viewCount
  * @property int $createdAt
  * @property int|null $updatedAt
@@ -31,11 +42,22 @@ use common\models\user\User;
  */
 class BlogArticle extends \yii\db\ActiveRecord
 {
+    public $selectedCategories = [];//virtual var use in form create or update
+    public $selectedTags = [];//virtual var use in form create or update
+    
     public $file;//загружаемое изображение
 
     const ACTIVE_STATUS = 1;
     const DISABLED_STATUS = 0;
     
+    public function init(){
+
+        // $this->on(self::EVENT_AFTER_LOAD, [$this, 'afterLoad']);
+        $this->on(self::EVENT_AFTER_FIND, [$this, 'initSelectedVirtualAttributes']);
+      
+        parent::init();
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -50,13 +72,15 @@ class BlogArticle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['alias', 'metaTitle', 'metaDesc', 'status', 'text', 'createdAt', 'createdBy', 'updatedBy'], 'required'],
+            [['alias', 'metaTitle', 'metaDesc', 'status', 'text', 'header1'], 'required'],
             [['status', 'viewCount', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
-            [['text', 'img'], 'string'],
+            [['text', 'img', 'imgAlt'], 'string'],
             [['alias', 'metaTitle', 'metaDesc', 'header1'], 'string', 'max' => 255],
             [['alias'], 'unique'],
-            [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['createdBy' => 'id']],
-            [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updatedBy' => 'id']],
+            [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['createdBy' => 'id']],
+            [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updatedBy' => 'id']],
+            // [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'viewCount'], 'safe'],
         ];
     }
 
@@ -74,6 +98,7 @@ class BlogArticle extends \yii\db\ActiveRecord
             'header1' => Yii::t('app', 'Header1'),
             'text' => Yii::t('app', 'Text'),
             'img' => Yii::t('app', 'Img'),
+            'imgAlt' => Yii::t('app', 'Img Alt'),
             'viewCount' => Yii::t('app', 'View Count'),
             'createdAt' => Yii::t('app', 'Created At'),
             'updatedAt' => Yii::t('app', 'Updated At'),
@@ -82,6 +107,127 @@ class BlogArticle extends \yii\db\ActiveRecord
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['createdAt', 'updatedAt'],
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
+
+                ],
+                'value' => function(){
+                    return time();
+                },
+            //'value' => new \yii\db\Expression('NOW()'),
+
+            ],
+            
+            'blameable' => [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'createdBy',
+                'updatedByAttribute' => 'updatedBy',
+            ],
+            
+            'attribute' => [
+                'class' => AttributesBehavior::class,
+                'attributes' => [
+                    'viewCount' => [
+                        ActiveRecord::EVENT_BEFORE_INSERT => 0,//$this->owner->$attribute
+                    ],
+                    'selectedTags' => [
+                        ActiveRecord::EVENT_AFTER_INSERT  => [$this, 'makeTagsRelation'],
+                        ActiveRecord::EVENT_AFTER_UPDATE  => [$this, 'makeTagsRelation'] 
+                    ],
+                    
+                    'selectedCategories' => [
+                        ActiveRecord::EVENT_AFTER_INSERT  => [$this, 'makeCategoriesRelation'],
+                        ActiveRecord::EVENT_AFTER_UPDATE  => [$this, 'makeCategoriesRelation'] 
+                    ],
+                    
+                ],
+            ],
+            'uploadFileBehavior' => [
+                'class' => UploadFileBehavior::class,
+                'nameOfAttributeStorage' => 'img',
+                'directories' => [
+                    [
+                        'path' => function($attributes){
+                            return \Yii::getAlias('@blogPostHeaderPicsPath/' . $attributes['id'] . '/big/');
+                        },
+                        'hendler' => function($fileTempName, $newFilePath){
+                            Image::thumbnail($fileTempName, 900, 900*2/3)
+                            ->copy()
+                            ->crop(new Point(0, 0), new Box(900, 900*2/3))
+                            ->save($newFilePath, ['quality' => 80]);
+                            sleep(1);
+                        }
+                    ],
+                    [
+                        'path' => function($attributes){
+                            return \Yii::getAlias('@blogPostHeaderPicsPath/' . $attributes['id'] . '/middle/');
+                        },
+                        'hendler' => function($fileTempName, $newFilePath){
+                            Image::thumbnail($fileTempName, 400, 400*2/3)
+                            ->save($newFilePath, ['quality' => 80]);
+                            sleep(1);
+                        }
+                    ],
+                    [
+                        'path' => function($attributes){
+                            return \Yii::getAlias('@blogPostHeaderPicsPath/' . $attributes['id'] . '/small/');
+                        },
+                        'hendler' => function($fileTempName, $newFilePath){
+                            Image::thumbnail($fileTempName, 150, 150*2/3)
+                            ->save($newFilePath, ['quality' => 80]);
+                            sleep(1);
+                        }
+                    ],
+                ]
+            ],
+
+        ];
+    }
+
+    public function initSelectedVirtualAttributes()
+    {
+        $this->selectedCategories = ArrayHelper::getColumn($this->getCategories()->asArray()->all(), 'id');
+        $this->selectedTags = ArrayHelper::getColumn($this->getTags()->asArray()->all(), 'id');
+        Yii::info('Selected Virtual Attributes is loaded.', __METHOD__);
+    }
+
+
+    public function makeTagsRelation($event, $attribute)
+    {
+        // var_dump($this->$attribute);die;
+        if(!empty($this->$attribute)){
+            BlogArticleTag::deleteAll(['articleId' => $this->id]);
+            
+            foreach($this->$attribute as $selected){
+                $relation = new BlogArticleTag();
+                $relation->articleId = $this->id;
+                $relation->articleId = $selected;
+                $relation->save();
+            }
+        }
+    }
+
+    public function makeCategoriesRelation($event, $attribute)
+    {
+        // var_dump($this->$attribute);die;
+        if(!empty($this->$attribute)){
+            BlogArticleBlogCategory::deleteAll(['articleId' => $this->id]);
+
+            $relation = new BlogArticleBlogCategory();
+            $relation->articleId = $this->id;
+            $relation->articleId = $this->$attribute;
+            $relation->save();
+            
+        }
+    }
+
+
     /**
      * Gets query for [[CreatedBy0]].
      *
@@ -89,7 +235,7 @@ class BlogArticle extends \yii\db\ActiveRecord
      */
     public function getCreatedBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'createdBy']);
+        return $this->hasOne(User::class, ['id' => 'createdBy']);
     }
 
     /**
@@ -99,7 +245,7 @@ class BlogArticle extends \yii\db\ActiveRecord
      */
     public function getUpdatedBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'updatedBy']);
+        return $this->hasOne(User::class, ['id' => 'updatedBy']);
     }
 
     /**
@@ -109,7 +255,7 @@ class BlogArticle extends \yii\db\ActiveRecord
      */
     public function getBlogArticleBlogCategories()
     {
-        return $this->hasMany(BlogArticleBlogCategory::className(), ['articleId' => 'id']);
+        return $this->hasMany(BlogArticleBlogCategory::class, ['articleId' => 'id']);
     }
 
     /**
@@ -119,7 +265,7 @@ class BlogArticle extends \yii\db\ActiveRecord
      */
     public function getCategories()
     {
-        return $this->hasMany(BlogCategory::className(), ['id' => 'categoryId'])->viaTable('blog_article_blog_category', ['articleId' => 'id']);
+        return $this->hasMany(BlogCategory::class, ['id' => 'categoryId'])->viaTable('blog_article_blog_category', ['articleId' => 'id']);
     }
 
     /**
@@ -129,7 +275,7 @@ class BlogArticle extends \yii\db\ActiveRecord
      */
     public function getBlogArticleTags()
     {
-        return $this->hasMany(BlogArticleTag::className(), ['articleId' => 'id']);
+        return $this->hasMany(BlogArticleTag::class, ['articleId' => 'id']);
     }
 
     /**
@@ -139,7 +285,7 @@ class BlogArticle extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tagId'])->viaTable('blog_article_tag', ['articleId' => 'id']);
+        return $this->hasMany(Tag::class, ['id' => 'tagId'])->viaTable('blog_article_tag', ['articleId' => 'id']);
     }
 
     /**

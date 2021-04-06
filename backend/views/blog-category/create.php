@@ -9,7 +9,7 @@ $this->title = Yii::t('app', 'Create Blog Category');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Blog Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="blog-category-create">
+<div class="blog-category-create m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

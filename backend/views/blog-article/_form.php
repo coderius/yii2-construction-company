@@ -12,14 +12,35 @@ use dosamigos\fileinput\BootstrapFileInput;
 /* @var $this yii\web\View */
 /* @var $model backend\models\BlogArticle */
 /* @var $form yii\widgets\ActiveForm */
+
+$targetId = Html::getInputId($model, 'metaTitle');
+$elId = Html::getInputId($model, 'alias');
+
+if(\Yii::$app->controller->action->id == 'create')
+{
+    \common\components\helpers\InputHelper::inputTranclite($targetId, $elId, $this);
+}
+
+// var_dump($model->errors);
 ?>
 
 
 <!-- viewCoutn, createdAt, createdBy, img -->
 <div class="blog-article-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
+<?= $form->field($model, 'selectedCategories')
+            ->dropDownList(
+                    $mapCategories, 
+                    ['prompt'=>'Выбрать категорию']); ?>
+
+
+    <?= $form->field($model, 'selectedTags')
+            ->dropDownList(
+                $mapTags, 
+                    ['multiple'=>'multiple','style' => 'height: 100px','prompt'=>'Выбрать теги']); ?>
+    
     <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'metaTitle')->textInput(['maxlength' => true]) ?>
@@ -48,6 +69,8 @@ use dosamigos\fileinput\BootstrapFileInput;
 
 
     ?>
+
+    <?= $form->field($model, 'imgAlt')->textInput(['maxlength' => true]) ?>
 
     <?php 
     $urlUploadTinymce = Url::to(['uploadImgTinymce']);
@@ -277,3 +300,5 @@ use dosamigos\fileinput\BootstrapFileInput;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+

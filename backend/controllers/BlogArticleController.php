@@ -8,6 +8,9 @@ use backend\models\BlogArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use backend\models\BlogCategory;
+use backend\models\Tag;
 
 /**
  * BlogArticleController implements the CRUD actions for BlogArticle model.
@@ -26,6 +29,24 @@ class BlogArticleController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+                'uploadImgTinymce' => [
+                    'class' => 'backend\components\actions\blog\AjaxUploadImgTinymceAction',
+                ],
+                'deleteImgTinymce' => [
+                    'class' => 'backend\components\actions\blog\AjaxDeleteImgTinymceAction',
+                ],
+                // 'uploadImgArticleHeading' => [
+                //     'class' => 'backend\components\actions\blog\AjaxUploadImgArticleHeadingAction',
+                // ],
+                // 'deleteImgArticleHeading' => [
+                //     'class' => 'backend\components\actions\blog\AjaxDeleteImgArticleHeadingAction',
+                // ],
         ];
     }
 
@@ -66,13 +87,19 @@ class BlogArticleController extends Controller
     {
         $model = new BlogArticle();
 
+        $mapCategories = ArrayHelper::map(BlogCategory::find()->all(), 'id', 'metaTitle');
+        $mapTags = ArrayHelper::map(Tag::find()->all(), 'id', 'metaTitle');
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->render('create', compact(
+            'model',
+            'mapCategories',
+            'mapTags'
+            )
+        );
     }
 
     /**

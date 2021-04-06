@@ -29,6 +29,24 @@ class BlogCategoryController extends Controller
         ];
     }
 
+    public function actions()
+    {
+        return [
+                'uploadImgTinymce' => [
+                    'class' => 'backend\components\actions\blogCategories\AjaxUploadImgTinymceAction',
+                ],
+                'deleteImgTinymce' => [
+                    'class' => 'backend\components\actions\blogCategories\AjaxDeleteImgTinymceAction',
+                ],
+                // 'uploadImgArticleHeading' => [
+                //     'class' => 'backend\components\actions\blog\AjaxUploadImgArticleHeadingAction',
+                // ],
+                // 'deleteImgArticleHeading' => [
+                //     'class' => 'backend\components\actions\blog\AjaxDeleteImgArticleHeadingAction',
+                // ],
+        ];
+    }
+
     /**
      * Lists all BlogCategory models.
      * @return mixed
