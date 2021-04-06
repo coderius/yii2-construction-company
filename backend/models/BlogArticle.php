@@ -80,7 +80,7 @@ class BlogArticle extends \yii\db\ActiveRecord
             [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['createdBy' => 'id']],
             [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updatedBy' => 'id']],
             // [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
-            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'viewCount'], 'safe'],
+            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'viewCount', 'selectedTags'], 'safe'],
         ];
     }
 
@@ -207,7 +207,7 @@ class BlogArticle extends \yii\db\ActiveRecord
             foreach($this->$attribute as $selected){
                 $relation = new BlogArticleTag();
                 $relation->articleId = $this->id;
-                $relation->articleId = $selected;
+                $relation->tagId = $selected;
                 $relation->save();
             }
         }

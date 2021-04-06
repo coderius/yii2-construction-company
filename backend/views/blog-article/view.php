@@ -31,6 +31,41 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'alias',
+            [
+                'label' => 'Категория',
+                'format' => 'raw',
+                'value'  => call_user_func(
+                            function ($model){ 
+                                $res = [];
+                                foreach($model->getCategories()->all() as $category ){
+                                    $url = \Yii::$app->urlManagerFrontend->createUrl(["blog/category/{$category->alias}"]);
+                                    $res[] = Html::a($category->metaTitle, $url, ["class"=>"label label-default", 'target' => '_blank']);
+                                }
+                                return !empty($res) ? implode(' ', $res) : null;
+                                
+                            }, $model
+                        
+                        ),
+                
+                
+            ],
+            [
+                'label' => 'Теги',
+                'format' => 'raw',
+                'value'  => call_user_func(
+                            function ($model){ 
+                    
+                                $res = [];
+                                foreach($model->getTags()->all() as $tag ){
+                                    $url = \Yii::$app->urlManagerFrontend->createUrl(["blog/tag/{$tag->alias}"]);
+                                    $res[] = Html::a($tag->metaTitle, $url, ["class"=>"label label-default", 'target' => '_blank']);
+                                }
+                                return !empty($res) ? implode(' ', $res) : null;
+                    
+                            }, $model
+                        
+                        ),
+            ],
             'metaTitle',
             'metaDesc',
             'status',
