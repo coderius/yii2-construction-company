@@ -6,6 +6,15 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Tag */
 /* @var $form yii\widgets\ActiveForm */
+
+$targetId = Html::getInputId($model, 'metaTitle');
+$elId = Html::getInputId($model, 'alias');
+
+if(\Yii::$app->controller->action->id == 'create')
+{
+    \common\components\helpers\InputHelper::inputTranclite($targetId, $elId, $this);
+}
+
 ?>
 
 <div class="tag-form">
@@ -19,14 +28,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'metaDesc')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'header')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'createdAt')->textInput() ?>
-
-    <?= $form->field($model, 'updatedAt')->textInput() ?>
-
-    <?= $form->field($model, 'createdBy')->textInput() ?>
-
-    <?= $form->field($model, 'updatedBy')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

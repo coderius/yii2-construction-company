@@ -4,6 +4,12 @@ namespace backend\models;
 
 use Yii;
 use common\models\user\User;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\SluggableBehavior;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
+use yii\behaviors\AttributesBehavior;
 
 /**
  * This is the model class for table "tag".
@@ -17,6 +23,7 @@ use common\models\user\User;
  * @property int|null $updatedAt
  * @property int $createdBy
  * @property int $updatedBy
+ * @property int $viewCount
  *
  * @property BlogArticleTag[] $blogArticleTags
  * @property BlogArticle[] $articles
@@ -39,11 +46,12 @@ class Tag extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['alias', 'metaTitle', 'metaDesc', 'header', 'createdAt', 'createdBy', 'updatedBy'], 'required'],
+            [['alias', 'metaTitle', 'metaDesc', 'header'], 'required'],
             [['createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
             [['alias', 'metaTitle', 'metaDesc', 'header'], 'string', 'max' => 255],
-            [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['createdBy' => 'id']],
-            [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updatedBy' => 'id']],
+            [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['createdBy' => 'id']],
+            [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updatedBy' => 'id']],
+            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'viewCount'], 'safe'],
         ];
     }
 
@@ -62,6 +70,43 @@ class Tag extends \yii\db\ActiveRecord
             'updatedAt' => Yii::t('app', 'Updated At'),
             'createdBy' => Yii::t('app', 'Created By'),
             'updatedBy' => Yii::t('app', 'Updated By'),
+            'viewCount' => Yii::t('app', 'View Count'),
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['createdAt', 'updatedAt'],
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
+
+                ],
+                'value' => function(){
+                    return time();
+                },
+            //'value' => new \yii\db\Expression('NOW()'),
+
+            ],
+            
+            'blameable' => [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'createdBy',
+                'updatedByAttribute' => 'updatedBy',
+            ],
+            
+            'attribute' => [
+                'class' => AttributesBehavior::class,
+                'attributes' => [
+                    'viewCount' => [
+                        ActiveRecord::EVENT_BEFORE_INSERT => 0,//$this->owner->$attribute
+                    ],
+                    
+                ],
+            ],
+            
         ];
     }
 
@@ -72,7 +117,7 @@ class Tag extends \yii\db\ActiveRecord
      */
     public function getBlogArticleTags()
     {
-        return $this->hasMany(BlogArticleTag::className(), ['tagId' => 'id']);
+        return $this->hasMany(BlogArticleTag::class, ['tagId' => 'id']);
     }
 
     /**
@@ -82,7 +127,7 @@ class Tag extends \yii\db\ActiveRecord
      */
     public function getArticles()
     {
-        return $this->hasMany(BlogArticle::className(), ['id' => 'articleId'])->viaTable('blog_article_tag', ['tagId' => 'id']);
+        return $this->hasMany(BlogArticle::class, ['id' => 'articleId'])->viaTable('blog_article_tag', ['tagId' => 'id']);
     }
 
     /**
@@ -92,7 +137,7 @@ class Tag extends \yii\db\ActiveRecord
      */
     public function getCreatedBy0()
     {
-        return $this->hasOne(User::className(), ['id' => 'createdBy']);
+        return $this->hasOne(User::class, ['id' => 'createdBy']);
     }
 
     /**
@@ -102,7 +147,7 @@ class Tag extends \yii\db\ActiveRecord
      */
     public function getUpdatedBy0()
     {
-        return $this->hasOne(User::className(), ['id' => 'updatedBy']);
+        return $this->hasOne(User::class, ['id' => 'updatedBy']);
     }
 
     /**

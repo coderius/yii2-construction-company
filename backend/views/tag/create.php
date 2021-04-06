@@ -9,7 +9,7 @@ $this->title = Yii::t('app', 'Create Tag');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tags'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tag-create">
+<div class="tag-create m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

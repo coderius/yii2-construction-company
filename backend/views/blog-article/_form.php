@@ -33,13 +33,18 @@ if(\Yii::$app->controller->action->id == 'create')
 <?= $form->field($model, 'selectedCategories')
             ->dropDownList(
                     $mapCategories, 
-                    ['prompt'=>'Выбрать категорию']); ?>
+                    [
+                        // 'prompt'=>'Выбрать категорию'
+                    ]); ?>
 
 
     <?= $form->field($model, 'selectedTags')
             ->dropDownList(
                 $mapTags, 
-                    ['multiple'=>'multiple','style' => 'height: 100px','prompt'=>'Выбрать теги']); ?>
+                    [
+                        'multiple'=>'multiple','style' => 'height: 100px',
+                        // 'prompt'=>'Выбрать теги'
+                    ]); ?>
     
     <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
