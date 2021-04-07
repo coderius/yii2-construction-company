@@ -59,6 +59,16 @@ return [
             'datetimeFormat' => 'php:n F Y в H:i',
             'timeFormat' => 'H:i:s',
         ],
+        'view' => [
+            'on ' . \yii\base\View::EVENT_BEFORE_RENDER => function($e){
+                \Yii::$app->view->registerLinkTag([
+                    'rel' => 'icon',
+                    'type' => 'image/png',
+                    'href' => \yii\helpers\Url::to(['/favicon.ico'])
+                ]);
+            }
+              
+        ],
         'request' => [
             'csrfParam' => '_csrf-user',
             'baseUrl' => $baseUrl.'/backend/web',
