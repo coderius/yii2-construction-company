@@ -16,9 +16,9 @@ $this->title = 'My Yii Application';
       <li class="nav-item d-none d-sm-inline-block">
         <a href="<?= Url::home(true); ?>" class="nav-link">Home</a>
       </li>
-      <!-- <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li> -->
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="<?= Yii::$app->urlManagerFrontend->createUrl(['/']); ?>" class="nav-link" target="_blank">Goto Site</a>
+      </li>
     </ul>
 
     <!-- Right navbar links -->
