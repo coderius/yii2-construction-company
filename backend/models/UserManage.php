@@ -3,6 +3,12 @@
 namespace backend\models;
 
 use Yii;
+use yii\behaviors\AttributesBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\SluggableBehavior;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
 // use common\models\user\User;
 
 /**
@@ -35,6 +41,19 @@ use Yii;
  */
 class UserManage extends \yii\db\ActiveRecord
 {
+    const STATUS_BLOCKED = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_WAIT = 2;
+    
+    public static $statusesName = [
+        self::STATUS_ACTIVE => 'Active',
+        self::STATUS_BLOCKED => 'Blocked',
+        self::STATUS_WAIT => 'Wait',
+    ];
+
+    //Roles populated from RBAC
+    public $selectedRoles = [];
+
     /**
      * {@inheritdoc}
      */
@@ -49,13 +68,15 @@ class UserManage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['role', 'username', 'authKey', 'password', 'email', 'createdAt'], 'required'],
+            [['role', 'username', 'password', 'email', 'status'], 'required'],
             [['status', 'createdAt', 'updatedAt'], 'integer'],
             [['role', 'username', 'password', 'passwordResetToken', 'email', 'verificationToken'], 'string', 'max' => 255],
             [['authKey'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['passwordResetToken'], 'unique'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            [['createdAt', 'updatedAt', 'verificationToken', 'passwordResetToken', 'authKey'], 'safe'],
         ];
     }
 
@@ -69,7 +90,7 @@ class UserManage extends \yii\db\ActiveRecord
             'role' => Yii::t('app', 'Role'),
             'username' => Yii::t('app', 'Username'),
             'authKey' => Yii::t('app', 'Auth Key'),
-            'password' => Yii::t('app', 'Password'),
+            'password' => Yii::t('app', 'Password Hash'),
             'passwordResetToken' => Yii::t('app', 'Password Reset Token'),
             'email' => Yii::t('app', 'Email'),
             'status' => Yii::t('app', 'Status'),
@@ -77,6 +98,51 @@ class UserManage extends \yii\db\ActiveRecord
             'updatedAt' => Yii::t('app', 'Updated At'),
             'verificationToken' => Yii::t('app', 'Verification Token'),
         ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['createdAt', 'updatedAt'],
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
+
+                ],
+                'value' => function(){
+                    return time();
+                },
+            //'value' => new \yii\db\Expression('NOW()'),
+
+            ],
+            
+            // 'attribute' => [
+            //     'class' => AttributesBehavior::class,
+            //     'attributes' => [
+            //         'viewCount' => [
+            //             ActiveRecord::EVENT_BEFORE_INSERT => 0,//$this->owner->$attribute
+            //         ],
+            //         'selectedTags' => [
+            //             ActiveRecord::EVENT_AFTER_INSERT  => [$this, 'makeTagsRelation'],
+            //             ActiveRecord::EVENT_AFTER_UPDATE  => [$this, 'makeTagsRelation'] 
+            //         ],
+                    
+            //         'selectedCategories' => [
+            //             ActiveRecord::EVENT_AFTER_INSERT  => [$this, 'makeCategoriesRelation'],
+            //             ActiveRecord::EVENT_AFTER_UPDATE  => [$this, 'makeCategoriesRelation'] 
+            //         ],
+                    
+            //     ],
+            // ],
+        ];
+    }
+
+    public static function makeSelectRoles()
+    {
+        $manager = Yii::$app->authManager;
+        $roles = $manager->getRoles();
+        return ArrayHelper::getColumn($roles, 'name');
     }
 
     /**
