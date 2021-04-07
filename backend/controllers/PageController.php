@@ -8,6 +8,7 @@ use backend\models\PageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
 
 /**
  * PageController implements the CRUD actions for Page model.
@@ -26,6 +27,24 @@ class PageController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+                'uploadImgTinymce' => [
+                    'class' => 'backend\components\actions\page\AjaxUploadImgTinymceAction',
+                ],
+                'deleteImgTinymce' => [
+                    'class' => 'backend\components\actions\page\AjaxDeleteImgTinymceAction',
+                ],
+                // 'uploadImgArticleHeading' => [
+                //     'class' => 'backend\components\actions\blog\AjaxUploadImgArticleHeadingAction',
+                // ],
+                // 'deleteImgArticleHeading' => [
+                //     'class' => 'backend\components\actions\blog\AjaxDeleteImgArticleHeadingAction',
+                // ],
         ];
     }
 
@@ -104,7 +123,11 @@ class PageController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->enableCsrfValidation = false;
         $this->findModel($id)->delete();
+
+        $dir = Yii::getAlias('@pageHeaderPicsPath/'.$id);
+        FileHelper::removeDirectory($dir);
 
         return $this->redirect(['index']);
     }

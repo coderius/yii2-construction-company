@@ -39,6 +39,11 @@ class MainController extends BaseController
         return $this->render('index');
     }
 
+    public function actionPage()
+    {
+        return $this->render('about');
+    }
+
     public function actionAbout()
     {
         return $this->render('about');

@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'alias',
+            
             [
                 'label' => 'Категория',
                 'format' => 'raw',

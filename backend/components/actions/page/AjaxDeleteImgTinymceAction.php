@@ -34,7 +34,7 @@ class AjaxDeleteImgTinymceAction extends Action
             $fullSrc = $request->post('src');
             $ex = explode('/', $fullSrc);
             $src = $ex[count($ex)-1];
-            $path = Yii::getAlias("@PageTextPicsPath/".$src);
+            $path = Yii::getAlias("@pageTextPicsPath/".$src);
             
             if(is_file($path))
                 if(FileHelper::unlink($path)){

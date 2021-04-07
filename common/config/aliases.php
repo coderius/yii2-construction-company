@@ -37,8 +37,19 @@ return [
     
     '@blogPostHeaderPicsPath' => '@frontend/web/blog-post-pics/header-pics',
     '@blogPostHeaderPicsWeb' => $baseUrl . '/blog-post-pics/header-pics',
+
     //Categories
     '@blogCatTextPicsPath' => '@frontend/web/blog-category-pics/text-pics',
     '@blogCatTextPicsWeb' => $baseUrl . '/blog-category-pics/text-pics',
+
+    /////////////////////////////////////////////////////////////////////
+    //                          Pages
+    /////////////////////////////////////////////////////////////////////
+    //Posts
+    '@pageTextPicsPath' => '@frontend/web/page-pics/text-pics',
+    '@pageTextPicsWeb' => $baseUrl . '/page-pics/text-pics',
+
+    '@pageHeaderPicsPath' => '@frontend/web/page-pics/header-pics',
+    '@pageHeaderPicsWeb' => $baseUrl . '/page-pics/header-pics',
 
 ];    

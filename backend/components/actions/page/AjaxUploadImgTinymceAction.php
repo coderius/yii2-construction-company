@@ -39,8 +39,8 @@ class AjaxUploadImgTinymceAction extends Action
                 $result['error'] = $model->getFirstError('file');
                 
             }else{
-                $path = Yii::getAlias("@PageTextPicsPath/");
-                $url = Yii::getAlias("@PageTextPicsWeb/");
+                $path = Yii::getAlias("@pageTextPicsPath/");
+                $url = Yii::getAlias("@pageTextPicsPath/");
                 $model->file->name = uniqid() . '.' . $model->file->extension;
                 $resPath = $path . $model->file->name;
                 $resUrl = $url . $model->file->name;

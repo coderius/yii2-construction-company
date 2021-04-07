@@ -4,6 +4,16 @@ namespace backend\models;
 
 use Yii;
 use common\models\user\User;
+use yii\behaviors\AttributesBehavior;
+use backend\components\behaviors\blog\UploadFileBehavior;
+use yii\imagine\Image;
+use Imagine\Image\Point;
+use Imagine\Image\Box;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\SluggableBehavior;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "page".
@@ -28,6 +38,16 @@ use common\models\user\User;
  */
 class Page extends \yii\db\ActiveRecord
 {
+    public $file;//загружаемое изображение
+    
+    const ACTIVE_STATUS = 1;
+    const DISABLED_STATUS = 0;
+    
+    public static $statusesName = [
+        self::ACTIVE_STATUS => 'Активен',
+        self::DISABLED_STATUS => 'Отключен',
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -42,13 +62,14 @@ class Page extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['alias', 'metaTitle', 'metaDesc', 'status', 'storyText', 'storyButtonTitle', 'createdAt', 'createdBy', 'updatedBy'], 'required'],
+            [['alias', 'metaTitle', 'metaDesc', 'status', 'storyText', 'storyButtonTitle'], 'required'],
             [['status', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
             [['storyText', 'storyImg'], 'string'],
             [['alias', 'metaTitle', 'metaDesc', 'storyHeader1', 'storyHeader2', 'storyButtonTitle'], 'string', 'max' => 255],
             [['alias'], 'unique'],
-            [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['createdBy' => 'id']],
-            [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updatedBy' => 'id']],
+            [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['createdBy' => 'id']],
+            [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updatedBy' => 'id']],
+            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'safe'],
         ];
     }
 
@@ -75,6 +96,71 @@ class Page extends \yii\db\ActiveRecord
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['createdAt', 'updatedAt'],
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
+
+                ],
+                'value' => function(){
+                    return time();
+                },
+            //'value' => new \yii\db\Expression('NOW()'),
+
+            ],
+            
+            'blameable' => [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'createdBy',
+                'updatedByAttribute' => 'updatedBy',
+            ],
+            
+            'uploadFileBehavior' => [
+                'class' => UploadFileBehavior::class,
+                'nameOfAttributeStorage' => 'storyImg',
+                'directories' => [
+                    [
+                        'path' => function($attributes){
+                            return \Yii::getAlias('@pageHeaderPicsPath/' . $attributes['id'] . '/big/');
+                        },
+                        'hendler' => function($fileTempName, $newFilePath){
+                            Image::thumbnail($fileTempName, 900, 1000)
+                            ->copy()
+                            ->crop(new Point(0, 0), new Box(900, 980))
+                            ->save($newFilePath, ['quality' => 80]);
+                            sleep(1);
+                        }
+                    ],
+                    [
+                        'path' => function($attributes){
+                            return \Yii::getAlias('@pageHeaderPicsPath/' . $attributes['id'] . '/middle/');
+                        },
+                        'hendler' => function($fileTempName, $newFilePath){
+                            Image::thumbnail($fileTempName, 400, 480)
+                            ->save($newFilePath, ['quality' => 80]);
+                            sleep(1);
+                        }
+                    ],
+                    [
+                        'path' => function($attributes){
+                            return \Yii::getAlias('@pageHeaderPicsPath/' . $attributes['id'] . '/small/');
+                        },
+                        'hendler' => function($fileTempName, $newFilePath){
+                            Image::thumbnail($fileTempName, 150, 190)
+                            ->save($newFilePath, ['quality' => 80]);
+                            sleep(1);
+                        }
+                    ],
+                ]
+            ],
+
+        ];
+    }
+
     /**
      * Gets query for [[CreatedBy0]].
      *
@@ -82,7 +168,7 @@ class Page extends \yii\db\ActiveRecord
      */
     public function getCreatedBy0()
     {
-        return $this->hasOne(User::className(), ['id' => 'createdBy']);
+        return $this->hasOne(User::class, ['id' => 'createdBy']);
     }
 
     /**
@@ -92,7 +178,7 @@ class Page extends \yii\db\ActiveRecord
      */
     public function getUpdatedBy0()
     {
-        return $this->hasOne(User::className(), ['id' => 'updatedBy']);
+        return $this->hasOne(User::class, ['id' => 'updatedBy']);
     }
 
     /**

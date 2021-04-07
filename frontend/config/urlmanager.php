@@ -8,6 +8,7 @@ return [
             'rules' => [
 
                 '/' => 'main/index',
+                'page/<alias:[\w_-]+>' => 'main/page',
 
                 'blog/<pageNum:\d+>' => 'blog/index',//пагинация блога
                 'blog' => 'blog/index',

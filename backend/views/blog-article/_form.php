@@ -78,11 +78,10 @@ if(\Yii::$app->controller->action->id == 'create')
     <?= $form->field($model, 'imgAlt')->textInput(['maxlength' => true]) ?>
 
     <?php 
-    $urlUploadTinymce = Url::to(['uploadImgTinymce']);
-    $urlDeleteTinymce = Url::to(['deleteImgTinymce']);
-    $csrf_param = \Yii::$app->request->csrfParam; 
-    $csrf_token = \Yii::$app->request->csrfToken;
-    
+        $urlUploadTinymce = Url::to(['uploadImgTinymce']);
+        $urlDeleteTinymce = Url::to(['deleteImgTinymce']);
+        $csrf_param = \Yii::$app->request->csrfParam; 
+        $csrf_token = \Yii::$app->request->csrfToken;
     ?>
     
     <?= $form->field($model, 'text')->widget(TinyMce::className(), [
@@ -293,9 +292,9 @@ if(\Yii::$app->controller->action->id == 'create')
 
 
     <?php 
-    echo $form->field($model, 'status')->widget(IosStyleToggleSwitchWidget::class, [
-        'type' => IosStyleToggleSwitchWidget::CHECKBOX
-    ]);
+        echo $form->field($model, 'status')->widget(IosStyleToggleSwitchWidget::class, [
+            'type' => IosStyleToggleSwitchWidget::CHECKBOX
+        ]);
     ?>
 
     <div class="form-group">
