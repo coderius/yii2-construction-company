@@ -17,7 +17,7 @@ class MenuTopSearch extends MenuTop
     public function rules()
     {
         return [
-            [['id', 'parentId', 'order', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
+            [['id', 'parentId', 'sortOrder', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
             [['alias', 'name'], 'safe'],
         ];
     }
@@ -60,7 +60,7 @@ class MenuTopSearch extends MenuTop
         $query->andFilterWhere([
             'id' => $this->id,
             'parentId' => $this->parentId,
-            'order' => $this->order,
+            'sortOrder' => $this->sortOrder,
             'createdAt' => $this->createdAt,
             'updatedAt' => $this->updatedAt,
             'createdBy' => $this->createdBy,
