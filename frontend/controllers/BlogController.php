@@ -13,12 +13,29 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\services\blog\ArticleService;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * Site controller
  */
 class BlogController extends BaseController
 {
+    // private $htmlMetaComponent;
+    private $articleService;
+
+    public function __construct(
+        $id, 
+        $module, 
+        ArticleService $articleService,
+        $config = []
+    )
+    {
+        parent::__construct($id, $module, $config);
+        $this->articleService = $articleService;
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -51,7 +68,18 @@ class BlogController extends BaseController
 
     public function actionArticle($alias)
     {
-        return $this->render('article');
+        $article = $this->articleService->getSingleArticle($alias);
+        if($article == NULL)
+        {
+            throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');
+            //throw new \yii\web\NotFoundHttpException;
+        }
+        //Meta tags
+        $this->articleService->makeArticleMetaTags($article);
+        $tags = $this->articleService->getArticleTags($article);
+        $author = $this->articleService->getArticleAuthor($article);
+        
+        return $this->render('article', compact('article','tags', 'author'));
     }
 
 

@@ -26,7 +26,7 @@ class SetUp implements BootstrapInterface{
         
         $container = \Yii::$container;
         
-        // $container->set('frontend\services\blog\BlogService');
+        // $container->set('frontend\services\blog\ArticleService');
         // $container->set('frontend\services\components\SideBarService');
         // $container->set('frontend\repositories\blog\BlogRepositoryInterface', 'frontend\repositories\blog\QueryBlogRepository');
 //        $container->set('frontend\repositories\blog\BlogRepositoryInterface', 'frontend\repositories\blog\QueryBlogRepository');

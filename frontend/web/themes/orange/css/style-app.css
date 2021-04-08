@@ -1361,9 +1361,13 @@ a:focus {
     overflow: hidden;
 }
 
-.single .single-content img {
+.single .single-content > img {
     margin-bottom: 20px;
     width: 100%;
+}
+
+.single .single-content-text > img {
+    vertical-align: baseline;
 }
 
 .single .single-tags {

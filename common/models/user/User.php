@@ -7,7 +7,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use common\components\rbac\Rbac;
-
+use common\models\UserProfile;
 /**
  * User model
  *
@@ -238,4 +238,30 @@ class User extends ActiveRecord implements IdentityInterface
         }
     }
     
+    /**
+     * -----------------
+     * Relations methods
+     * -----------------
+     */
+
+    /**
+     * Gets query for [[UserProfile]].
+     *
+     * @return \yii\db\ActiveQuery|UserProfileQuery
+     */
+    public function getUserProfile()
+    {
+        return $this->hasOne(UserProfile::class, ['userId' => 'id']);
+    }
+
+    /**
+     * Gets query for [[UserProfiles]].
+     *
+     * @return \yii\db\ActiveQuery|UserProfileQuery
+     */
+    public function getUserProfiles()
+    {
+        return $this->hasMany(UserProfile::class, ['createdBy' => 'id']);
+    }
+
 }

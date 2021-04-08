@@ -52,4 +52,11 @@ return [
     '@pageHeaderPicsPath' => '@frontend/web/page-pics/header-pics',
     '@pageHeaderPicsWeb' => $baseUrl . '/page-pics/header-pics',
 
+    /////////////////////////////////////////////////////////////////////
+    //                          User Profile
+    /////////////////////////////////////////////////////////////////////
+    //Posts
+    '@userProfilePicsPath' => '@frontend/web/user-profile',
+    '@userProfilePicsWeb' => $baseUrl . '/user-profile',
+
 ];    
