@@ -25,10 +25,17 @@ class HtmlMetaHelper extends Component{
 //        $this->content= 'Текст по умолчанию';
     }
     
-    public static function putSeoTags($tags){
-        if( isset($tags['title']) ){
-            \Yii::$app->view->title = $tags['title'];
+    public static function buildMetaTitle(&$title){
+        if(isset($title)){
+            $vTitle[] = $title;
         }
+        
+        $vTitle[] = Yii::$app->name;
+        \Yii::$app->view->title = implode(' | ', $vTitle);
+    }
+
+    public static function putSeoTags($tags){
+        self::buildMetaTitle($tags['title']);
         
         if( isset($tags['description']) ){
             \Yii::$app->view->registerMetaTag([

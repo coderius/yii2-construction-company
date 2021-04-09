@@ -11,7 +11,7 @@ abstract class BaseController extends Controller
      * @var string part of the title to add in the HTML page title. e.g. 'Chennel'
      *             Defaults to [[sectionTitle]], if not explicitly set.
      */
-    public $headTitle;
+    // public $metaTitle;
 
     public function init()
     {
@@ -24,18 +24,22 @@ abstract class BaseController extends Controller
     public function registerBeforeViewRendered($event)
     {
         $view = $event->sender;
-        $this->setMetaTitle($view);
+        // $this->setMetaTitle($view);
     }
 
-    protected function setMetaTitle($view)
-    {
-        $title = [];
+    // protected function setMetaTitle($view)
+    // {
+    //     $view->title = $this->makeMetaTitle($view, $this->metaTitle);
+    // }
 
-        if ($this->headTitle !== null) {
-            $title[] = $this->headTitle;
-        }
+    // public function makeMetaTitle($metaTitle = null){
+    //     $title = [];
 
-        $title[] = Yii::$app->name;
-        $view->title = implode(' | ', $title);
-    }
+    //     if ($metaTitle !== null) {
+    //         $title[] = $metaTitle;
+    //     }
+
+    //     $title[] = Yii::$app->name;
+    //     return implode(' | ', $title);
+    // }
 }

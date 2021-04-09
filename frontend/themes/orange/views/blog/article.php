@@ -5,20 +5,8 @@ use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
-$this->params['breadcrumbs'][] = array(
-    'label'=> "bngfnfg", 
-    'url'=>Url::toRoute('/photo/')
-);
-$this->title = 'My Yii Application';
+
 ?>
-
-
-<?php $this->beginContent('@app/views/layouts/base/_template.php'); ?>
-
-<?= Breadcrumbs::widget([
-    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-    'options' => ['class' => 'breadcrumb', 'style' => ''],
-]);?>
 
 <!-- Page Header Start -->
 <div class="page-header">

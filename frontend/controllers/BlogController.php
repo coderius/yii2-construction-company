@@ -75,7 +75,7 @@ class BlogController extends BaseController
             //throw new \yii\web\NotFoundHttpException;
         }
         //Meta tags
-        $this->articleService->makeArticleMetaTags($article);
+        $this->articleService->makeArticleMetaTags($article, $this);
         $tags = $this->articleService->getArticleTags($article);
         $author = $this->articleService->getArticleAuthor($article);
         
