@@ -5,16 +5,25 @@
 namespace frontend\services\blog;
 
 use yii;
-use yii\base\Component;
+use yii\base\BaseObject;
 use yii\helpers\Html;
 use frontend\services\fragments\HeaderService;
 use yii\helpers\Url;
 use frontend\models\BlogArticle;
 use common\components\helpers\HtmlMetaHelper;
 use frontend\controllers\BaseController;
+use frontend\models\sidebar\SidebarRepo;
+use frontend\models\sidebar\Sidebar;
 
-class ArticleService extends Component{
+class ArticleService{
 
+    private $sidebarRepo;
+
+    public function __construct(SidebarRepo $sidebarRepo)
+    {
+        $this->sidebarRepo = $sidebarRepo;
+    }
+    
     public function getSingleArticle($alias){
         $article = BlogArticle::find()
             ->active()
@@ -31,6 +40,13 @@ class ArticleService extends Component{
         return !$article->hasAuthor() ? : $article->authorWithProfile;
     }
     
+    public function getSidebar(){
+        $sidebar = new Sidebar();
+        $sidebar->recentPosts = $this->sidebarRepo->getRecentPost();
+        
+        return $sidebar;
+    }
+
     public function makeArticleMetaTags(BlogArticle $article, BaseController $controller){
         //Meta tags
         HtmlMetaHelper::putSeoTags([

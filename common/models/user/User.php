@@ -26,6 +26,8 @@ use common\models\UserProfile;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    use UserRelationsTrait;
+    
     const SIGNUP_TYPE_SIGNUPFORM  = 1;
     const SIGNUP_TYPE_SOCIALLOGIN = 2;
 
@@ -238,30 +240,6 @@ class User extends ActiveRecord implements IdentityInterface
         }
     }
     
-    /**
-     * -----------------
-     * Relations methods
-     * -----------------
-     */
-
-    /**
-     * Gets query for [[UserProfile]].
-     *
-     * @return \yii\db\ActiveQuery|UserProfileQuery
-     */
-    public function getUserProfile()
-    {
-        return $this->hasOne(UserProfile::class, ['userId' => 'id']);
-    }
-
-    /**
-     * Gets query for [[UserProfiles]].
-     *
-     * @return \yii\db\ActiveQuery|UserProfileQuery
-     */
-    public function getUserProfiles()
-    {
-        return $this->hasMany(UserProfile::class, ['createdBy' => 'id']);
-    }
+    
 
 }

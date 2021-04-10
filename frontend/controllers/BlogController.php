@@ -78,8 +78,9 @@ class BlogController extends BaseController
         $this->articleService->makeArticleMetaTags($article, $this);
         $tags = $this->articleService->getArticleTags($article);
         $author = $this->articleService->getArticleAuthor($article);
+        $sidebar = $this->articleService->getSidebar();
         
-        return $this->render('article', compact('article','tags', 'author'));
+        return $this->render('article', compact('article','tags', 'author', 'sidebar'));
     }
 
 

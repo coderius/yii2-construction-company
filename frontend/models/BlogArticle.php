@@ -99,6 +99,11 @@ class BlogArticle extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updatedBy']);
     }
 
+    public function getUame()
+    {
+        return $this->hasOne(User::className(), ['id' => 'createdBy']);
+    }
+
     /**
      * Gets query for [[BlogArticleBlogCategories]].
      *
@@ -117,6 +122,11 @@ class BlogArticle extends \yii\db\ActiveRecord
     public function getCategories()
     {
         return $this->hasMany(BlogCategory::className(), ['id' => 'categoryId'])->viaTable('blog_article_blog_category', ['articleId' => 'id']);
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(BlogCategory::className(), ['id' => 'categoryId'])->viaTable('blog_article_blog_category', ['articleId' => 'id']);
     }
 
     /**
