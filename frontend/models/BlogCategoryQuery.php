@@ -9,10 +9,10 @@ namespace frontend\models;
  */
 class BlogCategoryQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+    public function active()
     {
         return $this->andWhere('[[status]]=1');
-    }*/
+    }
 
     /**
      * {@inheritdoc}

@@ -32,6 +32,9 @@ use common\models\UserProfile;
  */
 class BlogArticle extends \yii\db\ActiveRecord
 {
+    const ACTIVE_STATUS = 1;
+    const DISABLED_STATUS = 0;
+    
     /**
      * {@inheritdoc}
      */

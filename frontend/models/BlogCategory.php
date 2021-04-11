@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use common\models\user\User;
 
 /**
  * This is the model class for table "blog_category".
@@ -28,6 +29,8 @@ use Yii;
  */
 class BlogCategory extends \yii\db\ActiveRecord
 {
+    public $surrogateArticleCount;//virtual item
+    
     /**
      * {@inheritdoc}
      */
@@ -93,6 +96,11 @@ class BlogCategory extends \yii\db\ActiveRecord
         return $this->hasMany(BlogArticle::className(), ['id' => 'articleId'])->viaTable('blog_article_blog_category', ['categoryId' => 'id']);
     }
 
+    public function getArticlesCount()
+    {
+        return $this->getArticles()->count();
+    }
+    
     /**
      * Gets query for [[CreatedBy0]].
      *

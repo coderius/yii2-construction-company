@@ -42,8 +42,16 @@ class ArticleService{
     
     public function getSidebar(){
         $sidebar = new Sidebar();
-        $sidebar->recentPosts = $this->sidebarRepo->getRecentPost();
-        
+        $sidebar->searchForm = false;
+        $sidebar->recentPosts = $this->sidebarRepo->getRecentPosts();
+        $sidebar->popularPosts = $this->sidebarRepo->getPopularPosts();
+        $sidebar->categories = $this->sidebarRepo->getCategories();
+        $sidebar->tagsCloud = $this->sidebarRepo->getTagsCloud();
+        $sidebar->randomPostsPics = $this->sidebarRepo->getRandomPostsPics();
+        $sidebar->randomPostsPics = $this->sidebarRepo->getRandomPostsPics();
+        $sidebar->randomPosts = $this->sidebarRepo->getRandomPosts();
+        $sidebar->popularPostText = $this->sidebarRepo->getPopularPost();
+
         return $sidebar;
     }
 

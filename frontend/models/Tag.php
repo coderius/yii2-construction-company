@@ -25,6 +25,8 @@ use Yii;
  */
 class Tag extends \yii\db\ActiveRecord
 {
+    public $surrogateArticleCount;
+    
     /**
      * {@inheritdoc}
      */

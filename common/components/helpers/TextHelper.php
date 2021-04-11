@@ -16,12 +16,8 @@ use yii;
  *
  * @author Sergio Codev <codev>
  */
-class CustomStringHelper extends StringHelper{
+class TextHelper extends StringHelper{
     
-    public static function localeDataFormat($datetime, $pattern = 'php:d F (D.) Yг. в Hч.iм.'){
-        return \Yii::$app->formatter->asDateTime($datetime, $pattern);
-    }
-
     /**
      * 
      * @param string $mask
