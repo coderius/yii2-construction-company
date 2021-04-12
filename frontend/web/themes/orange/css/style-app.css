@@ -1337,10 +1337,23 @@ a:focus {
     font-size: 16px;
 }
 
-.blog .pagination .page-link {
+.blog .pagination .page-link{
     color: #030f27;
     border-radius: 0;
     border-color: #fdbe33;
+}
+
+.blog .pagination span{
+    color: #27031c;
+    border-radius: 0;
+    border-color: #fdbe33;
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
 }
 
 .blog .pagination .page-link:hover,

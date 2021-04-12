@@ -12,7 +12,6 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 JS;
-
 $this->registerJs($js);
 
 ?>

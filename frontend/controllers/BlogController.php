@@ -15,8 +15,10 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\services\blog\ArticleService;
 use frontend\services\widgets\CarouselService;
+use frontend\services\blog\BlogService;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use frontend\models\BlogArticleSearch;
 
 /**
  * Site controller
@@ -26,18 +28,21 @@ class BlogController extends BaseController
     // private $htmlMetaComponent;
     private $articleService;
     private $carouselService;
+    private $blogService;
 
     public function __construct(
-        $id, 
-        $module, 
+        $id,
+        $module,
         ArticleService $articleService,
         CarouselService $carouselService,
+        BlogService $blogService,
         $config = []
     )
     {
         parent::__construct($id, $module, $config);
         $this->articleService = $articleService;
         $this->carouselService = $carouselService;
+        $this->blogService = $blogService;
     }
     
     /**
@@ -51,13 +56,39 @@ class BlogController extends BaseController
     }
 
     /**
-     * Displays homepage.
+     * Displays blog all posts.
      *
      * @return mixed
      */
     public function actionIndex($pageNum = null)
     {
-        return $this->render('index');
+        $searchModel = new BlogArticleSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $itemsInPage = 1;
+        $dataProvider->pagination->pageSize = $itemsInPage;
+        // var_dump($dataProvider->getModels());die;
+        
+        if($pageNum > ceil($dataProvider->getTotalCount() / $itemsInPage))
+        {
+            throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');
+        }
+        
+        //если введена еденица, делаем редирект на без 1
+        if($pageNum == 1)
+        {
+            Yii::$app->response->redirect(Url::toRoute(['/blog']));
+        }
+        
+        //Meta tags
+        $this->blogService->makeBlogMetaTags();
+
+        return $this->render('index',  [
+            'heading' => 'Блог про ремонт квартир',
+            'crumbName' => 'Блог про ремонт',
+            'heading2' => 'Все материалы блога про ремонт квартир.',
+            'heading3' => 'Блог о ремонте',
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     public function actionCategory($alias, $pageNum = null)
@@ -73,6 +104,7 @@ class BlogController extends BaseController
     public function actionArticle($alias)
     {
         $article = $this->articleService->getSingleArticle($alias);
+        
         if($article == NULL)
         {
             throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');

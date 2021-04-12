@@ -27,6 +27,7 @@ class ArticleService{
     public function getSingleArticle($alias){
         $article = BlogArticle::find()
             ->active()
+            ->andWhere(['alias' => $alias])
             ->one();
 
         return $article;
