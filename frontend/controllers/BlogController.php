@@ -14,6 +14,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\services\blog\ArticleService;
+use frontend\services\widgets\CarouselService;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -24,16 +25,19 @@ class BlogController extends BaseController
 {
     // private $htmlMetaComponent;
     private $articleService;
+    private $carouselService;
 
     public function __construct(
         $id, 
         $module, 
         ArticleService $articleService,
+        CarouselService $carouselService,
         $config = []
     )
     {
         parent::__construct($id, $module, $config);
         $this->articleService = $articleService;
+        $this->carouselService = $carouselService;
     }
     
     /**
@@ -79,8 +83,9 @@ class BlogController extends BaseController
         $tags = $this->articleService->getArticleTags($article);
         $author = $this->articleService->getArticleAuthor($article);
         $sidebar = $this->articleService->getSidebar();
+        $carousel = $this->carouselService->makeEntity();
         
-        return $this->render('article', compact('article','tags', 'author', 'sidebar'));
+        return $this->render('article', compact('article','tags', 'author', 'sidebar', 'carousel'));
     }
 
 

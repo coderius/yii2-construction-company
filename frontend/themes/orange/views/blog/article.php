@@ -79,7 +79,7 @@ $this->registerJs($js);
 
 
             <?= OwlCarouselWidget::widget([
-                'header' => 'Похожие посты',
+                'entity' => $carousel,
             ]); ?>
 
 

@@ -20,8 +20,8 @@ class OwlCarouselAsset extends AssetBundle
     
     public $depends = [
         "frontend\assets\OwlcarouselAsset",
+        "frontend\assets\WowAsset",
         "frontend\assets\AppThemeOrangeAsset",
-        "frontend\assets\WowAsset"
     ];
     
     public $publishOptions = [

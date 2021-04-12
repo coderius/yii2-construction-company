@@ -9,12 +9,13 @@ use yii\helpers\Url;
 use yii\web\View;
 use yii\helpers\ArrayHelper;
 use Closure;
+use common\widgets\owlCarousel\entities\OwlCarousel;
 
 class OwlCarouselWidget extends Widget
 {
     public $widgetId;
 
-    public $header;
+    public $entity;
 
     public $clientOptions = [];
 
@@ -24,8 +25,12 @@ class OwlCarouselWidget extends Widget
     {
         parent::init();
         
-        if ($this->header === null) {
-            throw new InvalidConfigException('The "header" property must be set.');
+        if ($this->entity === null) {
+            throw new InvalidConfigException('The "entity" property must be set.');
+        }
+
+        if (!$this->entity instanceof OwlCarousel) {
+            throw new InvalidConfigException('The "entity" must instance of ' . OwlCarousel::class);
         }
 
         if (!($this->widgetId)) {
@@ -41,7 +46,7 @@ class OwlCarouselWidget extends Widget
         // $row =  Html::tag('div', $content, ["class" => "row linkbox", "id" => $this->widgetId]);
         // echo Html::tag('div', $row, ["class" => "container-fluid"]);
 
-        return $this->render('index');
+        return $this->render('index', ['entity' => $this->entity]);
     }
 
     
@@ -51,7 +56,7 @@ class OwlCarouselWidget extends Widget
     protected function registerAssets()
     {
         $view = $this->getView();
-        OwlCarouselAsset::register($view);
+        // OwlCarouselAsset::register($view);
 
     }
 
