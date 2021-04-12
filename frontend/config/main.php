@@ -48,7 +48,7 @@ return [
                     'rel' => 'icon',
                     'type' => 'image/png',
                     'href' => \yii\helpers\Url::to(['/favicon.ico'])
-                ]);
+                ], 'favicon.ico');
             }
               
         ],
