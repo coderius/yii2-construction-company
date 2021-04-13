@@ -20,6 +20,15 @@ return [
                 'blog/tag/<alias:[\w_-]+>/<pageNum:\d+>' => 'blog/tag',
                 'blog/tag/<alias:[\w_-]+>' => 'blog/tag',
                 
+                'portfolio/<pageNum:\d+>' => 'portfolio/index',
+                'portfolio' => 'portfolio/index',
+
+                'portfolio/category/<alias:[\w_-]+>/<pageNum:\d+>' => 'portfolio/category',
+                'portfolio/category/<alias:[\w_-]+>' => 'portfolio/category',
+
+                'portfolio/tag/<alias:[\w_-]+>/<pageNum:\d+>' => 'portfolio/tag',
+                'portfolio/tag/<alias:[\w_-]+>' => 'portfolio/tag',
+
                 'blog/article/<alias:[\w_-]+>' => 'blog/article',
 
                 '<action:(login|logout|signup|auth)>' => 'site/<action>',

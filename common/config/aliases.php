@@ -59,4 +59,10 @@ return [
     '@userProfilePicsPath' => '@frontend/web/user-profile',
     '@userProfilePicsWeb' => $baseUrl . '/user-profile',
 
-];    
+    /////////////////////////////////////////////////////////////////////
+    //                          Portfoleo
+    /////////////////////////////////////////////////////////////////////
+    '@portfolioPicsPath' => '@frontend/web/portfolio',
+    '@portfolioPicsWeb' => $baseUrl . '/portfolio',
+
+];

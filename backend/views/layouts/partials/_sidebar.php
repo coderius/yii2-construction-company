@@ -110,6 +110,56 @@ $this->title = 'My Yii Application';
           </li>
           <!-- ./Страницы -->
 
+           <!-- Portfolio -->
+           <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Портфолио фото
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/portfolio/index']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Обзор</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/portfolio/create']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Создать</p>
+                </a>
+              </li>
+              </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Категории портфолио
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/portfolio-category/index']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Обзор</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/portfolio-category/create']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Создать</p>
+                </a>
+              </li>
+              </ul>
+          </li>
+          <!-- ./Portfolio -->
+
           <!-- Теги -->
           <li class="nav-item">
             <a href="" class="nav-link">
