@@ -41,9 +41,9 @@ class BlogArticleSearch extends BlogArticle
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $alias = null, $type = "category")
     {
-        $query = BlogArticle::find()->active();
+        $query = BlogArticle::find()->where([self::tableName().".status" => 1]);
 
         // add conditions that should always apply here
 
@@ -68,15 +68,24 @@ class BlogArticleSearch extends BlogArticle
             return $dataProvider;
         }
 
-        $query->with([
+        $query->joinWith([
             'createdBy0' => function ($query) {
                 $query->select(['id', 'username']);
             }
             ,
-            'category' => function ($query) {
+            'category' => function ($query) use ($alias) {
                 $query->select(['id', 'header', 'alias']);
             }
         ]);
+
+        if($alias && $type === "category"){
+            $query->andWhere(['blog_category.alias' => $alias]);
+        }
+
+        if($alias && $type === "tag"){
+            $query->joinWith('tags');
+            $query->andWhere(['tag.alias' => $alias]);
+        }
 
         $dataProvider->setSort(['defaultOrder' => ['createdAt'=> SORT_DESC]]);
 

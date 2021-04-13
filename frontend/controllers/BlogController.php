@@ -19,6 +19,8 @@ use frontend\services\blog\BlogService;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\models\BlogArticleSearch;
+use frontend\models\BlogCategory;
+use frontend\models\Tag;
 
 /**
  * Site controller
@@ -93,12 +95,74 @@ class BlogController extends BaseController
 
     public function actionCategory($alias, $pageNum = null)
     {
-        return $this->render('category');
+        $searchModel = new BlogArticleSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $alias);
+        $itemsInPage = 9;
+        $dataProvider->pagination->pageSize = $itemsInPage;
+        // var_dump($dataProvider->getModels());die;
+        
+        if($pageNum > ceil($dataProvider->getTotalCount() / $itemsInPage))
+        {
+            throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');
+        }
+        
+        //если введена еденица, делаем редирект на без 1
+        if($pageNum == 1)
+        {
+            Yii::$app->response->redirect(Url::toRoute(['/blog']));
+        }
+        
+        $page = BlogCategory::findOne(['alias' => $alias]);
+        // var_dump($page);
+        //Meta tags
+        $this->blogService->makeBlogMetaTags([
+            'metaTitle' => $page->metaTitle,
+            'description' => $page->metaDesc,
+        ]);
+
+        return $this->render('category',  [
+            'heading' => $page->header,
+            'crumbName' => $page->header,
+            'heading2' => "Все материалы блога по теме '{$page->header}'",
+            'heading3' => $page->metaTitle,
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     public function actionTag($alias, $pageNum = null)
     {
-        return $this->render('tag');
+        $searchModel = new BlogArticleSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $alias, 'tag' );
+        $itemsInPage = 9;
+        $dataProvider->pagination->pageSize = $itemsInPage;
+        // var_dump($dataProvider->getModels());die;
+        
+        if($pageNum > ceil($dataProvider->getTotalCount() / $itemsInPage))
+        {
+            throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');
+        }
+        
+        //если введена еденица, делаем редирект на без 1
+        if($pageNum == 1)
+        {
+            Yii::$app->response->redirect(Url::toRoute(['/blog']));
+        }
+        
+        $page = Tag::findOne(['alias' => $alias]);
+        
+        //Meta tags
+        $this->blogService->makeBlogMetaTags([
+            'metaTitle' => $page->metaTitle,
+            'description' => $page->metaDesc,
+        ]);
+
+        return $this->render('tag',  [
+            'heading' => $page->header,
+            'crumbName' => $page->header,
+            'heading2' => "Все материалы по тегу '{$page->header}'",
+            'heading3' => $page->metaTitle,
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     public function actionArticle($alias)
