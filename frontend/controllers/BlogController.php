@@ -64,7 +64,7 @@ class BlogController extends BaseController
     {
         $searchModel = new BlogArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $itemsInPage = 1;
+        $itemsInPage = 9;
         $dataProvider->pagination->pageSize = $itemsInPage;
         // var_dump($dataProvider->getModels());die;
         

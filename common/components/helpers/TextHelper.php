@@ -62,7 +62,7 @@ class TextHelper extends StringHelper{
      * 
      * Add param $lastWorld . If it is set to true, in the end a whole word is returned 
      */
-    public static function truncate($string, $length, $suffix = '...',$lastWorld = true, $encoding = null, $asHtml = false)
+    public static function truncate($string, $length, $suffix = '...', $lastWorld = true, $encoding = null, $asHtml = false)
     {
         $string = strip_tags($string);
         
@@ -86,6 +86,29 @@ class TextHelper extends StringHelper{
         return $string;
 
     }
+
+    public static function truncateChars($string, $length, $suffix = '...', $encoding = null, $asHtml = false)
+    {
+        $string = strip_tags($string);
+        
+        if ($encoding === null) {
+            $encoding = Yii::$app ? Yii::$app->charset : 'UTF-8';
+        }
+        if ($asHtml) {
+            return static::truncateHtml($string, $length, $suffix, $encoding);
+        }
+
+        if (mb_strlen($string, $encoding) > $length) {
+            
+           
+            return rtrim(mb_substr($string, 0, $length, $encoding)) . $suffix;
+           
+        }
+
+        return $string;
+
+    }
+
 //    
 //    public static function searchString($haystack, $string, $suffix = '...',$left = 25, $right = 25){
 //        $encoding = Yii::$app ? Yii::$app->charset : 'UTF-8';

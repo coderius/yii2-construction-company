@@ -133,5 +133,20 @@
         portfolioIsotope.isotope({filter: $(this).data('filter')});
     });
     
+    // Each blocks height to equal for all in grid
+    var equalHeight = function(elem){
+        var mHeight = 0;
+        elem.each(function(index,element){
+            if ($(this).outerHeight() > mHeight) {
+                mHeight = $(this).outerHeight(); 
+            }
+            // console.log($(this).outerHeight());
+        });
+        
+        return elem.css({'height' : mHeight});
+    }
+    
+    equalHeight($('.equal-height'));
+
 })(jQuery);
 
