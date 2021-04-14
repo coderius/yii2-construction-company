@@ -29,6 +29,8 @@ return [
                 'portfolio/tag/<alias:[\w_-]+>/<pageNum:\d+>' => 'portfolio/tag',
                 'portfolio/tag/<alias:[\w_-]+>' => 'portfolio/tag',
 
+                'price' => 'price/index',
+
                 'blog/article/<alias:[\w_-]+>' => 'blog/article',
 
                 '<action:(login|logout|signup|auth)>' => 'site/<action>',

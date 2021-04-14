@@ -6,6 +6,28 @@ use yii\helpers\Url;
 
 $this->title = 'My Yii Application';
 
+function isCurrentUrlStyle($url){
+  return $url === Url::to('') ? 'active' : '';
+}
+
+$js = <<< JS
+var navLink = $('.sidebar').find('.nav-link');
+var curUrl = window.location.href;
+var linkUrl = navLink.attr('href');
+
+navLink.each(function (index, value) {
+  // var linkUrl = value.attr('href');
+  // if(linkUrl == curUrl){
+  //   value.addClass("active");
+  // }
+if(value)
+  console.log(value);
+});
+// console.log(navLink);
+JS;
+
+$this->registerJs($js);
+
 ?>
 
 <!-- Main Sidebar Container -->
@@ -83,7 +105,7 @@ $this->title = 'My Yii Application';
               </ul>
           </li>
           <!-- ./Категории блога -->
-
+          <hr>
           <!-- Страницы -->
           <li class="nav-item">
             <a href="" class="nav-link">
@@ -109,7 +131,7 @@ $this->title = 'My Yii Application';
               </ul>
           </li>
           <!-- ./Страницы -->
-
+          <hr>
            <!-- Portfolio -->
            <li class="nav-item">
             <a href="" class="nav-link">
@@ -139,7 +161,7 @@ $this->title = 'My Yii Application';
             <a href="" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Категории портфолио
+                Портфолио Категории
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -159,7 +181,59 @@ $this->title = 'My Yii Application';
               </ul>
           </li>
           <!-- ./Portfolio -->
+          <hr>
+          <!-- Price category-->
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Прайс Категории
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/price-category/index']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Обзор</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/price-category/create']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Создать</p>
+                </a>
+              </li>
+              </ul>
+          </li>
+          <!-- ./Price category -->
 
+          <!-- Price -->
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Прайс
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/price/index']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Обзор</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/price/create']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Создать</p>
+                </a>
+              </li>
+              </ul>
+          </li>
+          <!-- ./Price -->
+          <hr>
           <!-- Теги -->
           <li class="nav-item">
             <a href="" class="nav-link">
