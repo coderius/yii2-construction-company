@@ -3,19 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Portfolio;
-use backend\models\PortfolioCategory;
-use backend\models\PortfolioSearch;
+use backend\models\PriceCategory;
+use backend\models\PriceCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
-use yii\helpers\FileHelper;
 
 /**
- * PortfolioController implements the CRUD actions for Portfolio model.
+ * PriceCategoryController implements the CRUD actions for PriceCategory model.
  */
-class PortfolioController extends Controller
+class PriceCategoryController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -33,12 +30,12 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Lists all Portfolio models.
+     * Lists all PriceCategory models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PortfolioSearch();
+        $searchModel = new PriceCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +45,7 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Displays a single Portfolio model.
+     * Displays a single PriceCategory model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,28 +58,25 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Creates a new Portfolio model.
+     * Creates a new PriceCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Portfolio();
+        $model = new PriceCategory();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $mapCategories = ArrayHelper::map(PortfolioCategory::find()->all(), 'id', 'metaTitle');
-
         return $this->render('create', [
             'model' => $model,
-            'mapCategories' => $mapCategories
         ]);
     }
 
     /**
-     * Updates an existing Portfolio model.
+     * Updates an existing PriceCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,22 +85,18 @@ class PortfolioController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->scenario = 'update';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $mapCategories = ArrayHelper::map(PortfolioCategory::find()->all(), 'id', 'metaTitle');
-
         return $this->render('update', [
             'model' => $model,
-            'mapCategories' => $mapCategories
         ]);
     }
 
     /**
-     * Deletes an existing Portfolio model.
+     * Deletes an existing PriceCategory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -115,21 +105,20 @@ class PortfolioController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        $dir = Yii::getAlias('@portfolioPicsPath/'.$id);
-        FileHelper::removeDirectory($dir);
+
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Portfolio model based on its primary key value.
+     * Finds the PriceCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Portfolio the loaded model
+     * @return PriceCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Portfolio::findOne($id)) !== null) {
+        if (($model = PriceCategory::findOne($id)) !== null) {
             return $model;
         }
 

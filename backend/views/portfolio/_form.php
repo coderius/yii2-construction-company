@@ -26,7 +26,7 @@ $this->registerJs($js, \yii\web\View::POS_END);
 
     <?= $form->field($model, 'selectedCategories')
             ->dropDownList(
-                    $mapCategories, 
+                    $mapCategories,
                     [
                         // 'prompt'=>'Выбрать категорию'
                     ]); ?>

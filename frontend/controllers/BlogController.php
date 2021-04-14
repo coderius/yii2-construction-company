@@ -95,6 +95,14 @@ class BlogController extends BaseController
 
     public function actionCategory($alias, $pageNum = null)
     {
+        $page = BlogCategory::findOne(['alias' => $alias]);
+
+        if(null == $page)
+        {
+            throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');
+        }
+
+        // var_dump($page);die;
         $searchModel = new BlogArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $alias);
         $itemsInPage = 9;
@@ -112,7 +120,7 @@ class BlogController extends BaseController
             Yii::$app->response->redirect(Url::toRoute(['/blog']));
         }
         
-        $page = BlogCategory::findOne(['alias' => $alias]);
+        
         // var_dump($page);
         //Meta tags
         $this->blogService->makeBlogMetaTags([

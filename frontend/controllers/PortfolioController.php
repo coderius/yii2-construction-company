@@ -64,7 +64,16 @@ class PortfolioController extends BaseController
      */
     public function actionIndex($pageNum = null)
     {
+        // if($pageNum > ceil($dataProvider->getTotalCount() / $itemsInPage))
+        // {
+        //     throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');
+        // }
         
+        //если введена еденица, делаем редирект на без 1
+        if($pageNum == 1)
+        {
+            Yii::$app->response->redirect(Url::toRoute(['/portfolio', true]));
+        }
 
         return $this->render('index',  [
             
