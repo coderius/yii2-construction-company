@@ -18,22 +18,9 @@ use yii\helpers\FileHelper;
 /**
  * BlogArticleController implements the CRUD actions for BlogArticle model.
  */
-class BlogArticleController extends Controller
+class BlogArticleController extends BaseAdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+    
 
     public function actions()
     {

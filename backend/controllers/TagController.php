@@ -12,23 +12,8 @@ use yii\filters\VerbFilter;
 /**
  * TagController implements the CRUD actions for Tag model.
  */
-class TagController extends Controller
+class TagController extends BaseAdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all Tag models.
      * @return mixed

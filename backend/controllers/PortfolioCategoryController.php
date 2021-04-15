@@ -15,23 +15,9 @@ use backend\models\PortfolioCategoryTag;
 /**
  * PortfolioCategoryController implements the CRUD actions for PortfolioCategory model.
  */
-class PortfolioCategoryController extends Controller
+class PortfolioCategoryController extends BaseAdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
+    
     /**
      * Lists all PortfolioCategory models.
      * @return mixed

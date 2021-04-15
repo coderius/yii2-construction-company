@@ -12,23 +12,9 @@ use yii\filters\VerbFilter;
 /**
  * MenuTopController implements the CRUD actions for MenuTop model.
  */
-class MenuTopController extends Controller
+class MenuTopController extends BaseAdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
+    
     /**
      * Lists all MenuTop models.
      * @return mixed

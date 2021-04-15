@@ -12,23 +12,8 @@ use yii\filters\VerbFilter;
 /**
  * UserManageController implements the CRUD actions for UserManage model.
  */
-class UserManageController extends Controller
+class UserManageController extends BaseAdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all UserManage models.
      * @return mixed

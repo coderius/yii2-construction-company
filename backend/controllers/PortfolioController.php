@@ -15,23 +15,9 @@ use yii\helpers\FileHelper;
 /**
  * PortfolioController implements the CRUD actions for Portfolio model.
  */
-class PortfolioController extends Controller
+class PortfolioController extends BaseAdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
+    
     /**
      * Lists all Portfolio models.
      * @return mixed

@@ -12,23 +12,9 @@ use yii\filters\VerbFilter;
 /**
  * PriceCategoryController implements the CRUD actions for PriceCategory model.
  */
-class PriceCategoryController extends Controller
+class PriceCategoryController extends BaseAdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
+    
     /**
      * Lists all PriceCategory models.
      * @return mixed

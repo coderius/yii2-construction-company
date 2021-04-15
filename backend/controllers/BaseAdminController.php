@@ -42,7 +42,6 @@ class BaseAdminController extends Controller
                     ],
                 ],
                 'denyCallback' => function ($rule, $action) {
-                //    var_dump($rule);
                 //    var_dump($action);
                     Yii::$app->session->setFlash('danger', 'Доступно только для админа!');
                     return $this->redirect(Yii::$app->urlManagerFrontend->createUrl(['/login']));
