@@ -151,6 +151,26 @@ class Tag extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[PortfolioCategoryTags]].
+     *
+     * @return \yii\db\ActiveQuery|yii\db\ActiveQuery
+     */
+    public function getPortfolioCategoryTags()
+    {
+        return $this->hasMany(PortfolioCategoryTag::className(), ['tagId' => 'id']);
+    }
+
+    /**
+     * Gets query for [[PortfolioCategories]].
+     *
+     * @return \yii\db\ActiveQuery|PortfolioCategoryQuery
+     */
+    public function getPortfolioCategories()
+    {
+        return $this->hasMany(PortfolioCategory::className(), ['id' => 'portfolioCategoryId'])->viaTable('portfolio_category_tag', ['tagId' => 'id']);
+    }
+
+    /**
      * {@inheritdoc}
      * @return TagQuery the active query used by this AR class.
      */

@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use common\models\user\User;
 
 /**
  * This is the model class for table "tag".
@@ -26,6 +27,7 @@ use Yii;
 class Tag extends \yii\db\ActiveRecord
 {
     public $surrogateArticleCount;
+    public $surrogatePortfolioCategoriesCount;
     
     /**
      * {@inheritdoc}
@@ -106,6 +108,26 @@ class Tag extends \yii\db\ActiveRecord
     public function getUpdatedBy0()
     {
         return $this->hasOne(User::className(), ['id' => 'updatedBy']);
+    }
+
+    /**
+     * Gets query for [[PortfolioCategoryTags]].
+     *
+     * @return \yii\db\ActiveQuery|yii\db\ActiveQuery
+     */
+    public function getPortfolioCategoryTags()
+    {
+        return $this->hasMany(PortfolioCategoryTag::className(), ['tagId' => 'id']);
+    }
+
+    /**
+     * Gets query for [[PortfolioCategories]].
+     *
+     * @return \yii\db\ActiveQuery|PortfolioCategoryQuery
+     */
+    public function getPortfolioCategories()
+    {
+        return $this->hasMany(PortfolioCategory::className(), ['id' => 'portfolioCategoryId'])->viaTable('portfolio_category_tag', ['tagId' => 'id']);
     }
 
     /**

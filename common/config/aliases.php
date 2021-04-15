@@ -65,4 +65,8 @@ return [
     '@portfolioPicsPath' => '@frontend/web/portfolio',
     '@portfolioPicsWeb' => $baseUrl . '/portfolio',
 
+    '@portfolioCategoryPicsPath' => '@frontend/web/portfolio-categories',
+    '@portfolioCategoryPicsWeb' => $baseUrl . '/portfolio-categories',
+    '@portfolioCategoryPicDefaultWeb' => $baseUrl . '/portfolio-categories/default/middle/default.jpg',
+
 ];

@@ -20,14 +20,14 @@ return [
                 'blog/tag/<alias:[\w_-]+>/<pageNum:\d+>' => 'blog/tag',
                 'blog/tag/<alias:[\w_-]+>' => 'blog/tag',
                 
-                'portfolio/<pageNum:\d+>' => 'portfolio/index',
-                'portfolio' => 'portfolio/index',
+                'portfolios/<pageNum:\d+>' => 'portfolio/index',
+                'portfolios' => 'portfolio/index',
 
-                'portfolio/category/<alias:[\w_-]+>/<pageNum:\d+>' => 'portfolio/category',
-                'portfolio/category/<alias:[\w_-]+>' => 'portfolio/category',
+                'portfolios/category/<alias:[\w_-]+>/<pageNum:\d+>' => 'portfolio/category',
+                'portfolios/category/<alias:[\w_-]+>' => 'portfolio/category',
 
-                'portfolio/tag/<alias:[\w_-]+>/<pageNum:\d+>' => 'portfolio/tag',
-                'portfolio/tag/<alias:[\w_-]+>' => 'portfolio/tag',
+                'portfolios/tag/<alias:[\w_-]+>/<pageNum:\d+>' => 'portfolio/tag',
+                'portfolios/tag/<alias:[\w_-]+>' => 'portfolio/tag',
 
                 'price' => 'price/index',
 
