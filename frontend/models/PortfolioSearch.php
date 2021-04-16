@@ -65,6 +65,11 @@ class PortfolioSearch extends Portfolio
             return $dataProvider;
         }
 
+        $query->joinWith([
+            'category c'
+        ]);
+        $query->where(["c.alias" => $alias]);
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,

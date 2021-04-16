@@ -36,11 +36,9 @@ $this->registerJs($js);
 ],
 // 'itemView' => '_material-list',
 'itemView' => function ($model, $key, $index, $widget) use(&$i) {
+    // $i = 0;
     $i++;
-    return $this->render('_material-list',[
-      'model' => $model, 
-      'show' => in_array($i, [1,3,4,6]),
-    ]);
+    return $this->render('_category-list',['model' => $model, 'show' => in_array($i, [1,3,4,6]) ]);
 
     // or just do some echo
     // return $model->title . ' posted by ' . $model->author;
@@ -54,19 +52,32 @@ $this->registerJs($js);
 'summary' => '',
 ]);
 ?>
+
+
 <!-- Portfolio Start -->
-<div class="portfolio">
+<div class="portfolio blog">
   <div class="container">
       <div class="section-header text-center">
-          <p><?= $header1; ?></p>
+          <p><?= $header1; ?> <span class="text-info"> / Кол-во: (<?= $dataProvider->getTotalCount(); ?>)</span></p>
           <h2><?= $header2; ?></h2>
       </div>
+      
       <div class="row">
         <?= $this->render('_tags', compact('tags', 'allCount')); ?>
       </div>
-      <div class="row portfolio-container">
-      <?php echo $widget->renderItems(); ?>
-      </div>
+
+        <div class="row blog-page">
+        <?php if($dataProvider->getTotalCount() > 0): ?>
+          <?php echo $widget->renderItems(); ?>
+        <?php else: ?>
+          <div class="col-sm-12 portfolio-item first wow fadeInUp" data-wow-delay='0.2s'>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Пока ничего нет...</strong>
+            </div>
+          </div>
+        <?php endif; ?>
+        </div>
+      
       <!-- pagination -->
       <div class="row">
             <div class="col-12">

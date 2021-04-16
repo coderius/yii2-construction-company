@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\PortfolioSearch;
 use frontend\models\PortfolioCategorySearch;
+use frontend\models\PortfolioCategory;
 use frontend\models\Portfolio;
 use frontend\services\portfolio\PortfolioService;
 use yii\helpers\Html;
@@ -13,6 +14,8 @@ use frontend\models\Tag;
 
 class PortfolioController extends \yii\web\Controller
 {
+    public $crumbNamePortfolio = "Портфолио";
+
     private $portfolioService;
 
     public function __construct(
@@ -59,8 +62,15 @@ class PortfolioController extends \yii\web\Controller
 
     public function actionCategory($alias, $pageNum = null)
     {
-        $searchModel = new PortfolioCategorySearch();
-        $dataProvider = $searchModel->searchInCategory(Yii::$app->request->queryParams, $alias);
+        $category = PortfolioCategory::find()->where(['alias' => $alias])->one();
+
+        if(!$category)
+        {
+            throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');
+        }
+
+        $searchModel = new PortfolioSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $alias);
         $itemsInPage = 9;
         $dataProvider->pagination->pageSize = $itemsInPage;
 // var_dump($dataProvider->getModels());die;
@@ -72,20 +82,21 @@ class PortfolioController extends \yii\web\Controller
         //если введена еденица, делаем редирект на без 1
         if($pageNum == 1)
         {
-            Yii::$app->response->redirect(Url::toRoute(['/portfolios']));
+            Yii::$app->response->redirect(Url::toRoute(['/portfolios/category/'.$alias]));
         }
 
         //Meta tags
         $this->portfolioService->makeMetaTags([
-            'metaTitle' => "Тег: " . $dataProvider->getModels()[0]->metaTitle,
-            'description' => "Теги по теме: " . $dataProvider->getModels()[0]->metaDesc,
+            'metaTitle' => "Тег: " . $category->metaTitle,
+            'description' => "Теги по теме: " . $category->metaDesc,
         ]);
 
         return $this->render('category',  [
-            'heading' => $dataProvider->getModels()[0]->headerShort,
-            'crumbName' => $dataProvider->getModels()[0]->headerShort,
-            'heading2' => "Все материалы категории '{$dataProvider->getModels()[0]->headerShort}'",
-            'heading3' => $dataProvider->getModels()[0]->headerLong,
+            'heading' => $category->headerShort,
+            'crumbName' => $category->headerShort,
+            'crumbNamePortfolio' => $this->crumbNamePortfolio,
+            'heading2' => "Все материалы категории '{$category->headerShort}'",
+            'heading3' => $category->headerLong,
             'dataProvider' => $dataProvider
         ]);
     }

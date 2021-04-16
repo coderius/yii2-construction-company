@@ -68,6 +68,9 @@ class PortfolioCategorySearch extends PortfolioCategory
         $query->joinWith([
             'front' => function ($query) {
                 $query->select(['id', 'img', 'imgAlt']);
+            },
+            'createdBy0' => function ($query) {
+                $query->select(['id', 'username']);
             }
         ]);
 
@@ -97,6 +100,7 @@ class PortfolioCategorySearch extends PortfolioCategory
         return $dataProvider;
     }
 
+    //Not used. Dug
     public function searchInCategory($params, $alias)
     {
         $query = PortfolioCategory::find()->where([self::tableName().".alias" => $alias]);
@@ -125,9 +129,9 @@ class PortfolioCategorySearch extends PortfolioCategory
 
         //Join with image in category marked like front image for this category
         $query->joinWith([
-            'portfolio'
+            'category c'
         ]);
-
+        $query->where(["c.alias" => $alias]);
         // if($alias && $type === "tag"){
         //     $query->joinWith('tags');
         //     $query->andWhere(['tag.alias' => $alias]);
