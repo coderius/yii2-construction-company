@@ -26,7 +26,7 @@ if(\Yii::$app->controller->action->id == 'create')
 
 
 <!-- viewCoutn, createdAt, createdBy, img -->
-<div class="blog-article-form">
+<div class="blog-article-form m-2">
 
 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
@@ -221,7 +221,7 @@ if(\Yii::$app->controller->action->id == 'create')
         'automatic_uploads' => true,
         'file_picker_types'=> 'image',
         
-        'toolbar' => "codesample | my-codeblock | undo redo | styleselect | bold italic | h1 | h2| h3 | h4 | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link anchor image imageupload | fontselect | cut copy paste | nonbreaking | fullscreen | code | forecolor backcolor",
+        'toolbar' => "codesample | my-codeblock | undo redo | styleselect | bold italic | table | h1 | h2| h3 | h4 | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link anchor image imageupload | fontselect | cut copy paste | nonbreaking | fullscreen | code | forecolor backcolor",
         'codesample_dialog_height' => new JsExpression("$( window ).height()"),//for codesample
         "codesample_languages"=> new JsExpression("[
             {text: 'PHP', value: 'php'},

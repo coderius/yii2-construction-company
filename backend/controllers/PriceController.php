@@ -15,6 +15,12 @@ use yii\filters\VerbFilter;
 class PriceController extends BaseAdminController
 {
     
+    public function beforeAction($action)
+    {
+        // $this->enableCsrfValidation = false;
+
+        return parent::beforeAction($action);
+    }
 
     /**
      * Lists all Price models.
@@ -25,9 +31,12 @@ class PriceController extends BaseAdminController
         $searchModel = new PriceSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $model = new Price();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
 
@@ -54,12 +63,15 @@ class PriceController extends BaseAdminController
         $model = new Price();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        echo $model->getErrors();
+        die;
+
+        // return $this->render('create', [
+        //     'model' => $model,
+        // ]);
     }
 
     /**
@@ -73,13 +85,25 @@ class PriceController extends BaseAdminController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            if($model->validate()){
+                return ['success' => $model->save()];
+            }else{
+                // $result = [];
+                // foreach ($model->getErrors() as $attribute => $errors) {
+                //     $result[\yii\helpers\Html::getInputId($model, $attribute)] = $errors;
+                // }
+
+                return ['validation' => $model->getErrors()];
+            }
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        if(\Yii::$app->request->isAjax){
+            return $this->renderAjax('update', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**

@@ -4,7 +4,16 @@ namespace backend\models;
 
 use Yii;
 use common\models\user\User;
-
+use yii\behaviors\AttributesBehavior;
+use backend\components\behaviors\blog\UploadFileBehavior;
+use yii\imagine\Image;
+use Imagine\Image\Point;
+use Imagine\Image\Box;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\SluggableBehavior;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
 /**
  * This is the model class for table "price_category".
  *
@@ -26,6 +35,14 @@ use common\models\user\User;
  */
 class PriceCategory extends \yii\db\ActiveRecord
 {
+    const ACTIVE_STATUS = 1;
+    const DISABLED_STATUS = 0;
+    
+    public static $statusesName = [
+        self::ACTIVE_STATUS => 'Активен',
+        self::DISABLED_STATUS => 'Отключен',
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -40,14 +57,17 @@ class PriceCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['alias', 'header', 'createdAt', 'createdBy'], 'required'],
+            [['alias', 'header'], 'required'],
             [['description'], 'string'],
+            ['sortOrder', 'default', 'value' => 1],
+            ['icon', 'default', 'value' => null],
             [['status', 'sortOrder', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
             [['alias', 'header', 'icon'], 'string', 'max' => 255],
             [['alias'], 'unique'],
             [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['createdBy' => 'id']],
             [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updatedBy' => 'id']],
-            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Price::className(), 'targetAttribute' => ['id' => 'categoryId']],
+            // [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Price::className(), 'targetAttribute' => ['id' => 'categoryId']],
+            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'viewCount'], 'safe'],
         ];
     }
 
@@ -68,6 +88,32 @@ class PriceCategory extends \yii\db\ActiveRecord
             'updatedAt' => Yii::t('app', 'Updated At'),
             'createdBy' => Yii::t('app', 'Created By'),
             'updatedBy' => Yii::t('app', 'Updated By'),
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['createdAt'],
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
+
+                ],
+                'value' => function(){
+                    return time();
+                },
+            //'value' => new \yii\db\Expression('NOW()'),
+
+            ],
+            
+            'blameable' => [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'createdBy',
+                'updatedByAttribute' => 'updatedBy',
+            ],
+            
         ];
     }
 

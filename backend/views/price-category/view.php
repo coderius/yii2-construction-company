@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\components\helpers\DateTimeHelper;
+use backend\models\Page;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\PriceCategory */
@@ -36,10 +38,28 @@ $this->params['breadcrumbs'][] = $this->title;
             'icon',
             'status',
             'sortOrder',
-            'createdAt',
-            'updatedAt',
-            'createdBy',
-            'updatedBy',
+            [
+                'attribute' => 'createdAt',
+                'format' => 'raw',
+                'value'  => DateTimeHelper::localeDataFormat($model->createdAt),
+            ],
+            [
+                'attribute' => 'updatedAt',
+                'format' => 'raw',
+                'value'  => DateTimeHelper::localeDataFormat($model->updatedAt),
+            ],
+
+            [
+                'attribute' => 'createdBy',
+                'format' => 'raw',
+                'value'  => $model->getCreatedBy0()->username(),
+            ],
+
+            [
+                'attribute' => 'updatedBy',
+                'format' => 'raw',
+                'value'  => $model->updatedBy ? $model->getUpdatedBy0()->username() : null,
+            ],
         ],
     ]) ?>
 

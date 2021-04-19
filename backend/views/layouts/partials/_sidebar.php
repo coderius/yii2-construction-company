@@ -20,8 +20,8 @@ navLink.each(function (index, value) {
   // if(linkUrl == curUrl){
   //   value.addClass("active");
   // }
-if(value)
-  console.log(value);
+// if(value)
+  // console.log(value);
 });
 // console.log(navLink);
 JS;

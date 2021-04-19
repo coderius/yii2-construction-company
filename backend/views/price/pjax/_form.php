@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap4\ActiveForm;
+use yii\widgets\ActiveForm;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Price */
@@ -9,13 +10,11 @@ use yii\bootstrap4\ActiveForm;
 ?>
 
 <div class="price-form m-2">
-
+<?php Pjax::begin(['id' => 'form-create', 'timeout' => 2000,]) ?>
     <?php $form = ActiveForm::begin([
+        'id' => $formIdSelector,
         'action' => $formAction,
-        'enableAjaxValidation' => true,
-        'options' => [
-            'class' => $formClass,
-        ],
+        'options' => ['data-pjax' => true]
     ]); ?>
 
     <?= $form->field($model, 'categoryId')->textInput() ?>
@@ -33,9 +32,9 @@ use yii\bootstrap4\ActiveForm;
     <?= $form->field($model, 'status')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success', 'id' => 'form-button']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
-
+    <?php Pjax::end(); ?>
 </div>

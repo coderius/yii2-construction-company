@@ -4,6 +4,16 @@ namespace backend\models;
 
 use Yii;
 use common\models\user\User;
+use yii\behaviors\AttributesBehavior;
+use backend\components\behaviors\blog\UploadFileBehavior;
+use yii\imagine\Image;
+use Imagine\Image\Point;
+use Imagine\Image\Box;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\SluggableBehavior;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "price".
@@ -41,12 +51,16 @@ class Price extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['categoryId', 'cost', 'sortOrder', 'status', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
-            [['name', 'cost', 'unit', 'createdAt', 'createdBy'], 'required'],
-            [['name', 'unit', 'equal'], 'string', 'max' => 255],
+            ['sortOrder', 'default', 'value' => 1],
+            ['status', 'default', 'value' => 1],
+            ['sortOrder', 'default', 'value' => 1],
+            [['categoryId', 'sortOrder', 'status'], 'integer'],
+            [['categoryId', 'name', 'cost', 'unit'], 'required'],
+            [['name', 'unit', 'equal', 'cost'], 'string', 'max' => 255],
             [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['createdBy' => 'id']],
             [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updatedBy' => 'id']],
             [['categoryId'], 'exist', 'skipOnError' => true, 'targetClass' => PortfolioCategory::className(), 'targetAttribute' => ['categoryId' => 'id']],
+            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'safe'],
         ];
     }
 
@@ -68,6 +82,31 @@ class Price extends \yii\db\ActiveRecord
             'updatedAt' => Yii::t('app', 'Updated At'),
             'createdBy' => Yii::t('app', 'Created By'),
             'updatedBy' => Yii::t('app', 'Updated By'),
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['createdAt'],
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
+
+                ],
+                'value' => function(){
+                    return time();
+                },
+            //'value' => new \yii\db\Expression('NOW()'),
+
+            ],
+            
+            'blameable' => [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'createdBy',
+                'updatedByAttribute' => 'updatedBy',
+            ],
         ];
     }
 
