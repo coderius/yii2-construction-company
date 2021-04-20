@@ -9,10 +9,11 @@ namespace backend\models;
  */
 class PriceCategoryQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+    public function orderSortOrder()
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+        return $this->orderBy('sortOrder');
+    }
+
 
     /**
      * {@inheritdoc}

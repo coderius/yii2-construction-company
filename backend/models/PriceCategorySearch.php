@@ -46,6 +46,12 @@ class PriceCategorySearch extends PriceCategory
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    // 'created_at' => SORT_DESC,
+                    'sortOrder' => SORT_ASC, 
+                ]
+            ],
         ]);
 
         $this->load($params);

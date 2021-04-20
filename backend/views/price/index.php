@@ -418,3 +418,5 @@ echo Html::a(Yii::t('app', 'Сохранить'), [''], ['id' => 'btn-save-sorti
 echo "</p>";
 
 Modal::end();
+
+?>
