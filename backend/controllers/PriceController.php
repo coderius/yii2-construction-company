@@ -8,6 +8,7 @@ use backend\models\PriceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * PriceController implements the CRUD actions for Price model.
@@ -62,16 +63,31 @@ class PriceController extends BaseAdminController
     {
         $model = new Price();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            if($model->validate()){
+                return ['success' => $model->save()];
+            }else{
+                return ['validation' => $model->getErrors()];
+            }
         }
 
-        echo $model->getErrors();
-        die;
+        if(\Yii::$app->request->isAjax){
+            return $this->renderAjax('create', [
+                'model' => $model,
+            ]);
+        }
 
-        // return $this->render('create', [
-        //     'model' => $model,
-        // ]);
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['index']);
+        // }
+
+        // echo $model->getErrors();
+        // die;
+
+        // // return $this->render('create', [
+        // //     'model' => $model,
+        // // ]);
     }
 
     /**
@@ -90,11 +106,6 @@ class PriceController extends BaseAdminController
             if($model->validate()){
                 return ['success' => $model->save()];
             }else{
-                // $result = [];
-                // foreach ($model->getErrors() as $attribute => $errors) {
-                //     $result[\yii\helpers\Html::getInputId($model, $attribute)] = $errors;
-                // }
-
                 return ['validation' => $model->getErrors()];
             }
         }
@@ -103,6 +114,50 @@ class PriceController extends BaseAdminController
             return $this->renderAjax('update', [
                 'model' => $model,
             ]);
+        }
+    }
+
+    public function actionSortList()
+    {
+        if(\Yii::$app->request->isAjax){
+            $ids = Yii::$app->request->post('ids');
+            
+            if($ids){
+                $model = Price::find()->where(['in', 'id', $ids])->orderSortOrder()->all();
+                
+                $lists = $this->renderAjax('_sort', [
+                    'model' => $model,
+                ]);
+                return $lists;
+            }
+            else{
+                return $this->asJson(['empty' => 'Ничего не выбрано для сортировки!']);
+            }
+        }
+    }
+
+    public function actionSortSave()
+    {
+        if(\Yii::$app->request->isAjax){
+            $items = Yii::$app->request->post('items');
+            // preg_match_all("/(\d+)/", $items, $output);
+            // return $this->asJson($output[1]);
+
+            if($items){
+                preg_match_all("/(\d+)/", $items, $output);
+                $ids = $output[1];
+                $order = 1;
+                $saved = false;
+                foreach($ids as $id){
+                    $model = Price::find()->where(['id' => $id])->one();
+                    $model->sortOrder = $order;
+                    $saved = $model->save();
+                    $order++;
+                }
+                
+                return $saved ? $this->asJson(['success' => 'Ok!']) : $this->asJson(['error' => 'Not saved data!']);
+            }
+            
         }
     }
 
