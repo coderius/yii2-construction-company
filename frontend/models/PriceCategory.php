@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use common\models\user\User;
 
 /**
  * This is the model class for table "price_category".
@@ -26,6 +27,9 @@ use Yii;
  */
 class PriceCategory extends \yii\db\ActiveRecord
 {
+    const ACTIVE_STATUS = 1;
+    const DISABLED_STATUS = 0;
+    
     /**
      * {@inheritdoc}
      */
