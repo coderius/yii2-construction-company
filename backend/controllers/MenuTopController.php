@@ -95,6 +95,50 @@ class MenuTopController extends BaseAdminController
         return $this->redirect(['index']);
     }
 
+    public function actionSortList()
+    {
+        if(\Yii::$app->request->isAjax){
+            $ids = Yii::$app->request->post('ids');
+            
+            if($ids){
+                $model = MenuTop::find()->where(['in', 'id', $ids])->orderSortOrder()->all();
+                
+                $lists = $this->renderAjax('_sort', [
+                    'model' => $model,
+                ]);
+                return $lists;
+            }
+            else{
+                return $this->asJson(['empty' => 'Ничего не выбрано для сортировки!']);
+            }
+        }
+    }
+
+    public function actionSortSave()
+    {
+        if(\Yii::$app->request->isAjax){
+            $items = Yii::$app->request->post('items');
+            // preg_match_all("/(\d+)/", $items, $output);
+            // return $this->asJson($output[1]);
+
+            if($items){
+                preg_match_all("/(\d+)/", $items, $output);
+                $ids = $output[1];
+                $order = 1;
+                $saved = false;
+                foreach($ids as $id){
+                    $model = MenuTop::find()->where(['id' => $id])->one();
+                    $model->sortOrder = $order;
+                    $saved = $model->save();
+                    $order++;
+                }
+                
+                return $saved ? $this->asJson(['success' => 'Ok!']) : $this->asJson(['error' => 'Not saved data!']);
+            }
+            
+        }
+    }
+
     /**
      * Finds the MenuTop model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

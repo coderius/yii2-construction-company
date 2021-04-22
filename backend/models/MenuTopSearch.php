@@ -17,7 +17,7 @@ class MenuTopSearch extends MenuTop
     public function rules()
     {
         return [
-            [['id', 'parentId', 'sortOrder', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
+            [['id', 'parentId', 'sortOrder', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'status'], 'integer'],
             [['alias', 'name'], 'safe'],
         ];
     }
@@ -46,6 +46,12 @@ class MenuTopSearch extends MenuTop
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    // 'created_at' => SORT_DESC,
+                    'sortOrder' => SORT_ASC, 
+                ]
+            ],
         ]);
 
         $this->load($params);
@@ -59,6 +65,7 @@ class MenuTopSearch extends MenuTop
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'status' => $this->status,
             'parentId' => $this->parentId,
             'sortOrder' => $this->sortOrder,
             'createdAt' => $this->createdAt,
