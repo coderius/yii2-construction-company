@@ -44,25 +44,20 @@ class MainController extends BaseController
         return $this->render('about');
     }
 
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+    // public function actionAbout()
+    // {
+    //     return $this->render('about');
+    // }
 
-    public function actionService()
-    {
-        return $this->render('service');
-    }
+    // public function actionService()
+    // {
+    //     return $this->render('service');
+    // }
 
-    public function actionTeam()
-    {
-        return $this->render('team');
-    }
-
-    public function actionPortfolio()
-    {
-        return $this->render('portfolio');
-    }
+    // public function actionTeam()
+    // {
+    //     return $this->render('team');
+    // }
 
     public function actionContact()
     {
