@@ -32,11 +32,16 @@ function transliterate(word, toLowerCase = true){
 
 var \$target = document.querySelector('#$targetId');
 var \$elem = document.querySelector("#$elemId");
-
-\$target.addEventListener('keyup', function(event){
-    // console.log(event.target.value);
-    \$elem.value = transliterate(event.target.value);
+var stopTransleteAlias = false;
+\$target.addEventListener('keyup', function hdlr(event){
+    if(stopTransleteAlias){
+        return;
+    }else{
+        \$elem.value = transliterate(event.target.value);
+    }
+    
 });
+
 
 JS;
 

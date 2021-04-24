@@ -17,6 +17,25 @@ if(\Yii::$app->controller->action->id == 'create')
     \common\components\helpers\InputHelper::inputTranclite($targetId, $elId, $this);
 }
 
+$js = <<< JS
+
+var chB = $('#page-ishome');
+
+chB.change(function() {
+    if(this.checked) {
+        stopTransleteAlias = true;
+    }else{
+        stopTransleteAlias = false;
+    }
+});
+
+
+
+JS;
+
+$this->registerJs($js);
+
+
 /* @var $this yii\web\View */
 /* @var $model backend\models\Page */
 /* @var $form yii\widgets\ActiveForm */
@@ -25,6 +44,8 @@ if(\Yii::$app->controller->action->id == 'create')
 <div class="page-form m-2">
 
     <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'isHome')->checkbox() ?>
 
     <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 

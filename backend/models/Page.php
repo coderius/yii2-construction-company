@@ -19,6 +19,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "page".
  *
  * @property int $id
+ * @property int $isHome
  * @property string $alias
  * @property string $metaTitle
  * @property string $metaDesc
@@ -63,8 +64,9 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             [['alias', 'metaTitle', 'metaDesc', 'status', 'storyText', 'storyButtonTitle'], 'required'],
-            [['status', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
+            [['status', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'isHome'], 'integer'],
             [['storyText', 'storyImg'], 'string'],
+            ['isHome', 'default', 'value' => 0],
             [['alias', 'metaTitle', 'metaDesc', 'storyHeader1', 'storyHeader2', 'storyButtonTitle'], 'string', 'max' => 255],
             [['alias'], 'unique'],
             [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['createdBy' => 'id']],
