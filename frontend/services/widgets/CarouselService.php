@@ -19,7 +19,7 @@ class CarouselService{
         
     }
     
-    public function getPopularPosts()
+    public function getEntities()
     {
         $items = WidgetCarousel::find()
             ->orderBy(['viewCount' => SORT_DESC])

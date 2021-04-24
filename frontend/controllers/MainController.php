@@ -14,6 +14,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\services\main\MainService;
+use frontend\services\widgets\CarouselService;
 
 /**
  * Site controller
@@ -21,16 +22,19 @@ use frontend\services\main\MainService;
 class MainController extends BaseController
 {
     private $mainService;
+    private $carouselService;
 
     public function __construct(
         $id,
         $module,
         MainService $mainService,
+        CarouselService $carouselService,
         $config = []
     )
     {
         parent::__construct($id, $module, $config);
         $this->mainService = $mainService;
+        $this->carouselService = $carouselService;
     }
     
     /**
@@ -51,13 +55,15 @@ class MainController extends BaseController
     public function actionIndex()
     {
         $model = $this->mainService->makeHome();
-    
+        
+        $carousel = $this->carouselService->getEntities();
+
         $this->mainService->makeMetaTags([
             'metaTitle' => $model->metaTitle,
             'description' => $model->metaDesc,
         ]);
 
-        return $this->render('index', compact('model'));
+        return $this->render('index', compact('model', 'carousel'));
     }
 
     public function actionPage()

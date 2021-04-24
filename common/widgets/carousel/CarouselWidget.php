@@ -17,15 +17,15 @@ use Closure;
 class CarouselWidget extends Widget
 {
     public $widgetId;
-    
+    public $entities;
     
     public function init()
     {
         parent::init();
         
-        // if ($this->query === null) {
-        //     throw new InvalidConfigException('The "query" property must be set.');
-        // }
+        if ($this->entities === null) {
+            throw new InvalidConfigException('The "entities" property must be set.');
+        }
         // if ($this->emptyText === null) {
         //     $this->emptyText = Yii::t('yii', 'No results found.');
         // }
@@ -39,7 +39,7 @@ class CarouselWidget extends Widget
     {
         $this->registerAssets();
         
-        return $this->render('index', []);
+        return $this->render('index', compact('entities'));
     }
 
     public function registerAssets()
