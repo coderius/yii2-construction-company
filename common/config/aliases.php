@@ -69,4 +69,10 @@ return [
     '@portfolioCategoryPicsWeb' => $baseUrl . '/portfolio-categories',
     '@portfolioCategoryPicDefaultWeb' => $baseUrl . '/portfolio-categories/default/middle/default.jpg',
 
+    /////////////////////////////////////////////////////////////////////
+    //                          Widget Carousel
+    /////////////////////////////////////////////////////////////////////
+    '@widgetCarouselPicsPath' => '@frontend/web/widget-carousel',
+    '@widgetCarouselPicsWeb' => $baseUrl . '/widget-carousel',
+
 ];

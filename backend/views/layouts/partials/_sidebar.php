@@ -338,7 +338,29 @@ $this->registerJs($js);
           </li>
           <!-- ./Юзеры -->
 
+          <!-- Юзеры-->
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+              Виджеты
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/widget-carousel/index']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Карусель</p>
+                </a>
+              </li>
+              
+              </ul>
+          </li>
+          <!-- ./Юзеры -->
+
         </ul>
+        <div style="padding-bottom:150px;"></div>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
