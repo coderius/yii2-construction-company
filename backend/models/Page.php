@@ -166,10 +166,10 @@ class Page extends \yii\db\ActiveRecord
 
     public function passwordCriteria()
     {
-        if($this->isHome){
+        if($this->isHome && $this->isNewRecord){
             $cnt = self::find()->where(['isHome' => 1])->count();
             if($cnt > 0){
-                $this->addError('isHome','Password must contains eight letters one digit and one character.');
+                $this->addError('isHome','Home page must be only one.');
             }else{
                 return;
             }

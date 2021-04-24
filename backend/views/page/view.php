@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pages'), 'url' => ['
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="page-view">
+<div class="page-view m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ),
             ],
             'metaTitle',
+            'isHome',
             'metaDesc',
             // 'status',
             [

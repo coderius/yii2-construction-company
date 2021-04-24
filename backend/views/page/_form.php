@@ -46,7 +46,7 @@ $this->registerJs($js);
 <div class="page-form m-2">
 
     <?php $form = ActiveForm::begin(); ?>
-
+    
     <?php
     $checkboxTemplate = '<div class="checkbox">{labelTitle}{beginLabel}{input}<span class="slider round"></span>{endLabel}{error}{hint}</div>';
     echo $form->field($model, 'isHome', [

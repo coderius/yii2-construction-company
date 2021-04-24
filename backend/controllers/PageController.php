@@ -69,6 +69,7 @@ class PageController extends BaseAdminController
      */
     public function actionCreate()
     {
+        // $this->enableCsrfValidation = false;
         $model = new Page();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -89,6 +90,7 @@ class PageController extends BaseAdminController
      */
     public function actionUpdate($id)
     {
+        // $this->enableCsrfValidation = false;
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

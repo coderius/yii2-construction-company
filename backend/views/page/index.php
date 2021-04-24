@@ -50,6 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'alias',
+            'isHome',
             [
                 'attribute' => 'metaTitle',
                 'format' => 'raw',
