@@ -300,6 +300,8 @@ $this->registerJs($js);
 
     <?= $form->field($model, 'storyButtonTitle')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'storyButtonAlias')->textInput(['maxlength' => true]) ?>
+
     <?php 
         echo $form->field($model, 'status')->widget(IosStyleToggleSwitchWidget::class, [
             'type' => IosStyleToggleSwitchWidget::CHECKBOX

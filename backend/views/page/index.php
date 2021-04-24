@@ -91,7 +91,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::img("@pageHeaderPicsWeb/{$model->id}/small/{$model->storyImg}", ['alt'=> $model->metaTitle,'title'=> $model->metaTitle, 'style'=>'width: 100px;']);
                 },
             ],
-            //'storyButtonTitle',
+            'storyButtonTitle',
+            'storyButtonAlias',
             [
                 'contentOptions' => ['title' => 'Дата создания', 'style' => 'font-size: 12px'],
                 'attribute' => 'createdAt',

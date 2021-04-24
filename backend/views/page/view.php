@@ -62,6 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'  => Html::img("@pageHeaderPicsWeb/{$model->id}/small/{$model->storyImg}", ['alt'=> $model->storyHeader1,'title'=> $model->storyHeader1, 'style'=>'']),
             ],
             'storyButtonTitle',
+            'storyButtonAlias',
             [
                 'attribute' => 'createdAt',
                 'format' => 'raw',

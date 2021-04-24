@@ -13,12 +13,26 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\services\main\MainService;
 
 /**
  * Site controller
  */
 class MainController extends BaseController
 {
+    private $mainService;
+
+    public function __construct(
+        $id,
+        $module,
+        MainService $mainService,
+        $config = []
+    )
+    {
+        parent::__construct($id, $module, $config);
+        $this->mainService = $mainService;
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -36,7 +50,14 @@ class MainController extends BaseController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = $this->mainService->makeHome();
+    
+        $this->mainService->makeMetaTags([
+            'metaTitle' => $model->metaTitle,
+            'description' => $model->metaDesc,
+        ]);
+
+        return $this->render('index', compact('model'));
     }
 
     public function actionPage()

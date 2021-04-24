@@ -53,7 +53,7 @@ $this->registerJs($js);
 'itemView' => function ($model, $key, $index, $widget) use(&$i) {
     $i++;
     return $this->render('_material-list',[
-      'model' => $model, 
+      'model' => $model,
       'show' => in_array($i, [1,3,4,6]),
     ]);
 

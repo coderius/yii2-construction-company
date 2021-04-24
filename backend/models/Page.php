@@ -20,6 +20,7 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property int $isHome
+ * @property string $storyButtonAlias
  * @property string $alias
  * @property string $metaTitle
  * @property string $metaDesc
@@ -63,7 +64,7 @@ class Page extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['alias', 'metaTitle', 'metaDesc', 'status', 'storyText', 'storyButtonTitle'], 'required'],
+            [['alias', 'metaTitle', 'metaDesc', 'status', 'storyText', 'storyButtonTitle', 'storyButtonAlias'], 'required'],
             [['status', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'isHome'], 'integer'],
             [['storyText', 'storyImg'], 'string'],
             ['isHome', 'default', 'value' => 0],
