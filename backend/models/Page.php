@@ -67,11 +67,12 @@ class Page extends \yii\db\ActiveRecord
             [['status', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'isHome'], 'integer'],
             [['storyText', 'storyImg'], 'string'],
             ['isHome', 'default', 'value' => 0],
+            ['isHome', 'passwordCriteria'],
             [['alias', 'metaTitle', 'metaDesc', 'storyHeader1', 'storyHeader2', 'storyButtonTitle'], 'string', 'max' => 255],
             [['alias'], 'unique'],
             [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['createdBy' => 'id']],
             [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updatedBy' => 'id']],
-            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'safe'],
+            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'isHome'], 'safe'],
         ];
     }
 
@@ -161,6 +162,18 @@ class Page extends \yii\db\ActiveRecord
             ],
 
         ];
+    }
+
+    public function passwordCriteria()
+    {
+        if($this->isHome){
+            $cnt = self::find()->where(['isHome' => 1])->count();
+            if($cnt > 0){
+                $this->addError('isHome','Password must contains eight letters one digit and one character.');
+            }else{
+                return;
+            }
+        }
     }
 
     /**

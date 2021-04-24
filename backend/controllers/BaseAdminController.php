@@ -66,9 +66,9 @@ class BaseAdminController extends Controller
     public function actions()
     {
         return [
-//            'error' => [
-//                'class' => 'yii\web\ErrorAction',
-//            ]
+           'error' => [
+               'class' => 'yii\web\ErrorAction',
+           ]
         ];
     }
     

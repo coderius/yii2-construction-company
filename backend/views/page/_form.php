@@ -39,13 +39,20 @@ $this->registerJs($js);
 /* @var $this yii\web\View */
 /* @var $model backend\models\Page */
 /* @var $form yii\widgets\ActiveForm */
+
+// var_dump($model->getErrors());
 ?>
 
 <div class="page-form m-2">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'isHome')->checkbox() ?>
+    <?php
+    $checkboxTemplate = '<div class="checkbox">{labelTitle}{beginLabel}{input}<span class="slider round"></span>{endLabel}{error}{hint}</div>';
+    echo $form->field($model, 'isHome', [
+        'template' => $checkboxTemplate
+    ])->checkbox();
+    ?>
 
     <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
