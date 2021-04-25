@@ -39,7 +39,7 @@ class CarouselWidget extends Widget
     {
         $this->registerAssets();
         
-        return $this->render('index', compact('entities'));
+        return $this->render('index', ['model' => $this->model]);
     }
 
     public function registerAssets()

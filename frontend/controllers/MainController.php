@@ -56,7 +56,7 @@ class MainController extends BaseController
     {
         $model = $this->mainService->makeHome();
         
-        $carousel = $this->carouselService->getEntities();
+        $carousel = $this->carouselService->getEntities(1);
 
         $this->mainService->makeMetaTags([
             'metaTitle' => $model->metaTitle,

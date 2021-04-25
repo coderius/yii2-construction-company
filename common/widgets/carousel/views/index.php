@@ -6,42 +6,32 @@ use yii\helpers\HtmlPurifier;
 
 // $entities
 
+$countAll = $model->countWidgetCarousels();
 ?>
+
+<?php if($model->hasWidgetCarousels()): ?>
 
 <!-- Carousel Start -->
 <div id="carousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
-        <li data-target="#carousel" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel" data-slide-to="1"></li>
-        <li data-target="#carousel" data-slide-to="2"></li>
+        <?php for($i = 0; $i < $countAll; $i++): ?>
+        <li data-target="#carousel" data-slide-to="<?= $i; ?>" class="<?= $i === 0 ? 'active' : ''; ?>"></li>
+        <?php endfor; ?>
     </ol>
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/carousel-1.jpg" alt="Carousel Image">
+        <?php $counter = 1; ?>
+        <?php foreach($model->widgetCarousels as $item): ?>
+        <div class="carousel-item <?= $counter === 1 ? 'active' : ''; ?>">
+            <?= Html::img("@widgetCarouselPicsWeb/{$item->id}/big/{$item->img}", ['alt'=> $item->header1]); ?>
             <div class="carousel-caption">
-                <p class="animated fadeInRight">We Are Professional</p>
-                <h1 class="animated fadeInLeft">For Your Dream Project</h1>
-                <a class="btn animated fadeInUp" href="https://htmlcodex.com/construction-company-website-template">Get A Quote</a>
+                <p class="animated fadeInRight"><?= $item->header1; ?></p>
+                <h1 class="animated fadeInLeft"><?= $item->header2; ?></h1>
+                <a class="btn animated fadeInUp" href="<?= $item->buttonLink; ?>"><?= $item->buttonTitle; ?></a>
             </div>
         </div>
+        <?php $counter++; ?>
+        <?php endforeach; ?>
 
-        <div class="carousel-item">
-            <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/carousel-2.jpg" alt="Carousel Image">
-            <div class="carousel-caption">
-                <p class="animated fadeInRight">Professional Builder</p>
-                <h1 class="animated fadeInLeft">We Build Your Home</h1>
-                <a class="btn animated fadeInUp" href="https://htmlcodex.com/construction-company-website-template">Get A Quote</a>
-            </div>
-        </div>
-
-        <div class="carousel-item">
-            <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/carousel-3.jpg" alt="Carousel Image">
-            <div class="carousel-caption">
-                <p class="animated fadeInRight">We Are Trusted</p>
-                <h1 class="animated fadeInLeft">For Your Dream Home</h1>
-                <a class="btn animated fadeInUp" href="https://htmlcodex.com/construction-company-website-template">Get A Quote</a>
-            </div>
-        </div>
     </div>
 
     <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
@@ -54,3 +44,5 @@ use yii\helpers\HtmlPurifier;
     </a>
 </div>
 <!-- Carousel End -->
+
+<?php endif; ?>

@@ -57,6 +57,24 @@ class Widgets extends \yii\db\ActiveRecord
         return $this->hasMany(WidgetCarousel::className(), ['widgetId' => 'id']);
     }
 
+    //-----------
+    //Has methods
+    //-----------
+
+    public function countWidgetCarousels()
+    {
+        return $this->getWidgetCarousels()->count();
+    }
+
+    public function hasWidgetCarousels()
+    {
+        return (bool) $this->countWidgetCarousels();
+    }
+
+    //-----------
+    //Has methods
+    //-----------
+
     /**
      * {@inheritdoc}
      * @return WidgetsQuery the active query used by this AR class.
