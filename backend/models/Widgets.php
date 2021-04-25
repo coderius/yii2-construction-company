@@ -13,6 +13,8 @@ use Yii;
  */
 class Widgets extends \yii\db\ActiveRecord
 {
+    const TYPE = "widget_carousel";
+    
     /**
      * {@inheritdoc}
      */
@@ -43,6 +45,16 @@ class Widgets extends \yii\db\ActiveRecord
             'type' => Yii::t('app', 'Type'),
             'descriptions' => Yii::t('app', 'Descriptions'),
         ];
+    }
+
+    /**
+     * Gets query for [[WidgetCarousels]].
+     *
+     * @return \yii\db\ActiveQuery|WidgetCarouselQuery
+     */
+    public function getWidgetCarousels()
+    {
+        return $this->hasMany(WidgetCarousel::class, ['widgetId' => 'id']);
     }
 
     /**

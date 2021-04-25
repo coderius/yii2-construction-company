@@ -30,6 +30,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            'widgetId',
+            [
+                'label' => 'widget description',
+                'format' => 'raw',
+                'value'  => call_user_func(
+                            function ($model){ 
+                                return $model->widget->descriptions;
+                    
+                            }, $model
+                        
+                        ),
+            ],
             'header1',
             'header2',
             'buttonTitle',

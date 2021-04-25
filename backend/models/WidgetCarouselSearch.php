@@ -18,7 +18,7 @@ class WidgetCarouselSearch extends WidgetCarousel
     {
         return [
             [['id'], 'integer'],
-            [['header1', 'header2', 'buttonTitle', 'buttonLink', 'img', 'imgAlt'], 'safe'],
+            [['header1', 'header2', 'buttonTitle', 'buttonLink', 'img', 'imgAlt', 'widgetId', 'sortOrder'], 'safe'],
         ];
     }
 
@@ -71,6 +71,8 @@ class WidgetCarouselSearch extends WidgetCarousel
             ->andFilterWhere(['like', 'buttonTitle', $this->buttonTitle])
             ->andFilterWhere(['like', 'buttonLink', $this->buttonLink])
             ->andFilterWhere(['like', 'img', $this->img])
+            ->andFilterWhere(['like', 'widgetId', $this->widgetId])
+            ->andFilterWhere(['like', 'sortOrder', $this->sortOrder])
             ->andFilterWhere(['like', 'imgAlt', $this->imgAlt]);
 
         return $dataProvider;

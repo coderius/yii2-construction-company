@@ -9,11 +9,14 @@ use yii\imagine\Image;
 use Imagine\Image\Point;
 use Imagine\Image\Box;
 use \yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
+use yii\behaviors\AttributesBehavior;
 
 /**
  * This is the model class for table "widget_carousel".
  *
  * @property int $id
+ * @property int $widgetId
  * @property string $header1
  * @property string $header2
  * @property string $buttonTitle
@@ -23,8 +26,15 @@ use \yii\db\ActiveRecord;
  */
 class WidgetCarousel extends ActiveRecord
 {
+    public $selectedWidget;
     public $file;
     
+    public function init(){
+        $this->on(self::EVENT_AFTER_FIND, [$this, 'initSelectedVirtualAttributes']);
+      
+        parent::init();
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -39,7 +49,7 @@ class WidgetCarousel extends ActiveRecord
     public function rules()
     {
         return [
-            [['header1', 'header2', 'buttonTitle', 'buttonLink', 'img', 'imgAlt'], 'required'],
+            [['header1', 'header2', 'buttonTitle', 'buttonLink', 'img', 'imgAlt', 'selectedWidget'], 'required'],
             [['header1', 'header2', 'buttonTitle', 'buttonLink', 'img', 'imgAlt'], 'string', 'max' => 255],
             ['sortOrder', 'default', 'value' => 1],
             [['sortOrder', 'widgetId'], 'safe'],
@@ -84,18 +94,33 @@ class WidgetCarousel extends ActiveRecord
                     ],
                 ]
             ],
-            // 'attribute' => [
-            //     'class' => AttributesBehavior::class,
-            //     'attributes' => [
-            //         // 'widgetId' => [
-            //         //     ActiveRecord::EVENT_BEFORE_INSERT  => [$this, 'makeTagsRelation'],
-            //         // ],
-                    
-                    
-            //     ],
-            // ],
+            'attribute' => [
+                'class' => AttributesBehavior::class,
+                'attributes' => [
+                    'widgetId' => [
+                        ActiveRecord::EVENT_BEFORE_INSERT  => [$this, 'makeWidgetId'],
+                        ActiveRecord::EVENT_BEFORE_UPDATE  => [$this, 'makeWidgetId']
+                    ],
+                ],
+            ],
 
         ];
+    }
+
+    public function makeWidgetId()
+    {
+        return $this->selectedWidget;
+    }
+
+    /**
+     * For populate input form in update mode
+     *
+     * @return void
+     */
+    public function initSelectedVirtualAttributes()
+    {
+        $this->selectedWidget = ArrayHelper::getColumn($this->getWidget()->asArray()->all(), 'id');
+        Yii::info('Selected Virtual Attributes is loaded.', __METHOD__);
     }
 
     /**
@@ -105,19 +130,10 @@ class WidgetCarousel extends ActiveRecord
      */
     public function getWidget()
     {
-        return $this->hasOne(WidgetCarousel::class, ['id' => 'widgetId']);
+        return $this->hasOne(Widgets::class, ['id' => 'widgetId']);
     }
 
-    /**
-     * Gets query for [[WidgetCarousels]].
-     *
-     * @return \yii\db\ActiveQuery|WidgetCarouselQuery
-     */
-    public function getWidgetCarousels()
-    {
-        return $this->hasMany(WidgetCarousel::class, ['widgetId' => 'id']);
-    }
-
+    
     /**
      * {@inheritdoc}
      * @return WidgetCarouselQuery the active query used by this AR class.

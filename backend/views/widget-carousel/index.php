@@ -134,6 +134,7 @@ $this->registerJs($js);
             
             'id',
             'sortOrder',
+            'widgetId',
             'header1',
             'header2',
             'buttonTitle',

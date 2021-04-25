@@ -4,15 +4,27 @@ use yii\helpers\Html;
 use dosamigos\fileinput\BootstrapFileInput;
 use yii\bootstrap4\ActiveForm;
 use yii\web\JsExpression;
+use yii\helpers\ArrayHelper;
+use backend\models\Widgets;
+
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\WidgetCarousel */
 /* @var $form yii\widgets\ActiveForm */
+
+var_dump($model->getErrors());
 ?>
 
 <div class="widget-carousel-form m-2">
 
     <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'selectedWidget')
+            ->dropDownList(
+                ArrayHelper::map(Widgets::find()->where(['type' => Widgets::TYPE])->all(), 'id', 'descriptions'),
+                    [
+                        'prompt'=>'Выбрать категорию'
+                    ]); ?>
 
     <?= $form->field($model, 'header1')->textInput(['maxlength' => true]) ?>
 
