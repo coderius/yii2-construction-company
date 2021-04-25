@@ -58,6 +58,16 @@ class WidgetCarousel extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Widget]].
+     *
+     * @return \yii\db\ActiveQuery|WidgetsQuery
+     */
+    public function getWidget()
+    {
+        return $this->hasOne(Widgets::class, ['id' => 'widgetId']);
+    }
+
+    /**
      * {@inheritdoc}
      * @return WidgetCarouselQuery the active query used by this AR class.
      */
