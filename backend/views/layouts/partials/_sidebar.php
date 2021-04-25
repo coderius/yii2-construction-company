@@ -347,6 +347,16 @@ $this->registerJs($js);
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/widgets/index']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Виджет</p>
+                </a>
+              </li>
+            </ul>
+
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="<?= Url::toRoute(['/widget-carousel/index']); ?>" class="nav-link">
@@ -354,8 +364,8 @@ $this->registerJs($js);
                   <p>Карусель</p>
                 </a>
               </li>
-              
-              </ul>
+            </ul>
+
           </li>
           <!-- ./Юзеры -->
 

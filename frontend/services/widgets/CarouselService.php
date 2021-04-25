@@ -22,7 +22,7 @@ class CarouselService{
     public function getEntities()
     {
         $items = WidgetCarousel::find()
-            ->orderBy(['viewCount' => SORT_DESC])
+            ->orderBy(['sortOrder' => SORT_DESC])
             ->all();
 
         return $items;

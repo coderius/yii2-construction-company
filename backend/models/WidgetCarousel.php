@@ -8,7 +8,7 @@ use backend\components\behaviors\blog\UploadFileBehavior;
 use yii\imagine\Image;
 use Imagine\Image\Point;
 use Imagine\Image\Box;
-
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "widget_carousel".
@@ -21,7 +21,7 @@ use Imagine\Image\Box;
  * @property string $img
  * @property string $imgAlt
  */
-class WidgetCarousel extends \yii\db\ActiveRecord
+class WidgetCarousel extends ActiveRecord
 {
     public $file;
     
@@ -42,7 +42,7 @@ class WidgetCarousel extends \yii\db\ActiveRecord
             [['header1', 'header2', 'buttonTitle', 'buttonLink', 'img', 'imgAlt'], 'required'],
             [['header1', 'header2', 'buttonTitle', 'buttonLink', 'img', 'imgAlt'], 'string', 'max' => 255],
             ['sortOrder', 'default', 'value' => 1],
-            [['sortOrder'], 'safe'],
+            [['sortOrder', 'widgetId'], 'safe'],
         ];
     }
 
@@ -84,8 +84,38 @@ class WidgetCarousel extends \yii\db\ActiveRecord
                     ],
                 ]
             ],
+            // 'attribute' => [
+            //     'class' => AttributesBehavior::class,
+            //     'attributes' => [
+            //         // 'widgetId' => [
+            //         //     ActiveRecord::EVENT_BEFORE_INSERT  => [$this, 'makeTagsRelation'],
+            //         // ],
+                    
+                    
+            //     ],
+            // ],
 
         ];
+    }
+
+    /**
+     * Gets query for [[Widget]].
+     *
+     * @return \yii\db\ActiveQuery|WidgetCarouselQuery
+     */
+    public function getWidget()
+    {
+        return $this->hasOne(WidgetCarousel::class, ['id' => 'widgetId']);
+    }
+
+    /**
+     * Gets query for [[WidgetCarousels]].
+     *
+     * @return \yii\db\ActiveQuery|WidgetCarouselQuery
+     */
+    public function getWidgetCarousels()
+    {
+        return $this->hasMany(WidgetCarousel::class, ['widgetId' => 'id']);
     }
 
     /**

@@ -17,14 +17,14 @@ use Closure;
 class CarouselWidget extends Widget
 {
     public $widgetId;
-    public $entities;
+    public $model;
     
     public function init()
     {
         parent::init();
         
-        if ($this->entities === null) {
-            throw new InvalidConfigException('The "entities" property must be set.');
+        if ($this->model === null) {
+            throw new InvalidConfigException('The "model" property must be set.');
         }
         // if ($this->emptyText === null) {
         //     $this->emptyText = Yii::t('yii', 'No results found.');

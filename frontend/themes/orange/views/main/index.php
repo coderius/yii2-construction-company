@@ -15,7 +15,7 @@ use common\widgets\blogList\BlogListWidget;
 $this->title = 'My Yii Application';
 ?>
 
-<?php echo CarouselWidget::widget(['carousel' => $carousel]) ?>
+<?php echo CarouselWidget::widget(['model' => $carousel]) ?>
 
 <?php echo FeatureWidget::widget([]) ?>
 

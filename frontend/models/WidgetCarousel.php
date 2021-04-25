@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "widget_carousel".
  *
  * @property int $id
+ * @property int $widgetId
  * @property int $sortOrder
  * @property string $header1
  * @property string $header2
@@ -35,6 +36,7 @@ class WidgetCarousel extends \yii\db\ActiveRecord
             [['sortOrder'], 'integer'],
             [['header1', 'header2', 'buttonTitle', 'buttonLink', 'img', 'imgAlt'], 'required'],
             [['header1', 'header2', 'buttonTitle', 'buttonLink', 'img', 'imgAlt'], 'string', 'max' => 255],
+            ['widgetId', 'safe']
         ];
     }
 
