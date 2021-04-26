@@ -63,7 +63,7 @@ class MainController extends BaseController
         $model = $this->mainService->makeHome();
 
         $template = $this->widgetLayoutService->getTemplate($model->id, WidgetLayoutService::PAGETYPE_PAGE);
-        // var_dump($template);die;
+        // Past to view vars and then to widget WidgetLayout
         Yii::$app->getView()->params['WidgetLayout']['template'] = $template;
 
         $carousel = $this->carouselService->getEntities(1);
