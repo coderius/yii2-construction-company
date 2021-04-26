@@ -15,6 +15,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\services\main\MainService;
 use frontend\services\widgets\CarouselService;
+use frontend\services\widgetLayout\WidgetLayoutService;
 
 /**
  * Site controller
@@ -23,18 +24,21 @@ class MainController extends BaseController
 {
     private $mainService;
     private $carouselService;
+    private $widgetLayoutService;
 
     public function __construct(
         $id,
         $module,
         MainService $mainService,
         CarouselService $carouselService,
+        WidgetLayoutService $widgetLayoutService,
         $config = []
     )
     {
         parent::__construct($id, $module, $config);
         $this->mainService = $mainService;
         $this->carouselService = $carouselService;
+        $this->widgetLayoutService = $widgetLayoutService;
     }
     
     /**
@@ -54,8 +58,14 @@ class MainController extends BaseController
      */
     public function actionIndex()
     {
+        $this->layout = 'home';
+
         $model = $this->mainService->makeHome();
-        
+
+        $template = $this->widgetLayoutService->getTemplate($model->id, WidgetLayoutService::PAGETYPE_PAGE);
+        // var_dump($template);die;
+        Yii::$app->getView()->params['WidgetLayout']['template'] = $template;
+
         $carousel = $this->carouselService->getEntities(1);
 
         $this->mainService->makeMetaTags([

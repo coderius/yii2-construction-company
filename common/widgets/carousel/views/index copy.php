@@ -6,10 +6,10 @@ use yii\helpers\HtmlPurifier;
 
 // $entities
 
-$countAll = count($model);
+$countAll = $model->countWidgetCarousels();
 ?>
 
-<?php if($model): ?>
+<?php if($model->hasWidgetCarousels()): ?>
 
 <!-- Carousel Start -->
 <div id="carousel" class="carousel slide" data-ride="carousel">
@@ -20,7 +20,7 @@ $countAll = count($model);
     </ol>
     <div class="carousel-inner">
         <?php $counter = 1; ?>
-        <?php foreach($model as $item): ?>
+        <?php foreach($model->widgetCarousels as $item): ?>
         <div class="carousel-item <?= $counter === 1 ? 'active' : ''; ?>">
             <?= Html::img("@widgetCarouselPicsWeb/{$item->id}/big/{$item->img}", ['alt'=> $item->header1]); ?>
             <div class="carousel-caption">

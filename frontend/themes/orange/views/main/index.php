@@ -17,7 +17,7 @@ $this->title = 'My Yii Application';
 // var_dump($carousel->countWidgetCarousels());
 ?>
 
-<?php echo CarouselWidget::widget(['model' => $carousel]) ?>
+<?php //echo CarouselWidget::widget(['model' => $carousel]) ?>
 
 <?php echo FeatureWidget::widget([]) ?>
 
