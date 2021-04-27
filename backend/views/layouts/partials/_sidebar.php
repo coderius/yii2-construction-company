@@ -352,7 +352,7 @@ $this->registerJs($js);
               <li class="nav-item">
                 <a href="<?= Url::toRoute(['/widgets/index']); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Виджет</p>
+                  <p>Регистрация виджета</p>
                 </a>
               </li>
             </ul>
