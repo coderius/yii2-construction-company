@@ -58,7 +58,7 @@ class MainController extends BaseController
      */
     public function actionIndex()
     {
-        $this->layout = 'home';
+        $this->layout = '_home';
 
         $model = $this->mainService->makeHome();
 

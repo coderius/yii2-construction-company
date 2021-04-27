@@ -6,22 +6,25 @@ use yii\helpers\HtmlPurifier;
 
 ?>
 
+<?php if($model): ?>
 <!-- Feature Start-->
 <div class="feature wow fadeInUp" data-wow-delay="0.1s">
     <div class="container-fluid">
         <div class="row align-items-center">
+            <?php foreach($model as $item): ?>
             <div class="col-lg-4 col-md-12">
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <i class="flaticon-worker"></i>
+                    <?= $item->icon; ?>
                     </div>
                     <div class="feature-text">
-                        <h3>Expert Worker</h3>
-                        <p>Lorem ipsum dolor sit amet elit. Phasus nec pretim ornare velit non</p>
+                        <h3><?= $item->header; ?></h3>
+                        <p><?= $item->text; ?></p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-12">
+            <?php endforeach; ?>
+            <!-- <div class="col-lg-4 col-md-12">
                 <div class="feature-item">
                     <div class="feature-icon">
                         <i class="flaticon-building"></i>
@@ -43,7 +46,8 @@ use yii\helpers\HtmlPurifier;
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- Feature End-->
+<?php endif; ?>

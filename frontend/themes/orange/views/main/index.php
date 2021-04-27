@@ -19,7 +19,7 @@ $this->title = 'My Yii Application';
 
 <?php //echo CarouselWidget::widget(['model' => $carousel]) ?>
 
-<?php echo FeatureWidget::widget([]) ?>
+<?php //echo FeatureWidget::widget([]) ?>
 
 
 <!-- About Start -->

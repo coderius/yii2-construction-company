@@ -5,6 +5,14 @@ use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\Html;
 use frontend\models\Widgets;
+use common\widgets\feature\FeatureWidget;
+use common\widgets\fact\FactWidget;
+use common\widgets\gallery\GalleryWidget;
+use common\widgets\video\VideoWidget;
+use common\widgets\socialGallery\SocialGalleryWidget;
+use common\widgets\faq\FaqWidget;
+use common\widgets\testimonial\TestimonialWidget;
+use common\widgets\blogList\BlogListWidget;
 
 class WidgetLayout extends Widget
 {
@@ -26,10 +34,12 @@ class WidgetLayout extends Widget
      */
     public $typesWidget = [
         'widget_carousel' => \common\widgets\carousel\CarouselWidget::class,
+        'widget_feature' => \common\widgets\feature\FeatureWidget::class,
     ];
 
     public $typesModel = [
         'widget_carousel' => \frontend\models\WidgetCarousel::class,
+        'widget_feature' => \frontend\models\WidgetFeature::class,
     ];
 
     /**
@@ -94,9 +104,9 @@ class WidgetLayout extends Widget
                 $type = $w->type;
                 $widgetClass = $this->typesWidget[$type];
                 $modelClass = $this->typesModel[$type];
-                $model = $modelClass::find()->where(['widgetId' => $id])->all();
+                $model = $modelClass::find()->where(['widgetId' => $id])->orderBy(['sortOrder' => SORT_ASC])->all();
                 $widget = $widgetClass::widget(['model' => $model]);
-
+// var_dump($widgetClass);
                 $result[] = $widget;
             }
         }
