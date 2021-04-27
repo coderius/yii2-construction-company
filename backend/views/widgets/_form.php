@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
+use backend\models\Widgets;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Widgets */
@@ -12,8 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'type')->dropDownList([ 'widget_carousel' => 'Widget carousel', ], ['prompt' => '']) ?>
-
+    <?= $form->field($model, 'type')->dropDownList(Widgets::widgetTypes(), ['prompt' => 'Выбрать ...']) ?>
+   
     <?= $form->field($model, 'descriptions')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">

@@ -130,7 +130,10 @@ $this->registerJs($js);
                 'cssClass' => 'checkbox-class'
             ],
 
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                'contentOptions' => ['style' => 'font-size: 100%; color: #d2d2d2;']
+            ],
             
             'id',
             'sortOrder',

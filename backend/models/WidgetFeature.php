@@ -34,6 +34,7 @@ class WidgetFeature extends \yii\db\ActiveRecord
         return [
             [['widgetId', 'icon', 'header', 'text'], 'required'],
             [['widgetId', 'sortOrder'], 'integer'],
+            [['sortOrder'], 'default', 'value' => 1],
             [['text'], 'string'],
             [['icon', 'header'], 'string', 'max' => 255],
             [['widgetId'], 'exist', 'skipOnError' => true, 'targetClass' => Widgets::className(), 'targetAttribute' => ['widgetId' => 'id']],

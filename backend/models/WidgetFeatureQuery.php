@@ -9,10 +9,10 @@ namespace backend\models;
  */
 class WidgetFeatureQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+    public function orderSortOrder()
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+        return $this->orderBy('sortOrder');
+    }
 
     /**
      * {@inheritdoc}

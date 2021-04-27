@@ -8,6 +8,7 @@ use backend\models\WidgetCarouselSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
 
 /**
  * WidgetCarouselController implements the CRUD actions for WidgetCarousel model.
@@ -105,6 +106,8 @@ class WidgetCarouselController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        $dir = Yii::getAlias('@widgetCarouselPicsPath/'.$id);
+        FileHelper::removeDirectory($dir);
 
         return $this->redirect(['index']);
     }

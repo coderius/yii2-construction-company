@@ -13,8 +13,17 @@ use Yii;
  */
 class Widgets extends \yii\db\ActiveRecord
 {
-    const TYPE = "widget_carousel";
+    const TYPE_CAROUSEL = "widget_carousel";
+    const TYPE_FEATURE = "widget_feature";
     
+
+    public static function widgetTypes(){
+        return [
+            self::TYPE_CAROUSEL => 'widget carousel',
+            self::TYPE_FEATURE  => 'widget feature',
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
