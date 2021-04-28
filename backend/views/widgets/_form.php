@@ -16,6 +16,8 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'type')->dropDownList(Widgets::widgetTypes(), ['prompt' => 'Выбрать ...']) ?>
    
+    <?= $form->field($model, 'header')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'descriptions')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">

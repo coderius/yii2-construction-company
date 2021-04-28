@@ -6,8 +6,6 @@ use yii\bootstrap4\ActiveForm;
 use yii\web\JsExpression;
 use yii\helpers\ArrayHelper;
 use backend\models\Widgets;
-use yii\helpers\ArrayHelper;
-
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\WidgetCarousel */

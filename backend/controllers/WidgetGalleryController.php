@@ -8,6 +8,7 @@ use backend\models\WidgetGallerySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
 
 /**
  * WidgetGalleryController implements the CRUD actions for WidgetGallery model.
@@ -95,6 +96,51 @@ class WidgetGalleryController extends Controller
         ]);
     }
 
+    public function actionSortList()
+    {
+        if(\Yii::$app->request->isAjax){
+            $ids = Yii::$app->request->post('ids');
+            
+            if($ids){
+                $model = WidgetGallery::find()->where(['in', 'id', $ids])->orderSortOrder()->all();
+                
+                $lists = $this->renderAjax('_sort', [
+                    'model' => $model,
+                ]);
+                return $lists;
+            }
+            else{
+                return $this->asJson(['empty' => 'Ничего не выбрано для сортировки!']);
+            }
+        }
+    }
+
+    public function actionSortSave()
+    {
+        if(\Yii::$app->request->isAjax){
+            $items = Yii::$app->request->post('items');
+            // preg_match_all("/(\d+)/", $items, $output);
+            // return $this->asJson($output[1]);
+
+            if($items){
+                preg_match_all("/(\d+)/", $items, $output);
+                $ids = $output[1];
+                $order = 1;
+                $saved = false;
+                foreach($ids as $id){
+                    $model = WidgetGallery::find()->where(['id' => $id])->one();
+                    $model->sortOrder = $order;
+                    $saved = $model->save();
+                    $order++;
+                }
+                
+                return $saved ? $this->asJson(['success' => 'Ok!']) : $this->asJson(['error' => 'Not saved data!']);
+            }
+            
+        }
+    }
+
+
     /**
      * Deletes an existing WidgetGallery model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -105,6 +151,9 @@ class WidgetGalleryController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
+        $dir = Yii::getAlias('@widgetGalleryPicsPath/'.$id);
+        FileHelper::removeDirectory($dir);
 
         return $this->redirect(['index']);
     }

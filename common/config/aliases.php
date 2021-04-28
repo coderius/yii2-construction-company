@@ -75,4 +75,9 @@ return [
     '@widgetCarouselPicsPath' => '@frontend/web/widget-carousel',
     '@widgetCarouselPicsWeb' => $baseUrl . '/widget-carousel',
 
+    /////////////////////////////////////////////////////////////////////
+    //                          Widget Gallery
+    /////////////////////////////////////////////////////////////////////
+    '@widgetGalleryPicsPath' => '@frontend/web/widget-gallery',
+    '@widgetGalleryPicsWeb' => $baseUrl . '/widget-gallery',
 ];

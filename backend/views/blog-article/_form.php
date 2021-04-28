@@ -71,8 +71,6 @@ if(\Yii::$app->controller->action->id == 'create')
                             'minImageHeight'=> 300,
                         ],
                                                 ]);
-
-
     ?>
 
     <?= $form->field($model, 'imgAlt')->textInput(['maxlength' => true]) ?>

@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $type
  * @property string $descriptions
+ * @property string $header
  */
 class Widgets extends \yii\db\ActiveRecord
 {
@@ -19,13 +20,24 @@ class Widgets extends \yii\db\ActiveRecord
     const TYPE_CAROUSEL = "widget_carousel";
     const TYPE_FEATURE = "widget_feature";
     const TYPE_FACT = "widget_fact";
-    
+    const TYPE_GALLERY = "widget_gallery";
+    const TYPE_VIDEO = "widget_video";
+    const TYPE_SOCIALGALLERY = "widget_socialgallery";
+    const TYPE_FAQ = "widget_faq";
+    const TYPE_TESTIMONIAL = "widget_testimonial";
+    const TYPE_BLOGLIST = "widget_bloglist";
 
     public static function widgetTypes(){
         return [
             self::TYPE_CAROUSEL => 'widget carousel',
             self::TYPE_FEATURE  => 'widget feature',
             self::TYPE_FACT  => 'widget fact',
+            self::TYPE_GALLERY => 'widget_gallery',
+            self::TYPE_VIDEO  => 'widget_video',
+            self::TYPE_SOCIALGALLERY  => 'widget_socialgallery',
+            self::TYPE_FAQ => 'widget_faq',
+            self::TYPE_TESTIMONIAL  => 'widget_testimonial',
+            self::TYPE_BLOGLIST  => 'widget_bloglist',
         ];
     }
 
@@ -43,8 +55,8 @@ class Widgets extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'descriptions'], 'required'],
-            [['type'], 'string'],
+            [['type', 'descriptions', 'header'], 'required'],
+            [['type', 'header'], 'string'],
             [['descriptions'], 'string', 'max' => 255],
         ];
     }
@@ -58,6 +70,7 @@ class Widgets extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'type' => Yii::t('app', 'Type'),
             'descriptions' => Yii::t('app', 'Descriptions'),
+            'header' => Yii::t('app', 'Header'),
         ];
     }
 
