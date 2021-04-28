@@ -17,7 +17,7 @@ use Closure;
 class TestimonialWidget extends Widget
 {
     public $widgetId;
-    
+    public $params = [];
     
     public function init()
     {

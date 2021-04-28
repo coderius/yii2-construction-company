@@ -17,7 +17,7 @@ use Closure;
 class BlogListWidget extends Widget
 {
     public $widgetId;
-    
+    public $params = [];
     
     public function init()
     {

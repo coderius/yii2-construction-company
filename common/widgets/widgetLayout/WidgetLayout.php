@@ -107,7 +107,7 @@ class WidgetLayout extends Widget
                 $widgetClass = $this->typesWidget[$type];
                 $modelClass = $this->typesModel[$type];
                 $model = $modelClass::find()->where(['widgetId' => $id])->orderBy(['sortOrder' => SORT_ASC])->all();
-                $widget = $widgetClass::widget(['model' => $model]);
+                $widget = $widgetClass::widget(['model' => $model, 'params' => []]);
 // var_dump($widget);
                 $result[] = $widget;
             }

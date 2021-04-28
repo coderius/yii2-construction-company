@@ -18,6 +18,7 @@ class CarouselWidget extends Widget
 {
     public $widgetId;
     public $model;
+    public $params = [];
     
     public function init()
     {
