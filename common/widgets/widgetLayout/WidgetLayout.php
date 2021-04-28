@@ -35,11 +35,13 @@ class WidgetLayout extends Widget
     public $typesWidget = [
         'widget_carousel' => \common\widgets\carousel\CarouselWidget::class,
         'widget_feature' => \common\widgets\feature\FeatureWidget::class,
+        'widget_fact' => \common\widgets\fact\FactWidget::class,
     ];
 
     public $typesModel = [
         'widget_carousel' => \frontend\models\WidgetCarousel::class,
         'widget_feature' => \frontend\models\WidgetFeature::class,
+        'widget_fact' => \frontend\models\WidgetFact::class,
     ];
 
     /**
@@ -106,7 +108,7 @@ class WidgetLayout extends Widget
                 $modelClass = $this->typesModel[$type];
                 $model = $modelClass::find()->where(['widgetId' => $id])->orderBy(['sortOrder' => SORT_ASC])->all();
                 $widget = $widgetClass::widget(['model' => $model]);
-// var_dump($widgetClass);
+// var_dump($widget);
                 $result[] = $widget;
             }
         }

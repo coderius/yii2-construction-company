@@ -46,7 +46,7 @@ $this->title = 'My Yii Application';
 </div>
 <!-- About End -->
 
-<?php echo FactWidget::widget([]) ?>
+<?php //echo FactWidget::widget([]) ?>
 
 <!-- Services -->
 <?php echo GalleryWidget::widget([]) ?>

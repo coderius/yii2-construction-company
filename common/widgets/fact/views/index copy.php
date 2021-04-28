@@ -4,40 +4,40 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\HtmlPurifier;
 
-/**
- * In one row has two items
- * Find count rows and each row has two cols
- * Counter needed for get key in array model and print some result in current column.
- */
-$countModel = count($model);
-$rows = ceil($countModel / 2);
-
 ?>
-
 <?php if($model): ?>
 <!-- Fact Start -->
 <div class="fact">
     <div class="container-fluid">
         <div class="row counters">
-        <?php $counter = 0; ?>
-        <?php for($j=1; $j<=$rows; $j++): ?>
-            <div class="col-md-6 fact-<?= $j % 2 == 0 ? 'left' : 'right'; ?> wow slideIn<?= $j % 2 == 0 ? 'Left' : 'Right'; ?>">
+        <?php $counter = 1; ?>
+        <?php foreach($model as $key => $item): ?>
+           
+            <div class="col-md-6 fact-<?= $key%3 ? 'left': 'right'; ?> wow slideInLeft">
                 <div class="row">
-                <?php for($x=0; $x<2; $x++): ?>
                     <div class="col-6">
                         <div class="fact-icon">
-                            <?= $model[$counter]->icon; ?>
+                            <?= $item->icon; ?>
                         </div>
                         <div class="fact-text">
-                            <h2 data-toggle="counter-up"><?= $model[$counter]->header; ?></h2>
-                            <p><?= $model[$counter]->text; ?></p>
+                            <h2 data-toggle="counter-up"><?= $item->header; ?></h2>
+                            <p><?= $item->text; ?></p>
                         </div>
                     </div>
-                    <?php $counter++; ?>
-                <?php endfor; ?>
+                    <div class="col-6">
+                        <div class="fact-icon">
+                            <?= $item->icon; ?>
+                        </div>
+                        <div class="fact-text">
+                            <h2 data-toggle="counter-up"><?= $item->header; ?></h2>
+                            <p><?= $item->text; ?></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        <?php endfor; ?>
+            
+        <?php $counter++; ?>
+        <?php endforeach; ?>
         </div>
     </div>
 </div>
