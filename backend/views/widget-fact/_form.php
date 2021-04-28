@@ -1,18 +1,25 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
+use backend\models\Widgets;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\WidgetFact */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="widget-fact-form">
+<div class="widget-fact-form m-2">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'widgetId')->textInput() ?>
+    <?= $form->field($model, 'widgetId')
+            ->dropDownList(
+                ArrayHelper::map(Widgets::find()->where(['type' => Widgets::TYPE_FACT])->all(), 'id', 'descriptions'),
+                    [
+                        'prompt'=>'Выбрать категорию'
+                    ]); ?>
 
     <?= $form->field($model, 'sortOrder')->textInput() ?>
 

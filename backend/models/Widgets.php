@@ -13,14 +13,19 @@ use Yii;
  */
 class Widgets extends \yii\db\ActiveRecord
 {
+    /**
+     * Names equals to table name
+     */
     const TYPE_CAROUSEL = "widget_carousel";
     const TYPE_FEATURE = "widget_feature";
+    const TYPE_FACT = "widget_fact";
     
 
     public static function widgetTypes(){
         return [
             self::TYPE_CAROUSEL => 'widget carousel',
             self::TYPE_FEATURE  => 'widget feature',
+            self::TYPE_FACT  => 'widget fact',
         ];
     }
 

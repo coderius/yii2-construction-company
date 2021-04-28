@@ -36,6 +36,7 @@ class WidgetFact extends \yii\db\ActiveRecord
             [['widgetId', 'sortOrder'], 'integer'],
             [['text'], 'string'],
             [['icon', 'header'], 'string', 'max' => 255],
+            [['sortOrder'], 'default', 'value' => 1],
             [['widgetId'], 'exist', 'skipOnError' => true, 'targetClass' => Widgets::className(), 'targetAttribute' => ['widgetId' => 'id']],
         ];
     }

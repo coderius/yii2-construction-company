@@ -46,6 +46,11 @@ class WidgetFactSearch extends WidgetFact
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'sortOrder' => SORT_ASC,
+                ]
+            ],
         ]);
 
         $this->load($params);

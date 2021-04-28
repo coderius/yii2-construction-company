@@ -375,6 +375,15 @@ $this->registerJs($js);
               </li>
             </ul>
 
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/widget-fact/index']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Widget Fact</p>
+                </a>
+              </li>
+            </ul>
+
           </li>
           <!-- ./Юзеры -->
 
