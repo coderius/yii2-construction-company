@@ -32,7 +32,7 @@ use yii\helpers\HtmlPurifier;
                     </div>
                     <div class="service-text">
                         <h3><?= $m->header; ?></h3>
-                        <a class="btn" href="<?= Yii::getAlias("@widgetGalleryPicsWeb/{$m->id}/middle/{$m->img}");?>" data-lightbox="service">+</a>
+                        <a class="btn" href="<?= Yii::getAlias("@widgetGalleryPicsWeb/{$m->id}/big/{$m->img}");?>" data-lightbox="service">+</a>
                     </div>
                 </div>
             </div>

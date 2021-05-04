@@ -81,7 +81,17 @@ class WidgetGallery extends \yii\db\ActiveRecord
                             sleep(1);
                         }
                     ],
-                    
+
+                    [
+                        'path' => function($attributes){
+                            return \Yii::getAlias('@widgetGalleryPicsPath/' . $attributes['id'] . '/big/');
+                        },
+                        'hendler' => function($fileTempName, $newFilePath){
+                            Image::thumbnail($fileTempName, 800, 800)
+                            ->save($newFilePath, ['quality' => 80]);
+                            sleep(1);
+                        }
+                    ],
                 ]
             ],
 
