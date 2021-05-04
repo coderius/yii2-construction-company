@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Widget Socialgalleri
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="widget-socialgallery-view">
+<div class="widget-socialgallery-view m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -32,7 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'widgetId',
             'sortOrder',
-            'img',
+            [
+                'attribute' => 'img',
+                'format' => 'raw',
+                'value'  => Html::img("@widgetSocialGalleryPicsWeb/{$model->id}/middle/{$model->img}", []),
+            ],
             'header1',
             'header2',
             'twitter',

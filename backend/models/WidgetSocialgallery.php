@@ -3,6 +3,12 @@
 namespace backend\models;
 
 use Yii;
+use yii\behaviors\AttributesBehavior;
+use backend\components\behaviors\blog\UploadFileBehavior;
+use yii\imagine\Image;
+use Imagine\Image\Point;
+use Imagine\Image\Box;
+
 
 /**
  * This is the model class for table "widget_socialgallery".
@@ -22,6 +28,8 @@ use Yii;
  */
 class WidgetSocialgallery extends \yii\db\ActiveRecord
 {
+    public $file;
+    
     /**
      * {@inheritdoc}
      */
@@ -36,10 +44,12 @@ class WidgetSocialgallery extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['widgetId', 'img', 'header1', 'header2'], 'required'],
-            [['widgetId', 'sortOrder', 'img'], 'integer'],
+            [['widgetId', 'header1', 'header2'], 'required'],
+            [['widgetId', 'sortOrder'], 'integer'],
             [['header1', 'header2', 'twitter', 'facebook', 'linkedin', 'instagram'], 'string', 'max' => 255],
-            [['widgetId'], 'exist', 'skipOnError' => true, 'targetClass' => Widgets::className(), 'targetAttribute' => ['widgetId' => 'id']],
+            [['widgetId'], 'exist', 'skipOnError' => true, 'targetClass' => Widgets::class, 'targetAttribute' => ['widgetId' => 'id']],
+            [['sortOrder'], 'default', 'value' => 1],
+            [['img'], 'safe']
         ];
     }
 
@@ -59,6 +69,40 @@ class WidgetSocialgallery extends \yii\db\ActiveRecord
             'facebook' => Yii::t('app', 'Facebook'),
             'linkedin' => Yii::t('app', 'Linkedin'),
             'instagram' => Yii::t('app', 'Instagram'),
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'uploadFileBehavior' => [
+                'class' => UploadFileBehavior::class,
+                'nameOfAttributeStorage' => 'img',
+                'directories' => [
+                    [
+                        'path' => function($attributes){
+                            return \Yii::getAlias('@widgetSocialGalleryPicsPath/' . $attributes['id'] . '/middle/');
+                        },
+                        'hendler' => function($fileTempName, $newFilePath){
+                            Image::thumbnail($fileTempName, 400, 400)
+                            ->save($newFilePath, ['quality' => 80]);
+                            sleep(1);
+                        }
+                    ],
+
+                    [
+                        'path' => function($attributes){
+                            return \Yii::getAlias('@widgetSocialGalleryPicsPath/' . $attributes['id'] . '/big/');
+                        },
+                        'hendler' => function($fileTempName, $newFilePath){
+                            Image::thumbnail($fileTempName, 800, 800)
+                            ->save($newFilePath, ['quality' => 80]);
+                            sleep(1);
+                        }
+                    ],
+                ]
+            ],
+
         ];
     }
 

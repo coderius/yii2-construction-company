@@ -9,6 +9,8 @@ use dosamigos\fileinput\BootstrapFileInput;
 /* @var $this yii\web\View */
 /* @var $model backend\models\WidgetGallery */
 /* @var $form yii\widgets\ActiveForm */
+
+
 ?>
 
 <div class="widget-gallery-form m-2">
@@ -30,7 +32,7 @@ use dosamigos\fileinput\BootstrapFileInput;
 
     <?php echo $form->field($model, 'file')
                 ->fileInput()
-                ->widget(BootstrapFileInput::classname(), [
+                ->widget(BootstrapFileInput::class, [
                         'options' => ['accept' => 'image/*'],
                         'clientOptions'=>[
                             'allowedFileExtensions'=>['jpg','gif','png'],
@@ -38,13 +40,13 @@ use dosamigos\fileinput\BootstrapFileInput;
                             'dropZoneEnabled' => false,
                             'initialPreview'=> $model->isNewRecord ? false :
                                 [
-                                    Html::img("@widgetGalleryPicsWeb/{$model->id}/middle/{$model->img}", ['style'=>'width: 100%; height: auto;', 'alt'=>'нет изображения']),//картинка ,которая уже загружена у обновляемой записи
+                                    Html::img("@widgetSocialGalleryPicsWeb/{$model->id}/middle/{$model->img}", ['style'=>'width: 100%; height: auto;', 'alt'=>'нет изображения']),//картинка ,которая уже загружена у обновляемой записи
                                 ],
                             'maxFileSize'=>4000,
                             'minImageWidth'=> 600,
                             'minImageHeight'=> 300,
                         ],
-                                                ]);
+                ]);
     ?>
 
     <div class="form-group">

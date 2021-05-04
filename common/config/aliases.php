@@ -80,4 +80,12 @@ return [
     /////////////////////////////////////////////////////////////////////
     '@widgetGalleryPicsPath' => '@frontend/web/widget-gallery',
     '@widgetGalleryPicsWeb' => $baseUrl . '/widget-gallery',
+
+    /////////////////////////////////////////////////////////////////////
+    //                          Widget Socialgallery
+    /////////////////////////////////////////////////////////////////////
+    '@widgetSocialGalleryPicsPath' => '@frontend/web/widget-socialgallery',
+    '@widgetSocialGalleryPicsWeb' => $baseUrl . '/widget-socialgallery',
+
+
 ];

@@ -46,6 +46,11 @@ class WidgetSocialgallerySearch extends WidgetSocialgallery
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'sortOrder' => SORT_ASC,
+                ]
+            ],
         ]);
 
         $this->load($params);
