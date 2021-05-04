@@ -37,6 +37,7 @@ class WidgetLayout extends Widget
         'widget_feature' => \common\widgets\feature\FeatureWidget::class,
         'widget_fact' => \common\widgets\fact\FactWidget::class,
         'widget_gallery' => \common\widgets\gallery\GalleryWidget::class,
+        'widget_video' => \common\widgets\video\VideoWidget::class,
     ];
 
     public $typesModel = [
@@ -44,6 +45,7 @@ class WidgetLayout extends Widget
         'widget_feature' => \frontend\models\WidgetFeature::class,
         'widget_fact' => \frontend\models\WidgetFact::class,
         'widget_gallery' => \frontend\models\WidgetGallery::class,
+        'widget_video' => \frontend\models\WidgetVideo::class,
     ];
 
     /**

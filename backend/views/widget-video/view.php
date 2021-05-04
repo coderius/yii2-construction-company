@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Widget Videos'), 'ur
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="widget-video-view">
+<div class="widget-video-view m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

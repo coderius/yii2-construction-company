@@ -95,7 +95,7 @@ JS;
 
 $this->registerJs($js);
 ?>
-<div class="widget-gallery-index">
+<div class="widget-gallery-index m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\models;
+namespace frontend\models;
 
 /**
  * This is the ActiveQuery class for [[WidgetVideo]].
@@ -9,10 +9,10 @@ namespace backend\models;
  */
 class WidgetVideoQuery extends \yii\db\ActiveQuery
 {
-    public function orderSortOrder()
+    /*public function active()
     {
-        return $this->orderBy('sortOrder');
-    }
+        return $this->andWhere('[[status]]=1');
+    }*/
 
     /**
      * {@inheritdoc}
