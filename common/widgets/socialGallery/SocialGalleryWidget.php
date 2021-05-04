@@ -18,6 +18,7 @@ class SocialGalleryWidget extends Widget
 {
     public $widgetId;
     public $params = [];
+    public $model = [];
     
     public function init()
     {
@@ -39,7 +40,7 @@ class SocialGalleryWidget extends Widget
     {
         $this->registerAssets();
         
-        return $this->render('index', []);
+        return $this->render('index', ['model' => $this->model, 'params' => $this->params]);
     }
 
     public function registerAssets()

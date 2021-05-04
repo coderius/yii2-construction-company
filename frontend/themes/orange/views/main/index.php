@@ -54,7 +54,7 @@ $this->title = 'My Yii Application';
 <?php //echo VideoWidget::widget([]) ?>
 
 <!-- Team -->
-<?php echo SocialGalleryWidget::widget([]) ?>
+<?php //echo SocialGalleryWidget::widget([]) ?>
 
 <?php echo FaqWidget::widget([]) ?>
 

@@ -10,79 +10,50 @@ use yii\helpers\HtmlPurifier;
 <div class="team">
     <div class="container">
         <div class="section-header text-center">
-            <p>Our Team</p>
-            <h2>Meet Our Engineer</h2>
+        <?php if(isset($params['header'])): ?>
+            <p><?= $params['header']; ?></p>
+        <?php endif; ?>
+
+        <?php if(isset($params['descriptions'])): ?>
+            <h2><?= $params['descriptions']; ?></h2>
+        <?php endif; ?>
         </div>
+        <?php if($model): ?>
         <div class="row">
+        <?php foreach($model as $m): ?>
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="team-item">
                     <div class="team-img">
-                        <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/team-1.jpg" alt="Team Image">
+                    <?= Html::img("@widgetSocialGalleryPicsWeb/{$m->id}/middle/{$m->img}", ['alt' => $m->header1]); ?>
                     </div>
                     <div class="team-text">
-                        <h2>Adam Phillips</h2>
-                        <p>CEO & Founder</p>
+                        <h2><?= $m->header1; ?></h2>
+                        <p><?= $m->header2; ?></p>
                     </div>
                     <div class="team-social">
-                        <a class="social-tw" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="social-fb" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
-                        <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
+
+                        <?php if($m->twitter): ?>
+                        <a class="social-tw" href="<?= $m->twitter; ?>"><i class="fab fa-twitter"></i></a>
+                        <?php endif; ?>
+
+                        <?php if($m->facebook): ?>
+                        <a class="social-fb" href="<?= $m->twitter; ?>"><i class="fab fa-facebook-f"></i></a>
+                        <?php endif; ?>
+
+                        <?php if($m->linkedin): ?>
+                        <a class="social-li" href="<?= $m->linkedin; ?>"><i class="fab fa-linkedin-in"></i></a>
+                        <?php endif; ?>
+
+                        <?php if($m->instagram): ?>
+                        <a class="social-in" href="<?= $m->instagram; ?>"><i class="fab fa-instagram"></i></a>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="team-item">
-                    <div class="team-img">
-                        <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/team-2.jpg" alt="Team Image">
-                    </div>
-                    <div class="team-text">
-                        <h2>Dylan Adams</h2>
-                        <p>Civil Engineer</p>
-                    </div>
-                    <div class="team-social">
-                        <a class="social-tw" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="social-fb" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
-                        <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="team-item">
-                    <div class="team-img">
-                        <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/team-3.jpg" alt="Team Image">
-                    </div>
-                    <div class="team-text">
-                        <h2>Jhon Doe</h2>
-                        <p>Interior Designer</p>
-                    </div>
-                    <div class="team-social">
-                        <a class="social-tw" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="social-fb" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
-                        <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="team-item">
-                    <div class="team-img">
-                        <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/team-4.jpg" alt="Team Image">
-                    </div>
-                    <div class="team-text">
-                        <h2>Josh Dunn</h2>
-                        <p>Painter</p>
-                    </div>
-                    <div class="team-social">
-                        <a class="social-tw" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="social-fb" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
-                        <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php endforeach; ?>
+       </div>
+        <?php endif; ?>
     </div>
 </div>
 <!-- Team End -->
