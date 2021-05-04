@@ -39,6 +39,7 @@ class WidgetLayout extends Widget
         'widget_gallery' => \common\widgets\gallery\GalleryWidget::class,
         'widget_video' => \common\widgets\video\VideoWidget::class,
         'widget_socialgallery' => \common\widgets\socialGallery\SocialGalleryWidget::class,
+        "widget_faq" => \common\widgets\faq\FaqWidget::class,
     ];
 
     public $typesModel = [
@@ -48,6 +49,7 @@ class WidgetLayout extends Widget
         'widget_gallery' => \frontend\models\WidgetGallery::class,
         'widget_video' => \frontend\models\WidgetVideo::class,
         'widget_socialgallery' => \frontend\models\WidgetSocialgallery::class,
+        "widget_faq" => \frontend\models\WidgetFaq::class,
     ];
 
     /**

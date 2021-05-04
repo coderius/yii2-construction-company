@@ -17,6 +17,7 @@ use Closure;
 class FaqWidget extends Widget
 {
     public $widgetId;
+    public $model;
     public $params = [];
     
     public function init()
@@ -39,7 +40,7 @@ class FaqWidget extends Widget
     {
         $this->registerAssets();
         
-        return $this->render('index', []);
+        return $this->render('index', ['model' => $this->model, 'params' => $this->params]);
     }
 
     public function registerAssets()

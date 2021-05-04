@@ -10,139 +10,71 @@ use yii\helpers\HtmlPurifier;
 <div class="faqs">
     <div class="container">
         <div class="section-header text-center">
-            <p>Frequently Asked Question</p>
-            <h2>You May Ask</h2>
+        <?php if(isset($params['header'])): ?>
+            <p><?= $params['header']; ?></p>
+        <?php endif; ?>
+
+        <?php if(isset($params['descriptions'])): ?>
+            <h2><?= $params['descriptions']; ?></h2>
+        <?php endif; ?>
         </div>
+
+        <?php if($model): ?>
         <div class="row">
+
+        <?php
+
+        $count = count($model);
+        $firstItemCount = ceil($count/2);
+        $i = 1;
+        ?>
+
+            <!-- accordion-1 -->
             <div class="col-md-6">
                 <div id="accordion-1">
+                <?php foreach($model as $k => $m): ?>
+                    <?php if($k < $firstItemCount): ?>
                     <div class="card wow fadeInLeft" data-wow-delay="0.1s">
                         <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#collapseOne">
-                                Lorem ipsum dolor sit amet?
+                            <a class="card-link collapsed" data-toggle="collapse" href="#collapse<?= $k; ?>">
+                            <?= $m->header; ?>
                             </a>
                         </div>
-                        <div id="collapseOne" class="collapse" data-parent="#accordion-1">
+                        <div id="collapse<?= $k; ?>" class="collapse" data-parent="#accordion-1">
                             <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
+                            <?= $m->text; ?>
                             </div>
                         </div>
                     </div>
-                    <div class="card wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#collapseTwo">
-                                Lorem ipsum dolor sit amet?
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="collapse" data-parent="#accordion-1">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card wow fadeInLeft" data-wow-delay="0.3s">
-                        <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#collapseThree">
-                                Lorem ipsum dolor sit amet?
-                            </a>
-                        </div>
-                        <div id="collapseThree" class="collapse" data-parent="#accordion-1">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card wow fadeInLeft" data-wow-delay="0.4s">
-                        <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#collapseFour">
-                                Lorem ipsum dolor sit amet?
-                            </a>
-                        </div>
-                        <div id="collapseFour" class="collapse" data-parent="#accordion-1">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card wow fadeInLeft" data-wow-delay="0.5s">
-                        <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#collapseFive">
-                                Lorem ipsum dolor sit amet?
-                            </a>
-                        </div>
-                        <div id="collapseFive" class="collapse" data-parent="#accordion-1">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
-                            </div>
-                        </div>
-                    </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
                 </div>
             </div>
+
+            <!-- accordion-2 -->
             <div class="col-md-6">
                 <div id="accordion-2">
-                    <div class="card wow fadeInRight" data-wow-delay="0.1s">
+                <?php foreach($model as $k => $m): ?>
+                    <?php if($k >= $firstItemCount): ?>
+                    <div class="card wow fadeInLeft" data-wow-delay="0.1s">
                         <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#collapseSix">
-                                Lorem ipsum dolor sit amet?
+                            <a class="card-link collapsed" data-toggle="collapse" href="#collapse<?= $k; ?>">
+                            <?= $m->header; ?>
                             </a>
                         </div>
-                        <div id="collapseSix" class="collapse" data-parent="#accordion-2">
+                        <div id="collapse<?= $k; ?>" class="collapse" data-parent="#accordion-1">
                             <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
+                            <?= $m->text; ?>
                             </div>
                         </div>
                     </div>
-                    <div class="card wow fadeInRight" data-wow-delay="0.2s">
-                        <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#collapseSeven">
-                                Lorem ipsum dolor sit amet?
-                            </a>
-                        </div>
-                        <div id="collapseSeven" class="collapse" data-parent="#accordion-2">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card wow fadeInRight" data-wow-delay="0.3s">
-                        <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#collapseEight">
-                                Lorem ipsum dolor sit amet?
-                            </a>
-                        </div>
-                        <div id="collapseEight" class="collapse" data-parent="#accordion-2">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card wow fadeInRight" data-wow-delay="0.4s">
-                        <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#collapseNine">
-                                Lorem ipsum dolor sit amet?
-                            </a>
-                        </div>
-                        <div id="collapseNine" class="collapse" data-parent="#accordion-2">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card wow fadeInRight" data-wow-delay="0.5s">
-                        <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#collapseTen">
-                                Lorem ipsum dolor sit amet?
-                            </a>
-                        </div>
-                        <div id="collapseTen" class="collapse" data-parent="#accordion-2">
-                            <div class="card-body">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non.
-                            </div>
-                        </div>
-                    </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
                 </div>
             </div>
+
         </div>
+        <?php endif; ?>
     </div>
 </div>
 <!-- FAQs End -->
