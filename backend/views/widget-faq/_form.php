@@ -1,18 +1,25 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
+use backend\models\Widgets;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\WidgetFaq */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="widget-faq-form">
+<div class="widget-faq-form m-2">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'widgetId')->textInput() ?>
+    <?= $form->field($model, 'widgetId')
+            ->dropDownList(
+                ArrayHelper::map(Widgets::find()->where(['type' => Widgets::TYPE_FAQ])->all(), 'id', 'descriptions'),
+                    [
+                        'prompt'=>'Выбрать категорию'
+                    ]); ?>
 
     <?= $form->field($model, 'sortOrder')->textInput() ?>
 
