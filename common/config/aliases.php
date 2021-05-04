@@ -87,5 +87,11 @@ return [
     '@widgetSocialGalleryPicsPath' => '@frontend/web/widget-socialgallery',
     '@widgetSocialGalleryPicsWeb' => $baseUrl . '/widget-socialgallery',
 
+    /////////////////////////////////////////////////////////////////////
+    //                          Widget Testimonial
+    /////////////////////////////////////////////////////////////////////
+    '@widgetTestimonialPicsPath' => '@frontend/web/widget-testimonial',
+    '@widgetTestimonialPicsWeb' => $baseUrl . '/widget-testimonial',
+
 
 ];

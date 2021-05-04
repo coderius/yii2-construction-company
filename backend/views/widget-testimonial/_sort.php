@@ -5,5 +5,5 @@ use yii\jui\JuiAsset;
 
 ?>
 <?php foreach($model as $li): ?>
-<li id="item-<?= $li->id; ?>" class="ui-sortable-handle"><?= $li->header; ?></li>
+<li id="item-<?= $li->id; ?>" class="ui-sortable-handle"><?= $li->header1; ?></li>
 <?php endforeach; ?>

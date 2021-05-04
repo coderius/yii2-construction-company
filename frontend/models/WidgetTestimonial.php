@@ -1,13 +1,8 @@
 <?php
 
-namespace backend\models;
+namespace frontend\models;
 
 use Yii;
-use yii\behaviors\AttributesBehavior;
-use backend\components\behaviors\blog\UploadFileBehavior;
-use yii\imagine\Image;
-use Imagine\Image\Point;
-use Imagine\Image\Box;
 
 /**
  * This is the model class for table "widget_testimonial".
@@ -24,8 +19,6 @@ use Imagine\Image\Box;
  */
 class WidgetTestimonial extends \yii\db\ActiveRecord
 {
-    public $file;
-    
     /**
      * {@inheritdoc}
      */
@@ -45,8 +38,6 @@ class WidgetTestimonial extends \yii\db\ActiveRecord
             [['text'], 'string'],
             [['img', 'header1', 'header2'], 'string', 'max' => 255],
             [['widgetId'], 'exist', 'skipOnError' => true, 'targetClass' => Widgets::className(), 'targetAttribute' => ['widgetId' => 'id']],
-            [['sortOrder'], 'default', 'value' => 1],
-            [['img'], 'safe']
         ];
     }
 
@@ -63,40 +54,6 @@ class WidgetTestimonial extends \yii\db\ActiveRecord
             'header1' => Yii::t('app', 'Header1'),
             'header2' => Yii::t('app', 'Header2'),
             'text' => Yii::t('app', 'Text'),
-        ];
-    }
-
-    public function behaviors()
-    {
-        return [
-            'uploadFileBehavior' => [
-                'class' => UploadFileBehavior::class,
-                'nameOfAttributeStorage' => 'img',
-                'directories' => [
-                    [
-                        'path' => function($attributes){
-                            return \Yii::getAlias('@widgetTestimonialPicsPath/' . $attributes['id'] . '/middle/');
-                        },
-                        'hendler' => function($fileTempName, $newFilePath){
-                            Image::thumbnail($fileTempName, 400, 400)
-                            ->save($newFilePath, ['quality' => 80]);
-                            sleep(1);
-                        }
-                    ],
-
-                    [
-                        'path' => function($attributes){
-                            return \Yii::getAlias('@widgetTestimonialPicsPath/' . $attributes['id'] . '/small/');
-                        },
-                        'hendler' => function($fileTempName, $newFilePath){
-                            Image::thumbnail($fileTempName, 150, 150)
-                            ->save($newFilePath, ['quality' => 80]);
-                            sleep(1);
-                        }
-                    ],
-                ]
-            ],
-
         ];
     }
 
