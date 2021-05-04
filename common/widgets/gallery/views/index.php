@@ -10,107 +10,35 @@ use yii\helpers\HtmlPurifier;
 <div class="service">
     <div class="container">
         <div class="section-header text-center">
-            <p>Our Services</p>
-            <h2>We Provide Services</h2>
+            <?php if(isset($params['header'])): ?>
+            <p><?= $params['header']; ?></p>
+            <?php endif; ?>
+            <?php if(isset($params['descriptions'])): ?>
+            <h2><?= $params['descriptions']; ?></h2>
+            <?php endif; ?>
         </div>
+        <?php if($model): ?>
         <div class="row">
+        <?php foreach($model as $m): ?>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item">
                     <div class="service-img">
-                        <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-1.jpg" alt="Image">
+                        <?= Html::img("@widgetGalleryPicsWeb/{$m->id}/middle/{$m->img}"); ?>
                         <div class="service-overlay">
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem.
+                                <?= $m->text; ?>
                             </p>
                         </div>
                     </div>
                     <div class="service-text">
-                        <h3>Building Construction</h3>
-                        <a class="btn" href="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-1.jpg" data-lightbox="service">+</a>
+                        <h3><?= $m->header; ?></h3>
+                        <a class="btn" href="<?= Yii::getAlias("@widgetGalleryPicsWeb/{$m->id}/middle/{$m->img}");?>" data-lightbox="service">+</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-2.jpg" alt="Image">
-                        <div class="service-overlay">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="service-text">
-                        <h3>House Renovation</h3>
-                        <a class="btn" href="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-2.jpg" data-lightbox="service">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-3.jpg" alt="Image">
-                        <div class="service-overlay">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="service-text">
-                        <h3>Architecture Design</h3>
-                        <a class="btn" href="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-3.jpg" data-lightbox="service">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-4.jpg" alt="Image">
-                        <div class="service-overlay">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="service-text">
-                        <h3>Interior Design</h3>
-                        <a class="btn" href="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-4.jpg" data-lightbox="service">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-5.jpg" alt="Image">
-                        <div class="service-overlay">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="service-text">
-                        <h3>Fixing & Support</h3>
-                        <a class="btn" href="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-5.jpg" data-lightbox="service">+</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="service-item">
-                    <div class="service-img">
-                        <img src="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-6.jpg" alt="Image">
-                        <div class="service-overlay">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="service-text">
-                        <h3>Painting</h3>
-                        <a class="btn" href="<?= Yii::getAlias('@web-url-themes/orange/img');?>/service-6.jpg" data-lightbox="service">+</a>
-                    </div>
-                </div>
-            </div>
+        <?php endforeach; ?>
         </div>
+        <?php endif; ?>
     </div>
 </div>
 <!-- Service End -->

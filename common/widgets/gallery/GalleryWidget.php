@@ -18,14 +18,15 @@ class GalleryWidget extends Widget
 {
     public $widgetId;
     public $params = [];
+    public $model;
     
     public function init()
     {
         parent::init();
         
-        // if ($this->query === null) {
-        //     throw new InvalidConfigException('The "query" property must be set.');
-        // }
+        if ($this->model === null) {
+            throw new InvalidConfigException('The "model" property must be set.');
+        }
         // if ($this->emptyText === null) {
         //     $this->emptyText = Yii::t('yii', 'No results found.');
         // }
@@ -39,7 +40,7 @@ class GalleryWidget extends Widget
     {
         $this->registerAssets();
         
-        return $this->render('index', []);
+        return $this->render('index', ['model' => $this->model, 'params' => $this->params]);
     }
 
     public function registerAssets()

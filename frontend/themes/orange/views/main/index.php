@@ -49,7 +49,7 @@ $this->title = 'My Yii Application';
 <?php //echo FactWidget::widget([]) ?>
 
 <!-- Services -->
-<?php echo GalleryWidget::widget([]) ?>
+<?php //echo GalleryWidget::widget([]) ?>
 
 <?php echo VideoWidget::widget([]) ?>
 
