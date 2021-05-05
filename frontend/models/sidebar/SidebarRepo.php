@@ -76,7 +76,7 @@ class SidebarRepo
     //     return $item;
     // }
 
-    public function getPopularPosts()
+    public function getPopularPosts($limit=6)
     {
         $items = BlogArticle::find()
             ->active()
@@ -84,13 +84,13 @@ class SidebarRepo
                 'createdBy0' => function ($query) {
                     $query->select(['id', 'username']);
                 }
-                , 
+                ,
                 'category' => function ($query) {
                     $query->select(['id', 'header']);
                 }
             ])
             // ->with('category')
-            ->limit(6)
+            ->limit($limit)
             ->orderBy(['viewCount' => SORT_DESC])
             ->all();
 

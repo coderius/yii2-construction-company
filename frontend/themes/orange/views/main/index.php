@@ -60,7 +60,7 @@ $this->title = 'My Yii Application';
 
 <?php //echo TestimonialWidget::widget([]) ?>
 
-<?php echo BlogListWidget::widget([]) ?>
+<?php //echo BlogListWidget::widget([]) ?>
 
 
 

@@ -41,6 +41,7 @@ class WidgetLayout extends Widget
         'widget_socialgallery' => \common\widgets\socialGallery\SocialGalleryWidget::class,
         "widget_faq" => \common\widgets\faq\FaqWidget::class,
         "widget_testimonial" => \common\widgets\testimonial\TestimonialWidget::class,
+        'widget_bloglist' => \common\widgets\blogList\BlogListWidget::class,
     ];
 
     public $typesModel = [
@@ -52,8 +53,18 @@ class WidgetLayout extends Widget
         'widget_socialgallery' => \frontend\models\WidgetSocialgallery::class,
         "widget_faq" => \frontend\models\WidgetFaq::class,
         "widget_testimonial" => \frontend\models\WidgetTestimonial::class,
+        'widget_bloglist' => \frontend\models\WidgetBloglist::class,
     ];
 
+
+    public function hasTypeWidget($type){
+        return array_key_exists($type, $this->typesWidget);
+    }
+
+    public function hasTypeModel($type){
+        return array_key_exists($type, $this->typesModel);
+    }
+    
     /**
      * Starts recording a clip.
      */
@@ -114,13 +125,31 @@ class WidgetLayout extends Widget
                 $id = $item;
                 $w = Widgets::findOne(['id' => $id]);
                 $type = $w->type;
-                
+
+                if(false == $this->hasTypeWidget($type)){
+                    throw new InvalidConfigException('This "type" property not supported.');
+                }
+
+                if(false == $this->hasTypeModel($type)){
+                    throw new InvalidConfigException('This "type" property not supported.');
+                }
+
                 $widgetClass = $this->typesWidget[$type];
                 $modelClass = $this->typesModel[$type];
+                
+                //for this type of widget we prepare the corresponding model
+                $class = new \ReflectionClass($modelClass);
 
-                $model = $modelClass::find()->where(['widgetId' => $id])->orderBy(['sortOrder' => SORT_ASC])->all();
+                if($class->implementsInterface('\frontend\models\TypableBlogInterface')){
+                    $mod = $modelClass::find()->where(['widgetId' => $id])->one();
+                    $model = $mod->getBlogList();
+
+                }else{
+                    $model = $modelClass::find()->where(['widgetId' => $id])->orderBy(['sortOrder' => SORT_ASC])->all();
+                }
+
                 $widget = $widgetClass::widget(['model' => $model, 'params' => ['header' => $w->header, 'descriptions' => $w->descriptions]]);
-// var_dump($widget);
+
                 $result[] = $widget;
             }
         }
