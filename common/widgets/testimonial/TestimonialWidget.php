@@ -46,7 +46,7 @@ class TestimonialWidget extends Widget
     public function registerAssets()
     {
         $view = $this->getView();
-        TestimonialAsset::register($view);
+        // TestimonialAsset::register($view);
     }
 
 }

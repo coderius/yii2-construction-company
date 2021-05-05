@@ -33,11 +33,11 @@ use dosamigos\fileinput\BootstrapFileInput;
                             'allowedFileExtensions'=>['jpg','gif','png'],
                             'showUpload' => false,
                             'dropZoneEnabled' => false,
-                            'initialPreview'=> $model->isNewRecord ? false :
-                            (is_file(Yii::getAlias("@widgetTestimonialPicsWeb/{$model->id}/small/{$model->img}")) ?
+                            'initialPreview'=> ($model->isNewRecord ? false :
+                            (is_file(Yii::getAlias("@widgetTestimonialPicsPath/{$model->id}/small/{$model->img}")) ?
                                 [Html::img("@widgetTestimonialPicsWeb/{$model->id}/small/{$model->img}", ['style'=>'width: 100%; height: auto;', 'alt'=>'нет изображения'])]
                                 :
-                                false),
+                                false)),
                             
                             'maxFileSize'=>4000,
                             'minImageWidth'=> 600,

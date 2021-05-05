@@ -89,7 +89,7 @@ class WidgetTestimonial extends \yii\db\ActiveRecord
                             return \Yii::getAlias('@widgetTestimonialPicsPath/' . $attributes['id'] . '/small/');
                         },
                         'hendler' => function($fileTempName, $newFilePath){
-                            Image::thumbnail($fileTempName, 150, 150)
+                            Image::thumbnail($fileTempName, 200, 200)
                             ->save($newFilePath, ['quality' => 80]);
                             sleep(1);
                         }
