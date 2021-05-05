@@ -5,7 +5,6 @@ use yii\helpers\Url;
 use yii\helpers\HtmlPurifier;
 
 ?>
-
 <!-- Blog Start -->
 <div class="blog">
     <div class="container">

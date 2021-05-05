@@ -96,7 +96,13 @@ JS;
 $this->registerJs($js);
 
 ?>
+
+
 <div class="widget-testimonial-index m-2">
+
+    <div class="alert alert-primary" role="alert">
+    Данный виджет требует более 3-х пунктов для корректной работы.
+    </div>
 
     <h1><?= Html::encode($this->title) ?></h1>
 

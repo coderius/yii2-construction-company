@@ -1,18 +1,27 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
+use yii\helpers\ArrayHelper;
+use backend\models\Widgets;
+use dosamigos\fileinput\BootstrapFileInput;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\WidgetBloglist */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="widget-bloglist-form">
+<div class="widget-bloglist-form m-2">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'widgetId')->textInput() ?>
+    <?= $form->field($model, 'widgetId')
+            ->dropDownList(
+                ArrayHelper::map(Widgets::find()->where(['type' => Widgets::TYPE_BLOGLIST])->all(), 'id', 'descriptions'),
+                    [
+                        'prompt'=>'Выбрать категорию'
+                    ]);
+    ?>
 
     <?= $form->field($model, 'typeContent')->dropDownList([ 'last' => 'Last', 'popular' => 'Popular', 'random' => 'Random', ], ['prompt' => '']) ?>
 

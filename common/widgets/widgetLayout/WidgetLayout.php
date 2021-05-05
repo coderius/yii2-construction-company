@@ -114,8 +114,10 @@ class WidgetLayout extends Widget
                 $id = $item;
                 $w = Widgets::findOne(['id' => $id]);
                 $type = $w->type;
+                
                 $widgetClass = $this->typesWidget[$type];
                 $modelClass = $this->typesModel[$type];
+
                 $model = $modelClass::find()->where(['widgetId' => $id])->orderBy(['sortOrder' => SORT_ASC])->all();
                 $widget = $widgetClass::widget(['model' => $model, 'params' => ['header' => $w->header, 'descriptions' => $w->descriptions]]);
 // var_dump($widget);
