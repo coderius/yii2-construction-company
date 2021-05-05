@@ -14,7 +14,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\services\blog\ArticleService;
-use frontend\services\widgets\CarouselService;
+use frontend\services\widgets\OwlCarouselService;
 use frontend\services\blog\BlogService;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -36,7 +36,7 @@ class BlogController extends BaseController
         $id,
         $module,
         ArticleService $articleService,
-        CarouselService $carouselService,
+        OwlCarouselService $carouselService,
         BlogService $blogService,
         $config = []
     )

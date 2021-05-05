@@ -16,7 +16,7 @@ use common\widgets\owlCarousel\entities\OwlCarousel;
 use common\widgets\owlCarousel\entities\OwlCarouselItem;
 use common\components\helpers\TextHelper;
 
-class CarouselService{
+class OwlCarouselService{
 
     public function __construct()
     {
