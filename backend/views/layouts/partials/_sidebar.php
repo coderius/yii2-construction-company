@@ -128,6 +128,13 @@ $this->registerJs($js);
                   <p>Создать</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="<?= Url::toRoute(['/page-widgets/index']); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Виджеты на страницах.</p>
+                </a>
+              </li>
+              
               </ul>
           </li>
           <!-- ./Страницы -->
