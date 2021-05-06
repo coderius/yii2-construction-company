@@ -8,11 +8,9 @@ use common\components\rbac\Rbac;
 function isCurrentUrlStyle($url){
     return $url === Url::to('') ? 'active' : '';
 }
-// var_dump($this->params['SiteLayout']['top-bar']);
+// var_dump(isCurrentUrlStyle(Url::home()));
 // var_dump(\Yii::$app->authManager->getAssignments(1));
 //     PHP_EOL;
-
-$bar = $this->params['SiteLayout']['top-bar'];
 ?>
 <!-- Nav Bar Start -->
 <div class="nav-bar">
@@ -25,23 +23,23 @@ $bar = $this->params['SiteLayout']['top-bar'];
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                <?php foreach($bar as $item): ?>
-                <?php if($item->hasChildren()): ?>
+                    <a href="<?= Url::home(true); ?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::home());?>">Home</a>
+                    <a href="<?= Url::toRoute(['/about']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/about']));?>">About</a>
+                    <a href="<?= Url::toRoute(['/service']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/service']));?>">Service</a>
+                    <a href="<?= Url::toRoute(['/team']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/team']));?>">Team</a>
+                    <a href="<?= Url::toRoute(['/portfolio']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/portfolio']));?>">Portfolio</a>
                     <div class="nav-item dropdown">
-                        <a href="<?= Url::toRoute([$item->alias]);?>" class="nav-link dropdown-toggle <?= isCurrentUrlStyle(Url::toRoute([$item->alias]));?>" data-toggle="dropdown"><?= $item->name; ?></a>
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Blog</a>
                         <div class="dropdown-menu">
-                        <?php echo $this->render('_nav-bar-children', ['model' => $item->getChildren()]); ?>
+                            <a href="<?= Url::toRoute(['/blog']);?>" class="dropdown-item">All blog</a>
+                            <a href="<?= Url::toRoute(['/blog/category', 'alias' => 'some_alias']);?>" class="dropdown-item">Category of blog</a>
+                            <a href="<?= Url::toRoute(['/blog/category', 'alias' => 'some_alias']);?>" class="dropdown-item">Category of blog</a>
+                            <a href="<?= Url::toRoute(['/blog/category', 'alias' => 'some_alias']);?>" class="dropdown-item">Category of blog</a>
+                            <a href="<?= Url::toRoute(['/blog/category', 'alias' => 'some_alias']);?>" class="dropdown-item">Category of blog</a>
                         </div>
                     </div>
-
-                <?php else: ?>
-
-                    <a href="<?= Url::toRoute([$item->alias]);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute([$item->alias]));?>"><?= $item->name; ?></a>
-                
-                <?php endif; ?>
-                <?php endforeach; ?>
+                    <a href="<?= Url::toRoute(['/contact']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/contact']));?>">Contact</a>
                 </div>
-
                 <div class="ml-auto">
                 <div class="navbar-nav mr-auto">
                 <?php if (\Yii::$app->user->isGuest): ?>
@@ -67,11 +65,11 @@ $bar = $this->params['SiteLayout']['top-bar'];
         <?php if (!\Yii::$app->user->isGuest): ?> 
             <div class="front-user-bar pl-3 text-white">
                 <span class="color-wite">Привет,</span> <strong class="color-wite"><?= \Yii::$app->user->identity->username; ?></strong>
-                <?php
+                <?php 
                 if (\Yii::$app->user->can(Rbac::PERMISSION_ADMIN_PANEL)): ?>
                     <?php echo $this->render('_admin-panel'); ?>
                 <?php endif; ?>
-            </div>
+            </div>    
         <?php endif; ?>
         </div>
         

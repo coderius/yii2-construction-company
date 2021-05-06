@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Menu Tops'), 'url' =
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="menu-top-view">
+<div class="menu-top-view m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

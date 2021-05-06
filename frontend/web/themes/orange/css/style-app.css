@@ -153,6 +153,19 @@ a:focus {
 /**********************************/
 /*********** Nav Bar CSS **********/
 /**********************************/
+.hoverable{
+    color:#030f27;
+    -moz-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.hoverable:hover{
+   color: #fdbe33;
+}
+
 .nav-bar {
     position: relative;
     background: #fdbe33;

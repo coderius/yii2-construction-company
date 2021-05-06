@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\Controller;
+use frontend\models\MenuTop;
+use frontend\services\layout\LayoutService;
 
 abstract class BaseController extends Controller
 {
@@ -17,6 +19,7 @@ abstract class BaseController extends Controller
     {
         $view = $this->getView();
         $view->on(\yii\web\View::EVENT_BEFORE_RENDER, [$this, 'registerBeforeViewRendered']);
+        $this->makeNavBar();
 
         parent::init();
     }
@@ -27,12 +30,20 @@ abstract class BaseController extends Controller
         // $this->setMetaTitle($view);
     }
 
+    public function makeNavBar()
+    {
+        Yii::$app->getView()->params['SiteLayout']['top-bar'] = MenuTop::getTree();
+    }
+
+
+
     // protected function setMetaTitle($view)
     // {
     //     $view->title = $this->makeMetaTitle($view, $this->metaTitle);
     // }
 
-    // public function makeMetaTitle($metaTitle = null){
+    // public function makeMetaTitle($metaTitle = null)
+    // {
     //     $title = [];
 
     //     if ($metaTitle !== null) {
