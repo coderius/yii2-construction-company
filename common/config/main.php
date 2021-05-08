@@ -7,7 +7,7 @@ $baseUrl = str_replace('/backend/web', '', $baseUrl);
 
 return [
     'aliases' => require(__DIR__.'/aliases.php'),
-    'name' => 'Masters site',
+    'name' => 'ОтделочНик',
     'language' => 'ru-RU',
     'timeZone' => 'Europe/Kiev',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',

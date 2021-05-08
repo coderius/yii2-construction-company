@@ -45,21 +45,21 @@ $bar = $this->params['SiteLayout']['top-bar'];
                 <div class="ml-auto">
                 <div class="navbar-nav mr-auto">
                 <?php if (\Yii::$app->user->isGuest): ?>
-                    <a href="<?= Url::toRoute(['/login']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/login']));?>"><small>Login</small></a>
-                    <a href="<?= Url::toRoute(['/signup']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/signup']));?>"><small>Signup</small></a>
+                    <a href="<?= Url::toRoute(['/login']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/login']));?>"><small>Логин</small></a>
+                    <a href="<?= Url::toRoute(['/signup']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/signup']));?>"><small>Регистрация</small></a>
 
                     <?php else: ?>
                     
-                    <a data-method="POST" title="Log Out" href="<?= Url::toRoute(['/logout']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/login']));?>"><small>Logout</small></a>   
+                    <a data-method="POST" title="Log Out" href="<?= Url::toRoute(['/logout']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/login']));?>"><small>Выйти</small></a>   
                     
                 <?php endif; ?>
 
                 </div>
                     
                 </div>
-                <div class="ml-auto">
+                <!-- <div class="ml-auto">
                     <a class="btn" href="#">Get A Quote</a>
-                </div>
+                </div> -->
             </div>
             
         </nav>

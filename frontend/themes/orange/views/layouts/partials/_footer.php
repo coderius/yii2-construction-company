@@ -71,11 +71,11 @@ use yii\helpers\Html;
     <div class="container copyright">
         <div class="row">
             <div class="col-md-6">
-                <p>&copy; <a href="#">Your Site Name</a>, All Right Reserved.</p>
+                <p><a href="#"><?= Yii::$app->name; ?></a> &copy; Все права защищены.</p>
             </div>
-            <div class="col-md-6">
-                <p>Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
-            </div>
+            <!-- <div class="col-md-6">
+                <p>Разработано <a href="https://htmlcodex.com">HTML Codex</a></p>
+            </div> -->
         </div>
     </div>
 </div>

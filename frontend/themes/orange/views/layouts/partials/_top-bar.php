@@ -12,7 +12,7 @@ use yii\helpers\Html;
             <div class="col-lg-4 col-md-12">
                 <div class="logo">
                     <a href="index.html">
-                        <h1>Builderz</h1>
+                        <h1><?= Yii::$app->name; ?></h1>
                         <!-- <img src="img/logo.jpg" alt="Logo"> -->
                     </a>
                 </div>
@@ -25,8 +25,8 @@ use yii\helpers\Html;
                                 <i class="flaticon-calendar"></i>
                             </div>
                             <div class="top-bar-text">
-                                <h3>Opening Hour</h3>
-                                <p>Mon - Fri, 8:00 - 9:00</p>
+                                <h3>Часы работы</h3>
+                                <p>ПН - СБ, 8:00 - 19.00</p>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@ use yii\helpers\Html;
                                 <i class="flaticon-call"></i>
                             </div>
                             <div class="top-bar-text">
-                                <h3>Call Us</h3>
+                                <h3>Звоните нам</h3>
                                 <p>+012 345 6789</p>
                             </div>
                         </div>
@@ -47,7 +47,7 @@ use yii\helpers\Html;
                                 <i class="flaticon-send-mail"></i>
                             </div>
                             <div class="top-bar-text">
-                                <h3>Email Us</h3>
+                                <h3>Наша почта</h3>
                                 <p>info@example.com</p>
                             </div>
                         </div>

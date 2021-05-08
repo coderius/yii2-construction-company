@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Widget Facts'), 'url
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="widget-fact-view">
+<div class="widget-fact-view m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

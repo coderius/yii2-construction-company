@@ -40,7 +40,7 @@ use dosamigos\fileinput\BootstrapFileInput;
                             'dropZoneEnabled' => false,
                             'initialPreview'=> $model->isNewRecord ? false :
                                 [
-                                    Html::img("@widgetSocialGalleryPicsWeb/{$model->id}/middle/{$model->img}", ['style'=>'width: 100%; height: auto;', 'alt'=>'нет изображения']),//картинка ,которая уже загружена у обновляемой записи
+                                    Html::img("@widgetGalleryPicsWeb/{$model->id}/middle/{$model->img}", ['style'=>'width: 100%; height: auto;', 'alt'=>'нет изображения']),//картинка ,которая уже загружена у обновляемой записи
                                 ],
                             'maxFileSize'=>4000,
                             'minImageWidth'=> 600,

@@ -11,7 +11,7 @@ use backend\models\Widgets;
 /* @var $model backend\models\WidgetCarousel */
 /* @var $form yii\widgets\ActiveForm */
 
-var_dump($model->getErrors());
+// var_dump($model->getErrors());
 ?>
 
 <div class="widget-carousel-form m-2">

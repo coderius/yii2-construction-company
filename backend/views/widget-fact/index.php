@@ -137,7 +137,7 @@ $this->registerJs($js);
             'sortOrder',
             'icon',
             'header',
-            //'text:ntext',
+            'text:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
