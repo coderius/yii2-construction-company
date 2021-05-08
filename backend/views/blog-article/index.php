@@ -16,7 +16,7 @@ $this->title = Yii::t('app', 'Blog Articles');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <!-- <span class="glyphicon glyphicon-pencil"></span> -->
-<div class="blog-article-index">
+<div class="blog-article-index m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
