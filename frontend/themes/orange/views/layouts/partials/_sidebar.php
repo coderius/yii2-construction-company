@@ -36,8 +36,8 @@ use common\components\helpers\TextHelper;
                     <div class="post-text">
                         <?= Html::a(TextHelper::truncate($recentPost->header1, 150), ['blog/article', 'alias' => $recentPost->alias]); ?>
                         <div class="post-meta">
-                            <p>By<?= Html::a($recentPost->createdBy0->username, ['#']); ?></p>
-                            <p>In<?= Html::a($recentPost->category->header, ['blog/category', 'alias' => $recentPost->category->alias]); ?></p>
+                            <p>От"<?=Html::a($recentPost->createdBy0->username, ['#']);?>"</p>
+                            <p>В"<?=Html::a($recentPost->category->header, ['blog/category', 'alias' => $recentPost->category->alias]);?>"</p>
                         </div>
                     </div>
                 </div>
@@ -89,8 +89,8 @@ use common\components\helpers\TextHelper;
                             <div class="post-text">
                             <?= Html::a(TextHelper::truncate($post->header1, 150), ['blog/article', 'alias' => $post->alias]); ?>
                                 <div class="post-meta">
-                                    <p>By<?= Html::a($post->createdBy0->username, ['#']); ?></p>
-                                    <p>In<?= Html::a($post->category->header, ['blog/category', 'alias' => $post->category->alias]); ?></p>
+                                    <p>От"<?= Html::a($post->createdBy0->username, ['#']); ?>"</p>
+                                    <p>В"<?= Html::a($post->category->header, ['blog/category', 'alias' => $post->category->alias]); ?>"</p>
                                 </div>
                             </div>
                         </div>
@@ -110,8 +110,8 @@ use common\components\helpers\TextHelper;
                             <div class="post-text">
                             <?= Html::a(TextHelper::truncate($post->header1, 150), ['blog/article', 'alias' => $post->alias]); ?>
                                 <div class="post-meta">
-                                    <p>By<?= Html::a($post->createdBy0->username, ['#']); ?></p>
-                                    <p>In<?= Html::a($post->category->header, ['blog/category', 'alias' => $post->category->alias]); ?></p>
+                                    <p>By"<?= Html::a($post->createdBy0->username, ['#']); ?>"</p>
+                                    <p>In"<?= Html::a($post->category->header, ['blog/category', 'alias' => $post->category->alias]); ?>"</p>
                                 </div>
                             </div>
                         </div>
@@ -131,8 +131,8 @@ use common\components\helpers\TextHelper;
                             <div class="post-text">
                             <?= Html::a(TextHelper::truncate($post->header1, 150), ['blog/article', 'alias' => $post->alias]); ?>
                                 <div class="post-meta">
-                                    <p>By<?= Html::a($post->createdBy0->username, ['#']); ?></p>
-                                    <p>In<?= Html::a($post->category->header, ['blog/category', 'alias' => $post->category->alias]); ?></p>
+                                    <p>От"<?= Html::a($post->createdBy0->username, ['#']); ?>"</p>
+                                    <p>В"<?= Html::a($post->category->header, ['blog/category', 'alias' => $post->category->alias]); ?>"</p>
                                 </div>
                             </div>
                         </div>

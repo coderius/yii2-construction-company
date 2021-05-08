@@ -14,7 +14,7 @@ Bootstrap4GlyphiconsAsset::register($this);
 $this->title = Yii::t('app', 'Blog Categories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="blog-category-index">
+<div class="blog-category-index m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

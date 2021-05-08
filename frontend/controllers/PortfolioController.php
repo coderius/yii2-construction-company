@@ -69,6 +69,8 @@ class PortfolioController extends \yii\web\Controller
             throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');
         }
 
+        $this->commitCounter($category);
+
         $searchModel = new PortfolioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $alias);
         $itemsInPage = 9;
@@ -121,6 +123,7 @@ class PortfolioController extends \yii\web\Controller
         }
 
         $page = Tag::findOne(['alias' => $alias]);
+        $this->commitCounter($page);
         $allCount = $this->portfolioService->activeCategoriesCount();
 
         //Meta tags

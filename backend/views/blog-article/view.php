@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Blog Articles'), 'ur
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="blog-article-view">
+<div class="blog-article-view m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -13,7 +13,7 @@ Bootstrap4GlyphiconsAsset::register($this);
 $this->title = Yii::t('app', 'Tags');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tag-index">
+<div class="tag-index m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

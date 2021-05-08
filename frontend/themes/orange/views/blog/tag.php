@@ -23,6 +23,7 @@ $this->registerJs($js);
             </div>
             <div class="col-12">
                 <a href="<?= Url::home(); ?>">Главная</a>
+                <a href="<?= Url::toRoute(['/blog']); ?>">Блог</a>
                 <span data-toggle="tooltip" data-placement="bottom" title="Вы тут ..."><?= $crumbName; ?></span>
             </div>
         </div>

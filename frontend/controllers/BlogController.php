@@ -120,6 +120,7 @@ class BlogController extends BaseController
             Yii::$app->response->redirect(Url::toRoute(['/blog']));
         }
         
+        $this->commitCounter($page);
         
         // var_dump($page);
         //Meta tags
@@ -157,7 +158,7 @@ class BlogController extends BaseController
         }
         
         $page = Tag::findOne(['alias' => $alias]);
-        
+        $this->commitCounter($page);
         //Meta tags
         $this->blogService->makeBlogMetaTags([
             'metaTitle' => $page->metaTitle,
@@ -188,7 +189,7 @@ class BlogController extends BaseController
         $author = $this->articleService->getArticleAuthor($article);
         $sidebar = $this->articleService->getSidebar();
         $carousel = $this->carouselService->makeEntity();
-        
+        $this->commitCounter($article);
         return $this->render('article', compact('article','tags', 'author', 'sidebar', 'carousel'));
     }
 

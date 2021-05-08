@@ -21,12 +21,15 @@ $this->registerJs($js);
 <!-- Page Header Start -->
 <div class="page-header">
     <div class="container">
-        <div class="row">
+        <div class="row crumbs-box">
             <div class="col-12">
                 <h2><?= $article->header1 ? $article->header1 : $article->metaTitle; ?></h2>
             </div>
+            
             <div class="col-12">
                 <a href="<?= Url::home(); ?>">Главная</a>
+                <a href="<?= Url::toRoute(['/blog']); ?>">Блог</a>
+                <a href="<?= Url::toRoute(['/blog/category', 'alias' => $article->category->alias]); ?>"><?= $article->category->header; ?></a>
                 <span data-toggle="tooltip" data-placement="bottom" title="Вы тут ..."><?= $article->metaTitle; ?></span>
             </div>
         </div>

@@ -35,7 +35,10 @@ abstract class BaseController extends Controller
         Yii::$app->getView()->params['SiteLayout']['top-bar'] = MenuTop::getTree();
     }
 
-
+    protected function commitCounter($model)
+    {
+        $model->updateCounters(['viewCount' => 1]);
+    }
 
     // protected function setMetaTitle($view)
     // {

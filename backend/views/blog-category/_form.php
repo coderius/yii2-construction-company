@@ -21,7 +21,7 @@ if(\Yii::$app->controller->action->id == 'create')
 
 ?>
 
-<div class="blog-category-form">
+<div class="blog-category-form m-2">
 
     <?php $form = ActiveForm::begin(); ?>
 

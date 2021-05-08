@@ -17,7 +17,7 @@ if(\Yii::$app->controller->action->id == 'create')
 
 ?>
 
-<div class="tag-form">
+<div class="tag-form m-2">
 
     <?php $form = ActiveForm::begin(); ?>
 
