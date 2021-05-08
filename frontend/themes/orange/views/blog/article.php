@@ -41,7 +41,7 @@ $this->registerJs($js);
         <div class="row">
             <div class="col-lg-8">
                 <div class="single-content wow fadeInUp">
-                    <?= Html::img("@blogPostHeaderPicsWeb/$article->id/middle/$article->img"); ?>
+                    <?= Html::img("@blogPostHeaderPicsWeb/$article->id/big/$article->img"); ?>
                     <div class="single-content-text">
                     <?= $article->text; ?>
                     </div>
