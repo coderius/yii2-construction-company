@@ -40,8 +40,8 @@ $this->registerJs($js, \yii\web\View::POS_END);
                             'showUpload' => false,
                             'dropZoneEnabled' => false,
                             'initialPreview'=> $model->isNewRecord ? false :
-                            (is_file(Yii::getAlias("@widgetGalleryPicsWeb/{$model->id}/middle/{$model->img}")) ?
-                                [Html::img("@widgetGalleryPicsWeb/{$model->id}/middle/{$model->img}", ['style'=>'width: 100%; height: auto;', 'alt'=>'нет изображения'])]
+                            (is_file(Yii::getAlias("@widgetSocialGalleryPicsPath/{$model->id}/middle/{$model->img}")) ?
+                                [Html::img("@widgetSocialGalleryPicsWeb/{$model->id}/middle/{$model->img}", ['style'=>'width: 100%; height: auto;', 'alt'=>'нет изображения'])]
                                 :
                                 false),
                             'maxFileSize'=>4000,

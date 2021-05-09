@@ -35,7 +35,7 @@ use common\components\helpers\TextHelper;
                         <p>By<?= Html::a($item->createdBy0->username, ['#']); ?></p>
                         <p>In<?= Html::a($item->category->header, ['blog/category', 'alias' => $item->category->alias]); ?></p>
                     </div>
-                    <div class="blog-text">
+                    <div class="blog-text equal-height">
                         <p>
                         <?= TextHelper::truncate($item->header1, 150); ?>
                         </p>
