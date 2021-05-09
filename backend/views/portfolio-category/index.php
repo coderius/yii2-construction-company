@@ -5,7 +5,9 @@ use yii\grid\GridView;
 use common\assets\Bootstrap4Glyphicons\Bootstrap4GlyphiconsAsset;
 use yii\helpers\ArrayHelper;
 use backend\models\PortfolioCategory;
+use yii\bootstrap4\BootstrapAsset;
 
+BootstrapAsset::register($this);
 Bootstrap4GlyphiconsAsset::register($this);
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\PortfolioCategorySearch */
@@ -27,6 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pager' => [
+            'firstPageLabel' => 'First',
+            'lastPageLabel'  => 'Last'
+        ],
         'columns' => [
             [
                 'class' => 'yii\grid\CheckboxColumn', 

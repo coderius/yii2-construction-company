@@ -59,7 +59,7 @@ class Price extends \yii\db\ActiveRecord
             [['name', 'unit', 'equal', 'cost'], 'string', 'max' => 255],
             [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['createdBy' => 'id']],
             [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updatedBy' => 'id']],
-            [['categoryId'], 'exist', 'skipOnError' => true, 'targetClass' => PortfolioCategory::className(), 'targetAttribute' => ['categoryId' => 'id']],
+            [['categoryId'], 'exist', 'skipOnError' => true, 'targetClass' => PriceCategory::className(), 'targetAttribute' => ['categoryId' => 'id']],
             [['createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'safe'],
         ];
     }
@@ -137,7 +137,7 @@ class Price extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(PortfolioCategory::className(), ['id' => 'categoryId']);
+        return $this->hasOne(PriceCategory::className(), ['id' => 'categoryId']);
     }
 
     /**

@@ -4,7 +4,7 @@ namespace frontend\controllers;
 
 use frontend\services\price\PriceService;
 
-class PriceController extends \yii\web\Controller
+class PriceController extends BaseController
 {
     private $priceService;
 

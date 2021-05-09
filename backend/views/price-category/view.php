@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Price Categories'), 
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="price-category-view">
+<div class="price-category-view m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

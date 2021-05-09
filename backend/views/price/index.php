@@ -306,6 +306,13 @@ $this->registerJs($js);
             ],
 
             'id',
+            [
+                'attribute' => 'category',
+                'format' => 'raw',
+                'value' => function ($model) {
+                        return "<a target='_blank' href=".\Yii::$app->urlManagerFrontend->createUrl(["/category/{$model->category->alias}"]).">" . $model->category->header . "</a>";
+                },
+            ],
             'categoryId',
             'name',
             'cost',

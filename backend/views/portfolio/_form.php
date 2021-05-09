@@ -58,7 +58,7 @@ $this->registerJs($js, \yii\web\View::POS_END);
 
     <?= $form->field($model, 'imgAlt')->textInput(['maxlength' => true]) ?>
 
-    <?php 
+    <?php
         echo $form->field($model, 'status')->widget(IosStyleToggleSwitchWidget::class, [
             'type' => IosStyleToggleSwitchWidget::CHECKBOX
         ]);
