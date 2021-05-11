@@ -11,6 +11,7 @@ use yii\helpers\Url;
 use common\components\helpers\HtmlMetaHelper;
 use yii\db\Expression;
 use frontend\models\Page;
+use frontend\models\Contacts;
 
 class MainService{
 
@@ -24,6 +25,30 @@ class MainService{
 
         return $page;
     }
+
+    /**
+     * Get data for page
+     *
+     * @param [type] $alias
+     * @return object Page
+     */
+    public function makePage($alias){
+        $page = Page::find()->andWhere(['isHome' => 0, 'alias' => $alias])->one();
+
+        return $page;
+    }
+
+    public function registerPageHeader(Page $model){
+        Yii::$app->getView()->params['PageLayout']['h2'] = $model->metaTitle;
+        Yii::$app->getView()->params['PageLayout']['crumbCurrentTitle'] = $model->metaTitle;
+
+    }
+
+        public function makeContacts(){
+            $page = Contacts::find()->andWhere(['status' => Contacts::ENEBLED])->all();
+
+            return $page;
+        }
 
     public function makeMetaTags($data = null){
         if(null === $data){
@@ -63,6 +88,8 @@ class MainService{
     }
 
     
+
+
 
 }
 

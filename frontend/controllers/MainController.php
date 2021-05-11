@@ -76,9 +76,27 @@ class MainController extends BaseController
         return $this->render('index', compact('model', 'carousel'));
     }
 
-    public function actionPage()
+    public function actionPage($alias)
     {
-        return $this->render('about');
+        $this->layout = '_page';
+
+        $model = $this->mainService->makePage($alias);
+        if($model == NULL)
+        {
+            throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');
+        }
+        $template = $this->widgetLayoutService->getTemplate($model->id, WidgetLayoutService::PAGETYPE_PAGE);
+
+        // Past to view vars and then to widget WidgetLayout
+        Yii::$app->getView()->params['WidgetLayout']['template'] = $template;
+        $this->mainService->registerPageHeader($model);
+
+        $this->mainService->makeMetaTags([
+            'metaTitle' => $model->metaTitle,
+            'description' => $model->metaDesc,
+        ]);
+
+        return $this->render('page', compact('model'));
     }
 
     // public function actionAbout()
@@ -96,9 +114,39 @@ class MainController extends BaseController
     //     return $this->render('team');
     // }
 
-    public function actionContact()
+    public function actionContacts()
     {
-        return $this->render('contact');
+        $model = $this->mainService->makeContacts();
+
+        $this->mainService->makeMetaTags([
+            'metaTitle' => "Контакты мастеров",
+            'description' => "На данной странице Вы найдете наши контакты. Свяжитесь с нами, мы постараемся ответить на все Ваши вопросы.",
+        ]);
+        
+        return $this->render('contacts', compact('model', 'form'));
+    }
+
+    public function actionSendEmail()
+    {
+        $form = new ContactForm();
+        $this->enableCsrfValidation = true;
+        if($form->load(Yii::$app->request->post(), '')) {
+            if($form->validate()){
+                return $this->asJson(['success' => 'ok']);
+            }else{
+                return $this->asJson(['validation' => $form->getErrors()]);
+            }
+        }
+
+        // if ($model->load(Yii::$app->request->post())) {
+        //     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        //     if($model->validate()){
+        //         return ['success' => $model->save()];
+        //     }else{
+        //         return ['validation' => $model->getErrors()];
+        //     }
+        // }
+
     }
 
 }

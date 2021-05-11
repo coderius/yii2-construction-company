@@ -27,7 +27,10 @@ class WidgetLayoutService{
         $template = '';
         if($pageType === self::PAGETYPE_PAGE){
             $model = PageWidgets::find()->where(['pageId' => $pageId])->one();
-            $template = $model->template;
+            if($model){
+                $template = $model->template;
+            }
+            
         }
         return $this->buildTemplate($template);
 

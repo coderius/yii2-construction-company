@@ -122,7 +122,14 @@ class Contacts extends \yii\db\ActiveRecord
             
         ];
     }
-
+    
+    /**
+     * Save contacts to db like encoded string
+     *
+     * @param [type] $event
+     * @param [type] $attribute
+     * @return array
+     */
     public function makeContacts($event, $attribute)
     {
         if(!empty($this->$attribute)){

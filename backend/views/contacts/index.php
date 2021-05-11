@@ -14,7 +14,7 @@ Bootstrap4GlyphiconsAsset::register($this);
 $this->title = Yii::t('app', 'Contacts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="contacts-index">
+<div class="contacts-index m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

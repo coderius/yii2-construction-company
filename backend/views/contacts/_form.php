@@ -9,7 +9,7 @@ use common\widgets\IosStyleToggleSwitch\IosStyleToggleSwitchWidget;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="contacts-form">
+<div class="contacts-form m-2">
 
     <?php $form = ActiveForm::begin(); ?>
 

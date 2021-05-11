@@ -4,6 +4,8 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 
 ?>
 <!-- Footer Start -->
@@ -71,7 +73,7 @@ use yii\helpers\Html;
     <div class="container copyright">
         <div class="row">
             <div class="col-md-6">
-                <p><a href="#"><?= Yii::$app->name; ?></a> &copy; Все права защищены.</p>
+                <p><a href="<?= Url::home(); ?>"><?= Yii::$app->name; ?></a> &copy; Все права защищены.</p>
             </div>
             <!-- <div class="col-md-6">
                 <p>Разработано <a href="https://htmlcodex.com">HTML Codex</a></p>

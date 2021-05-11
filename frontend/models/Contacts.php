@@ -3,6 +3,8 @@
 namespace frontend\models;
 
 use Yii;
+use common\models\user\User;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "contacts".
@@ -24,6 +26,9 @@ use Yii;
  */
 class Contacts extends \yii\db\ActiveRecord
 {
+    const DESIBLED = 0;
+    const ENEBLED = 1;
+    
     /**
      * {@inheritdoc}
      */
@@ -42,8 +47,8 @@ class Contacts extends \yii\db\ActiveRecord
             [['data', 'icon1', 'icon2'], 'string'],
             [['sortOrder', 'status', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'], 'integer'],
             [['title'], 'string', 'max' => 255],
-            [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['createdBy' => 'id']],
-            [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updatedBy' => 'id']],
+            [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['createdBy' => 'id']],
+            [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updatedBy' => 'id']],
         ];
     }
 
@@ -65,6 +70,19 @@ class Contacts extends \yii\db\ActiveRecord
             'createdBy' => Yii::t('app', 'Created By'),
             'updatedBy' => Yii::t('app', 'Updated By'),
         ];
+    }
+
+    public function makeContacts()
+    {
+        if($this->hasContacts()){
+            return Json::decode($this->data);
+        }
+        return null;
+    }
+
+    public function hasContacts()
+    {
+        return !empty($this->data);
     }
 
     /**

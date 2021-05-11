@@ -9,18 +9,15 @@ use common\widgets\socialGallery\SocialGalleryWidget;
 use common\widgets\faq\FaqWidget;
 use common\widgets\testimonial\TestimonialWidget;
 use common\widgets\blogList\BlogListWidget;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 
-// var_dump($carousel->countWidgetCarousels());
+$this->title = 'My Yii Application';
+
 ?>
 
-<?php //echo CarouselWidget::widget(['model' => $carousel]) ?>
-
-<?php //echo FeatureWidget::widget([]) ?>
-
-
-<!-- About Start -->
+<!-- Page Start -->
 <div class="about wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
         <div class="row">
@@ -36,29 +33,10 @@ use common\widgets\blogList\BlogListWidget;
                 </div>
                 <div class="about-text">
                     <?= $model->storyText; ?>
-                    <p><a class="btn" href="<?= $model->storyButtonAlias; ?>"><?= $model->storyButtonTitle; ?></a></p>
+                    <p><a class="btn" href="<?= Url::toRoute($model->storyButtonAlias); ?>"><?= $model->storyButtonTitle; ?></a></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- About End -->
-
-<?php //echo FactWidget::widget([]) ?>
-
-<!-- Services -->
-<?php //echo GalleryWidget::widget([]) ?>
-
-<?php //echo VideoWidget::widget([]) ?>
-
-<!-- Team -->
-<?php //echo SocialGalleryWidget::widget([]) ?>
-
-<?php //echo FaqWidget::widget([]) ?>
-
-<?php //echo TestimonialWidget::widget([]) ?>
-
-<?php //echo BlogListWidget::widget([]) ?>
-
-
-
+<!-- Page End -->

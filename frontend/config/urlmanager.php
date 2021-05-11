@@ -9,11 +9,13 @@ return [
 
                 '/' => 'main/index',
                 'page/<alias:[\w_-]+>' => 'main/page',
+                'contacts' => 'main/contacts',
+
+                'send-email' => 'main/send-email',
 
                 'blog/<pageNum:\d+>' => 'blog/index',//пагинация блога
                 'blog' => 'blog/index',
-                
-                
+
                 'blog/category/<alias:[\w_-]+>/<pageNum:\d+>' => 'blog/category',
                 'blog/category/<alias:[\w_-]+>' => 'blog/category',
                 
