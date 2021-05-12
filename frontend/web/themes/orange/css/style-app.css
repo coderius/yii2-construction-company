@@ -2168,14 +2168,18 @@ a:focus {
     background: #fdbe33;
 }
 
-.footer .footer-link a {
+.footer .footer-link a,
+.footer .footer-link-not-anim a
+{
     display: block;
     margin-bottom: 10px;
     color: #ffffff;
     transition: .3s;
 }
 
-.footer .footer-link a::before {
+.footer .footer-link a::before,
+.footer .footer-link-not-anim a::before
+{
     position: relative;
     content: "\f105";
     font-family: "Font Awesome 5 Free";
@@ -2186,6 +2190,11 @@ a:focus {
 .footer .footer-link a:hover {
     color: #fdbe33;
     letter-spacing: 1px;
+}
+
+.footer .footer-link-not-anim a:hover {
+    color: #fdbe33;
+    letter-spacing: normal;
 }
 
 .footer .footer-contact p i {

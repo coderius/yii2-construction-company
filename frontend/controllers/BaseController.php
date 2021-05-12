@@ -6,6 +6,8 @@ use Yii;
 use yii\web\Controller;
 use frontend\models\MenuTop;
 use frontend\services\layout\LayoutService;
+use frontend\models\Contacts;
+use frontend\models\BlogArticle;
 
 abstract class BaseController extends Controller
 {
@@ -20,6 +22,7 @@ abstract class BaseController extends Controller
         $view = $this->getView();
         $view->on(\yii\web\View::EVENT_BEFORE_RENDER, [$this, 'registerBeforeViewRendered']);
         $this->makeNavBar();
+        $this->makeFooter();
 
         parent::init();
     }
@@ -33,6 +36,13 @@ abstract class BaseController extends Controller
     public function makeNavBar()
     {
         Yii::$app->getView()->params['SiteLayout']['top-bar'] = MenuTop::getTree();
+    }
+
+    public function makeFooter()
+    {
+        Yii::$app->getView()->params['SiteLayout']['footer']['contacts'] = Contacts::find()->all();
+        Yii::$app->getView()->params['SiteLayout']['footer']['menu'] = MenuTop::find()->where(['parentId' => 0])->all();
+        Yii::$app->getView()->params['SiteLayout']['footer']['blog'] = BlogArticle::find()->orderBy(['createdAt' => SORT_DESC])->limit(4)->all();
     }
 
     protected function commitCounter($model)

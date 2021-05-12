@@ -13,7 +13,7 @@ return [
 
                 'send-email' => 'main/send-email',
 
-                'blog/<pageNum:\d+>' => 'blog/index',//пагинация блога
+                'blog/<pageNum:\d+>' => 'blog/index',
                 'blog' => 'blog/index',
 
                 'blog/category/<alias:[\w_-]+>/<pageNum:\d+>' => 'blog/category',
@@ -26,7 +26,6 @@ return [
                 'portfolios' => 'portfolio/index',
                 'portfolios/pic-update-counter' => 'portfolio/pic-update-counter',
                 
-
                 'portfolios/category/<alias:[\w_-]+>/<pageNum:\d+>' => 'portfolio/category',
                 'portfolios/category/<alias:[\w_-]+>' => 'portfolio/category',
 
