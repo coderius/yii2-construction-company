@@ -24,6 +24,8 @@ return [
                 
                 'portfolios/<pageNum:\d+>' => 'portfolio/index',
                 'portfolios' => 'portfolio/index',
+                'portfolios/pic-update-counter' => 'portfolio/pic-update-counter',
+                
 
                 'portfolios/category/<alias:[\w_-]+>/<pageNum:\d+>' => 'portfolio/category',
                 'portfolios/category/<alias:[\w_-]+>' => 'portfolio/category',

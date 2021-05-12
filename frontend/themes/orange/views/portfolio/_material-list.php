@@ -13,13 +13,39 @@ use common\components\helpers\TextHelper;
 //Yii::$app->timeZone = 'Europe/Kiev';
 // var_dump($model);
 
+$urlSendEmail = Url::to(['portfolios/pic-update-counter']);
+
+$js = <<< JS
+var linkCover = $(".link-cover");
+
+linkCover.on('click', function(e){
+    var id = $(this).data("id");
+    console.log("click", id);
+    $.ajax({
+            type: 'post',
+            url: '$urlSendEmail',
+            data: {id:id},
+        })
+        .done(function(data){
+            if(data.success) {
+                console.log(data);
+            } else {
+                console.log(data);
+            }
+        });
+});
+
+JS;
+
+$this->registerJs($js);
+
 ?>
 <!-- Photos in this category -->
 <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item first wow fadeInUp" <?= $show ? "data-wow-delay='0.2s'" : ''; ?>>
     <div class="portfolio-warp">
     
         <?php if($model->img): ?>
-            <a class="link-cover" href="<?= Yii::getAlias("@portfolioPicsWeb/{$model->id}/big/{$model->img}"); ?>" data-lightbox="portfolio"></a>
+            <a class="link-cover" data-id="<?= $model->id; ?>" href="<?= Yii::getAlias("@portfolioPicsWeb/{$model->id}/big/{$model->img}"); ?>" data-lightbox="portfolio"></a>
         <?php else: ?>
             <a class="" href="#" data-lightbox="portfolio"></a>
         <?php endif; ?>

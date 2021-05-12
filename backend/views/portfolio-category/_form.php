@@ -37,7 +37,7 @@ if(\Yii::$app->controller->action->id == 'create')
     <?= $form->field($model, 'metaTitle')->textInput(['maxlength' => true]) ?>
 
 
-    <?php 
+    <?php
     if(!$model->isNewRecord)
     echo $form->field($model, 'frontId')
             ->dropDownList(

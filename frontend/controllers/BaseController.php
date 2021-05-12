@@ -37,7 +37,7 @@ abstract class BaseController extends Controller
 
     protected function commitCounter($model)
     {
-        $model->updateCounters(['viewCount' => 1]);
+        return $model->updateCounters(['viewCount' => 1]);
     }
 
     // protected function setMetaTitle($view)

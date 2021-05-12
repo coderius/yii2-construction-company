@@ -86,7 +86,7 @@ class PortfolioController extends BaseController
         {
             Yii::$app->response->redirect(Url::toRoute(['/portfolios/category/'.$alias]));
         }
-
+        
         //Meta tags
         $this->portfolioService->makeMetaTags([
             'metaTitle' => "Тег: " . $category->metaTitle,
@@ -101,6 +101,25 @@ class PortfolioController extends BaseController
             'heading3' => $category->headerLong,
             'dataProvider' => $dataProvider
         ]);
+    }
+    
+    /**
+     * Register counter when click in image
+     *
+     * @return string
+     */
+    public function actionPicUpdateCounter()
+    {
+        if(\Yii::$app->request->isAjax){
+            $id = Yii::$app->request->post('id');
+            if($id){
+                $model = Portfolio::find()->where(['id' => $id])->one();
+                return $this->asJson(['success' => $this->commitCounter($model)]);
+            }
+            else{
+                return $this->asJson(['empty' => 'Unset Portfolio id!']);
+            }
+        }
     }
 
     public function actionTag($alias, $pageNum = null)
