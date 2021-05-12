@@ -12,7 +12,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\models\Tag;
 
-class PortfolioController extends \yii\web\Controller
+class PortfolioController extends BaseController
 {
     public $crumbNamePortfolio = "Портфолио";
 

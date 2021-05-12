@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property int $categoryId
+ * @property int $isFront
  * @property string $header
  * @property string $description
  * @property string $img

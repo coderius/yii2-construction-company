@@ -78,7 +78,7 @@ class PortfolioCategory extends \yii\db\ActiveRecord
             [['createdBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['createdBy' => 'id']],
             [['updatedBy'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updatedBy' => 'id']],
             [['alias'], 'unique'],
-            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'viewCount', 'selectedTags'], 'safe'],
+            [['createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'viewCount', 'selectedTags', 'frontId'], 'safe'],
         ];
     }
 
@@ -163,6 +163,16 @@ class PortfolioCategory extends \yii\db\ActiveRecord
     {
         $this->selectedTags = ArrayHelper::getColumn($this->getTags()->asArray()->all(), 'id');
         Yii::info('Selected Virtual Attributes is loaded.', __METHOD__);
+    }
+
+    /**
+     * Gets query for [[Front]].
+     *
+     * @return \yii\db\ActiveQuery|PortfolioQuery
+     */
+    public function getFront()
+    {
+        return $this->hasOne(Portfolio::className(), ['id' => 'frontId']);
     }
 
     /**

@@ -8,6 +8,7 @@ use dosamigos\tinymce\TinyMce;
 use yii\web\JsExpression;
 use yii\helpers\Url;
 use dosamigos\fileinput\BootstrapFileInput;
+use backend\models\Portfolio;
 
 $targetId = Html::getInputId($model, 'metaTitle');
 $elId = Html::getInputId($model, 'alias');
@@ -25,7 +26,7 @@ if(\Yii::$app->controller->action->id == 'create')
 
     <?= $form->field($model, 'selectedTags')
             ->dropDownList(
-                $mapTags, 
+                $mapTags,
                     [
                         'multiple'=>'multiple','style' => 'height: 100px',
                         // 'prompt'=>'Выбрать теги'
@@ -34,6 +35,19 @@ if(\Yii::$app->controller->action->id == 'create')
     <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'metaTitle')->textInput(['maxlength' => true]) ?>
+
+
+    <?php 
+    if(!$model->isNewRecord)
+    echo $form->field($model, 'frontId')
+            ->dropDownList(
+                ArrayHelper::map(Portfolio::find()->where(['categoryId' => $model->id])->all(), 'id', 'header'),
+                    [
+                        'prompt'=>'Выбрать страницу'
+                    ]);
+
+
+    ?>
 
     <?= $form->field($model, 'metaDesc')->textInput(['maxlength' => true]) ?>
 
