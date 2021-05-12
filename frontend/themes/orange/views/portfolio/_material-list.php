@@ -13,6 +13,7 @@ use common\components\helpers\TextHelper;
 //Yii::$app->timeZone = 'Europe/Kiev';
 // var_dump($model);
 
+//Register counter when click in image
 $urlSendEmail = Url::to(['portfolios/pic-update-counter']);
 
 $js = <<< JS
@@ -41,9 +42,9 @@ $this->registerJs($js);
 
 ?>
 <!-- Photos in this category -->
-<div class="col-lg-4 col-md-6 col-sm-12 portfolio-item first wow fadeInUp" <?= $show ? "data-wow-delay='0.2s'" : ''; ?>>
+<div class="col-lg-4 col-md-6 col-sm-12 portfolio-item wow fadeInUp" <?= $show ? "data-wow-delay='0.2s'" : ''; ?>>
     <div class="portfolio-warp">
-    
+
         <?php if($model->img): ?>
             <a class="link-cover" data-id="<?= $model->id; ?>" href="<?= Yii::getAlias("@portfolioPicsWeb/{$model->id}/big/{$model->img}"); ?>" data-lightbox="portfolio"></a>
         <?php else: ?>

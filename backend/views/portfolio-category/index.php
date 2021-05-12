@@ -16,7 +16,7 @@ Bootstrap4GlyphiconsAsset::register($this);
 $this->title = Yii::t('app', 'Portfolio Categories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="portfolio-category-index">
+<div class="portfolio-category-index m-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

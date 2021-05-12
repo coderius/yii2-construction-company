@@ -80,6 +80,7 @@ $this->registerJs($js);
       <div class="row portfolio-container">
       <?php echo $widget->renderItems(); ?>
       </div>
+    
       <!-- pagination -->
       <div class="row">
             <div class="col-12">
