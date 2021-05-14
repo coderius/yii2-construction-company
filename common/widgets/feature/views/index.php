@@ -4,6 +4,15 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\HtmlPurifier;
 
+$css = <<< CSS
+.feature{
+    margin-bottom:0 !important;
+}
+CSS;
+
+$this->registerCss($css);
+
+
 ?>
 
 <?php if($model): ?>
