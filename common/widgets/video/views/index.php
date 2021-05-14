@@ -26,7 +26,7 @@ use yii\helpers\HtmlPurifier;
                 </button>
                 <!-- 16:9 aspect ratio -->
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="<?= $m->video; ?>?autoplay=1&amp;modestbranding=1&amp;showinfo=0" id="video"  allowscriptaccess="always" allow="autoplay"></iframe>
+                    <iframe class="embed-responsive-item" src="<?= $m->video; ?>?autoplay=0&amp;modestbranding=1&amp;showinfo=0" id="video"  allowscriptaccess="always" allow="autoplay"></iframe>
                 </div>
             </div>
         </div>

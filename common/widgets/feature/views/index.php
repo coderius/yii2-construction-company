@@ -12,7 +12,6 @@ CSS;
 
 $this->registerCss($css);
 
-
 ?>
 
 <?php if($model): ?>
