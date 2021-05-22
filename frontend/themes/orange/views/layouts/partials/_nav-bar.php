@@ -13,12 +13,66 @@ function isCurrentUrlStyle($url){
 //     PHP_EOL;
 
 $bar = $this->params['SiteLayout']['top-bar'];
+
+$urlAutoComplete = Url::to(['/auto-complete']);
+$urlSearch = Url::to(['/search']);
+
+$js = <<< JS
+var searchResultbox = $('#search-resultbox');
+var inputSearch = $('#search');
+
+inputSearch.on("input", function(e) {
+    var dInput = this.value;
+
+    // console.log(dInput);
+
+    if(this.value){
+        $.ajax({
+            type: "POST",
+            url: "$urlAutoComplete",
+            data: { query: dInput }
+        })
+        .done(function(data){
+            // console.log(data);
+            if(data.success) {
+                searchResultbox.empty();
+                var res = data.success;
+                res.forEach(function(item) {
+                    searchResultbox.append("<a href='$urlSearch?q=" + item.name + "'>" + item.name + "</a>");
+                });
+
+                // searchResultbox.html(data.success);
+                console.log(res);
+            }
+            else {
+                searchResultbox.html("<p> Нет результатов... </p>");
+                // searchResultbox.append("<p> Нет результатов... </p>");
+            }
+            // else {
+            //     searchResultbox.html('Нет результатов...');
+            // }
+        })
+        .fail(function () {
+            // request failed
+        });
+    }else{
+        searchResultbox.empty();
+    }
+
+
+});
+
+JS;
+
+$this->registerJs($js);
+
 ?>
 <!-- Nav Bar Start -->
 <div class="nav-bar">
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
             <a href="#" class="navbar-brand">MENU</a>
+
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -42,7 +96,20 @@ $bar = $this->params['SiteLayout']['top-bar'];
                 <?php endforeach; ?>
                 </div>
 
-                <div class="ml-auto">
+                <!-- Search Form -->
+                <div class="col-sm-2">
+                <?= Html::beginForm(['/search/global'], 'get', ['id' => 'search-form', 'class' => 'navbar-form']) ?>
+                <div class="nospace">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="search" name="q" placeholder="Поиск..." autocomplete="off" value="<?= property_exists($this->context, 'searchQuery') ? Html::encode($this->context->searchQuery) : '' ?>">
+                    </div>
+                </div>
+                <div id="search-resultbox"></div>
+                <?= Html::endForm() ?>
+                </div>
+                <!-- ./Search Form -->
+
+                <div class="ml-auto col-sm-2">
                 <div class="navbar-nav mr-auto">
                 <?php if (\Yii::$app->user->isGuest): ?>
                     <a href="<?= Url::toRoute(['/login']);?>" class="nav-item nav-link <?= isCurrentUrlStyle(Url::toRoute(['/login']));?>"><small>Логин</small></a>
@@ -64,7 +131,7 @@ $bar = $this->params['SiteLayout']['top-bar'];
             
         </nav>
         <div class="ml-auto">
-        <?php if (!\Yii::$app->user->isGuest): ?> 
+        <?php if (!\Yii::$app->user->isGuest): ?>
             <div class="front-user-bar pl-3 text-white">
                 <span class="color-wite">Привет,</span> <strong class="color-wite"><?= \Yii::$app->user->identity->username; ?></strong>
                 <?php

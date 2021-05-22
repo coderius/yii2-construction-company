@@ -41,37 +41,39 @@ $this->registerJs($js);
         </div>
 
         <?php $i = 0; ?>
-        <?php $widget = ListView::begin([
-        'dataProvider' => $dataProvider,
-        'pager'        => [
-            'pageCssClass' => 'page-item',
-            'activePageCssClass' => 'active',
-            'disabledPageCssClass' => 'disabled',
-            'firstPageLabel' => 'Вначало',
-            'lastPageLabel' => 'Вконец',
-            'firstPageCssClass'=>'first page-item',
-            'disabledPageCssClass'=>'desibled page-item',
-            'maxButtonCount' => 6,
-            'options' =>  [
-                'class' => 'pagination justify-content-center',
-            ],
-            'linkOptions' =>  [
-                'class' => 'page-link',
-            ],
-        ],
-        'itemView' => function ($model, $key, $index, $widget) use(&$i) {
-            $i++;
-            return $this->render('_material-list',['model' => $model, 'show' => in_array($i, [1,3,4,6]) ]);
-        },
-        'options' =>  [
-                'class' => 'row blog-page',
-        ],
-        'itemOptions' => [
-            'tag' => false,
-        ],
-        'summary' => '',
-    ]);
-    ?>
+        <?php
+            $widget = ListView::begin([
+                'dataProvider' => $dataProvider,
+                'pager'        => [
+                    'pageCssClass' => 'page-item',
+                    'activePageCssClass' => 'active',
+                    'disabledPageCssClass' => 'disabled',
+                    'firstPageLabel' => 'Вначало',
+                    'lastPageLabel' => 'Вконец',
+                    'firstPageCssClass'=>'first page-item',
+                    'disabledPageCssClass'=>'desibled page-item',
+                    'maxButtonCount' => 6,
+                    'options' =>  [
+                        'class' => 'pagination justify-content-center',
+                    ],
+                    'linkOptions' =>  [
+                        'class' => 'page-link',
+                    ],
+                ],
+                'itemView' => function ($model, $key, $index, $widget) use(&$i) {
+                    $i++;
+                    return $this->render('_material-list',['model' => $model, 'show' => in_array($i, [1,3,4,6]) ]);
+                },
+                'options' =>  [
+                        'class' => 'row blog-page',
+                ],
+                'itemOptions' => [
+                    'tag' => false,
+                ],
+                'summary' => '',
+            ]);
+        ?>
+
         <div class="row blog-page">
         <?php echo $widget->renderItems(); ?>
         </div>

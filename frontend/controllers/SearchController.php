@@ -4,37 +4,34 @@ namespace frontend\controllers;
 
 use frontend\models\ContactForm;
 use frontend\models\Search;
-use frontend\services\main\MainService;
-use frontend\services\widgetLayout\WidgetLayoutService;
-use frontend\services\widgets\CarouselService;
+use frontend\models\SearchingSiteModel;
+use frontend\models\SuggestersSearch;
 use Yii;
 use yii\elasticsearch\Query;
 use yii\data\ActiveDataProvider;
 use yii\db\QueryBuilder;
+use yii\helpers\Url;
+use frontend\services\search\SearchService;
 
 /**
  * Site controller.
  */
-class MainController extends BaseController
+class SearchController extends BaseController
 {
-    private $mainService;
-    private $carouselService;
-    private $widgetLayoutService;
+    private $searchService;
 
     public function __construct(
         $id,
         $module,
-        MainService $mainService,
-        CarouselService $carouselService,
-        WidgetLayoutService $widgetLayoutService,
+        SearchService $searchService,
         $config = []
-    ) {
+    )
+    {
         parent::__construct($id, $module, $config);
-        $this->mainService = $mainService;
-        $this->carouselService = $carouselService;
-        $this->widgetLayoutService = $widgetLayoutService;
+        
+        $this->searchService = $searchService;
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -45,30 +42,76 @@ class MainController extends BaseController
     }
 
     /**
-     * Displays homepage.
+     * Action Global
      *
      * @return mixed
      */
-    public function actionIndex()
+    public function actionGlobal()
     {
-        $this->layout = '_home';
-        // $this->search();
-        // die;
-        $model = $this->mainService->makeHome();
 
-        $template = $this->widgetLayoutService->getTemplate($model->id, WidgetLayoutService::PAGETYPE_PAGE);
-        // Past to view vars and then to widget WidgetLayout
-        Yii::$app->getView()->params['WidgetLayout']['template'] = $template;
-
-        $carousel = $this->carouselService->getEntities(1);
-
-        $this->mainService->makeMetaTags([
-            'metaTitle' => $model->metaTitle,
-            'description' => $model->metaDesc,
-        ]);
-
-        return $this->render('index', compact('model', 'carousel'));
     }
+
+    public function actionAutoComplete()
+    {
+        if(\Yii::$app->request->isAjax){
+            $query = Yii::$app->request->post('query');
+            $query = trim($query);
+            $isEmptyQ = empty($query);
+            if(!$isEmptyQ){
+
+                // $result = $query;
+                // $result = $result ? $result : false;
+
+                $searchModel = new SuggestersSearch();
+                $provider = $searchModel->search($query);
+                $result = false;
+                if($provider->count > 0){
+                    $result = [];
+                    foreach($provider->getModels() as $model){
+                        $result[] = $model;
+                    }
+                }
+
+                return $this->asJson(['success' => $result]);
+            }else{
+                // return $this->asJson(['empty' => $isEmptyQ]);
+            }
+
+        }
+    }
+
+    /**
+     * actionSearch function
+     *
+     * @param string $queryString
+     * @param int|null $pageNum
+     * @return view yii\web\View
+     */
+    public function actionSearch($pageNum = null)
+    {
+        $searchModel = new SearchingSiteModel();
+        $queryString = Yii::$app->request->queryParams['q'];
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // var_dump();
+        $itemsInPage = 10;
+        $dataProvider->pagination->pageSize = $itemsInPage;
+
+        if($pageNum > $dataProvider->pagination->pageCount)
+        {
+            throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');
+        }
+
+        if($pageNum == 1)
+        {
+            Yii::$app->response->redirect(Url::toRoute(['search/?q='. $queryString]));
+        }
+
+        $this->searchService->makeMetaTags($queryString);
+
+        return $this->render('search', compact('queryString', 'dataProvider'));
+    }
+
+
 
     public function search($queryString = 'Технолог')
     {
@@ -127,7 +170,7 @@ class MainController extends BaseController
         // // $params['body']['query']['match']['title'] = $q;
 
         // $rows = $command->search(
-            
+
         //     // [
         //     //     // 'index' => $this->index,
         //     //     // 'type' => $this->type,
@@ -181,74 +224,5 @@ class MainController extends BaseController
         // var_dump($rows);die;
     }
 
-    public function actionPage($alias)
-    {
-        $this->layout = '_page';
 
-        $model = $this->mainService->makePage($alias);
-        if ($model == null) {
-            throw new \yii\web\HttpException(404, 'Такой страницы не существует. ');
-        }
-        $template = $this->widgetLayoutService->getTemplate($model->id, WidgetLayoutService::PAGETYPE_PAGE);
-
-        // Past to view vars and then to widget WidgetLayout
-        Yii::$app->getView()->params['WidgetLayout']['template'] = $template;
-        $this->mainService->registerPageHeader($model);
-
-        $this->mainService->makeMetaTags([
-            'metaTitle' => $model->metaTitle,
-            'description' => $model->metaDesc,
-        ]);
-
-        return $this->render('page', compact('model'));
-    }
-
-    // public function actionAbout()
-    // {
-    //     return $this->render('about');
-    // }
-
-    // public function actionService()
-    // {
-    //     return $this->render('service');
-    // }
-
-    // public function actionTeam()
-    // {
-    //     return $this->render('team');
-    // }
-
-    public function actionContacts()
-    {
-        $model = $this->mainService->makeContacts();
-
-        $this->mainService->makeMetaTags([
-            'metaTitle' => 'Контакты мастеров',
-            'description' => 'На данной странице Вы найдете наши контакты. Свяжитесь с нами, мы постараемся ответить на все Ваши вопросы.',
-        ]);
-
-        return $this->render('contacts', compact('model', 'form'));
-    }
-
-    public function actionSendEmail()
-    {
-        $form = new ContactForm();
-        $this->enableCsrfValidation = true;
-        if ($form->load(Yii::$app->request->post(), '')) {
-            if ($form->validate()) {
-                return $this->asJson(['success' => 'ok']);
-            } else {
-                return $this->asJson(['validation' => $form->getErrors()]);
-            }
-        }
-
-        // if ($model->load(Yii::$app->request->post())) {
-        //     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        //     if($model->validate()){
-        //         return ['success' => $model->save()];
-        //     }else{
-        //         return ['validation' => $model->getErrors()];
-        //     }
-        // }
-    }
 }

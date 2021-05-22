@@ -36,12 +36,19 @@ return [
 
                 'blog/article/<alias:[\w_-]+>' => 'blog/article',
 
+                // search
+                'search' => 'search/search',
+                'search/<pageNum:\d+>' => 'search/search',
+                'auto-complete' => 'search/auto-complete',
+                // ./search
+
                 '<action:(login|logout|signup|auth)>' => 'site/<action>',
                 '<action>' => 'main/<action>',
                 
                 // 'site/<action>' => 'site/<action>',
                 'sitemap.xml' => 'sitemap/index',
                 'rss.xml' => 'rss/index',
+                // 'auto-complete/<query:[\w_-]+>' => 'search/auto-complete',
 
                 // '<controller>/<action>' => '<controller>/<action>',
                 // '<controller>/<action><id:\d+>' => '<controller>/<action>',

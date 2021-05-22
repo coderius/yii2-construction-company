@@ -2323,5 +2323,39 @@ a:focus {
     }
 }
 
+#search-form{
+    position: relative;
+}
+
+#search-resultbox{
+    background-color: #fff;
+    position: absolute;
+    min-width: 100px;
+    z-index: 10;
+    /* overflow: hidden */
+    /* padding: 3px; */
+}
+
+#search-resultbox > a, .search-title{
+    padding: 0px 6px;
+    margin: 0;
+    display: block;
+    color: blue;
+    text-decoration: underline;
+    z-index: 11;
+}
+
+#search-resultbox > a:hover{
+    text-decoration: none;
+}
+
+#search-resultbox > p{
+    padding: 0px 6px;
+    margin: 0;
+}
+
+.search-item{
+    margin-bottom: 15px;
+}
 
 /* Rewrite */
