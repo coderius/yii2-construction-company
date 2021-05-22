@@ -9,8 +9,12 @@ use yii\base\BaseObject;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use common\components\helpers\HtmlMetaHelper;
+use frontend\models\SearchingSiteModel;
+use frontend\models\SuggestersSearch;
+use yii\elasticsearch\Query;
+use yii\data\ActiveDataProvider;
 
-class SearchService{
+class SearchService implements ISearchService{
 
     // private $sidebarRepo;
 
@@ -19,12 +23,22 @@ class SearchService{
     //     $this->sidebarRepo = $sidebarRepo;
     // }
     
-    
+    public function providerSuggesters($query){
+        $searchModel = new SuggestersSearch();
+        $provider = $searchModel->search($query);
+        return $provider;
+    }
+
+    public function providerSearch($queryString){
+        $searchModel = new SearchingSiteModel();
+        $provider = $searchModel->search($queryString);
+        return $provider;
+    }
 
     public function makeMetaTags($queryString){
         $data = [
-            'metaTitle' => 'Результаты поиска по запросу ' . $queryString,
-            'description' => 'Все результаты поиска по запросу ' . $queryString,
+            'metaTitle' => 'Результаты поиска по запросу: ' . $queryString,
+            'description' => 'Все результаты поиска по запросу: ' . $queryString,
         ];
 
         //Meta tags

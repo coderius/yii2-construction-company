@@ -28,7 +28,7 @@ class SetUp implements BootstrapInterface{
         
         // $container->set('frontend\services\blog\ArticleService');
         // $container->set('frontend\services\components\SideBarService');
-        // $container->set('frontend\repositories\blog\BlogRepositoryInterface', 'frontend\repositories\blog\QueryBlogRepository');
+        $container->set('frontend\services\search\ISearchService', 'frontend\services\search\SearchService');
 //        $container->set('frontend\repositories\blog\BlogRepositoryInterface', 'frontend\repositories\blog\QueryBlogRepository');
     }
     

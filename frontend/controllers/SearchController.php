@@ -12,6 +12,7 @@ use yii\data\ActiveDataProvider;
 use yii\db\QueryBuilder;
 use yii\helpers\Url;
 use frontend\services\search\SearchService;
+use frontend\services\search\ISearchService;
 
 /**
  * Site controller.
@@ -23,7 +24,7 @@ class SearchController extends BaseController
     public function __construct(
         $id,
         $module,
-        SearchService $searchService,
+        ISearchService $searchService,
         $config = []
     )
     {
@@ -59,11 +60,7 @@ class SearchController extends BaseController
             $isEmptyQ = empty($query);
             if(!$isEmptyQ){
 
-                // $result = $query;
-                // $result = $result ? $result : false;
-
-                $searchModel = new SuggestersSearch();
-                $provider = $searchModel->search($query);
+                $provider = $this->searchService->providerSuggesters($query);
                 $result = false;
                 if($provider->count > 0){
                     $result = [];
@@ -89,12 +86,11 @@ class SearchController extends BaseController
      */
     public function actionSearch($pageNum = null)
     {
-        $searchModel = new SearchingSiteModel();
-        $queryString = Yii::$app->request->queryParams['q'];
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $this->searchService->providerSearch(Yii::$app->request->queryParams);
         // var_dump();
         $itemsInPage = 10;
         $dataProvider->pagination->pageSize = $itemsInPage;
+        $queryString = Yii::$app->request->queryParams['q'];
 
         if($pageNum > $dataProvider->pagination->pageCount)
         {
@@ -105,7 +101,7 @@ class SearchController extends BaseController
         {
             Yii::$app->response->redirect(Url::toRoute(['search/?q='. $queryString]));
         }
-
+        
         $this->searchService->makeMetaTags($queryString);
 
         return $this->render('search', compact('queryString', 'dataProvider'));
@@ -113,7 +109,7 @@ class SearchController extends BaseController
 
 
 
-    public function search($queryString = 'Технолог')
+    public function searchElastic($queryString = 'Технолог')
     {
         $query = Search::find();
 
